@@ -1,0 +1,6 @@
+*.gba
+*.zip
+*.img
+*.img.sha256
+.DS_Store
+node_modules/

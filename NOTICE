@@ -1,0 +1,21 @@
+SeedSigner GBA Image Builder
+
+Original browser tool and native launcher/frontend changes: GPL-2.0-or-later.
+Third-party components retain their respective licenses. A complete IMG is
+not licensed solely by this root license.
+
+SeedSigner 0.8.7: MIT.
+gpSP: GPL-2.0-or-later. Open GBA BIOS: GPL-2.0; see retained upstream notices.
+Raspberry Pi firmware, Linux, BusyBox, libraries and fonts: see the complete
+OS-and-font-notices.txt and the linked stock OS corresponding-source collection.
+The stock kernel/firmware are preserved. This is an independent experimental
+community project, not an official SeedSigner release.
+
+No commercial game ROM, Nintendo BIOS, private key or seed is distributed here.
+User-selected ROMs are processed locally in the browser. Game files retain
+their own copyright and are not covered by this project's license.
+
+Runtime/launcher/core source: source.tar.gz (SHA256 in template.json).
+Stock OS source:
+https://github.com/xberenguer/seedsigner-dino/releases/download/v0.1.1-beta/seedsigner-v0.8.7-os-corresponding-source.tar.gz
+SHA256: 20751b5076b6b309928bd650f9846d2481f16a5f5d85943071b285abc246f6c6

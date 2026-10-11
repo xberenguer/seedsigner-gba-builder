@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "file": "seedsigner-v0.8.7-gba-v0.1.0-plus-pi0.img.gz",
+  "sha256": "9f4b8f0fb59f66d601f8b725fa98b1592bc37cf68d78942da9e5a31c827e7da4",
+  "files": [
+    {
+      "file": "seedsigner-v0.8.7-gba-v0.1.0-plus-pi0.img.gz.part001",
+      "bytes": 16777216,
+      "sha256": "26c3aad31336b8fefe6acad72795dbc4d33ad2e36f5eaa1fde98391bae1e7213"
+    },
+    {
+      "file": "seedsigner-v0.8.7-gba-v0.1.0-plus-pi0.img.gz.part002",
+      "bytes": 15425662,
+      "sha256": "da8c902b5e6f1a764c9221b5cc8d432f78f3895df41db84b42f16edd10ba5811"
+    }
+  ],
+  "bytes": 32202878,
+  "imageBytes": 134217728,
+  "compressedSha256": "8d450bbbaa2bafa8e0016392b8c420e851cade7a1e8da165b4364cc78eeac96e",
+  "compression": "gzip",
+  "maxRomBytes": 33554432,
+  "overlay": "dino-overlay.cpio",
+  "baseSeedsignerVersion": "0.8.7",
+  "hardware": "Pi Zero 1.3 + Plus 320x240",
+  "source": "source.tar.gz",
+  "sourceSha256": "eb50cbdd2c91a329516eab9116875ebab3e037bec52022be29f5d33c8a1d2c8a"
+}
