@@ -107,6 +107,11 @@ async function preparePreview() {
     const section = story.getBoundingClientRect();
     const range = Math.max(1, section.height - pin.offsetHeight);
     const progress = reducedMotion.matches ? 0 : clamp(-section.top / range);
+    // Start gameplay and zoom with the first page scroll, including on phones
+    // where the pinned story is still below the fold. Ease out the intro so
+    // small opening scrolls visibly advance Mario; keep the rest for the story.
+    const storyTop = Math.max(1, section.top + scrollY);
+    const intro = reducedMotion.matches ? 0 : 1 - (1 - clamp(scrollY / storyTop)) ** 3;
     // Tall viewports can already include the story on first load. Anchor the
     // transfer to page scroll so the device still starts at its hero origin.
     const transferRange = Math.max(1, Math.min(innerHeight, section.top + scrollY));
@@ -127,7 +132,8 @@ async function preparePreview() {
         width: interpolate(from.width, to.width), height: interpolate(from.height, to.height),
       })) stage.style[property] = `${value.toFixed(3)}px`;
     }
-    const frame = Math.round(clamp((transfer * .12 + progress * .88) / .50) * (frames.length - 1));
+    const gameProgress = intro * .50 + clamp(progress / .50) * .50;
+    const frame = Math.ceil(gameProgress * (frames.length - 1));
     // Hard cuts: game, a black pause, the splash screen, then SeedSigner Home.
     const screenName = progress < .50 ? 'game' : progress < .58 ? 'black'
       : progress < .86 ? 'splash' : 'home';
@@ -137,7 +143,8 @@ async function preparePreview() {
     const baseWidth = Math.max(...corners.map(p => p.x)) - Math.min(...corners.map(p => p.x));
     const maximum = Math.max(1, Math.min(2.4, stage.clientHeight * .94 / baseHeight,
       stage.clientWidth * .92 / baseWidth));
-    const scale = reducedMotion.matches ? 1 : 1 + (maximum - 1) * smooth(progress / .40);
+    const zoomProgress = intro * .50 + smooth(progress / .40) * .50;
+    const scale = reducedMotion.matches ? 1 : 1 + (maximum - 1) * zoomProgress;
     zoom.setAttribute('transform', `translate(300 184) scale(${scale.toFixed(4)}) translate(-300 -184)`);
     for (const [name, layer] of Object.entries(screenLayers)) {
       layer.style.display = name === screenName ? '' : 'none';
