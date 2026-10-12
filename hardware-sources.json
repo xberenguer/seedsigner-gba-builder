@@ -1,0 +1,140 @@
+{
+  "schema": 2,
+  "checked": "2026-10-11",
+  "note": "Original SVG hardware illustrations, not product photographs or hardware-test evidence. Manufacturer photographs and CAD were consulted for shape/control layout. Distinct example screens use V-Rally 3, Pok\u00e9mon Ruby / Sapphire, DOOM GBA and Celeste Classic 2 game-frame composites, not device captures. Frame aspect ratios are preserved with letterboxing. Approximate perspective and comparative sizes, not exact scale.",
+  "assets": [
+    {
+      "kind": "render",
+      "file": "seedsigner-play-render.svg",
+      "model": "SeedSigner Play",
+      "source_url": "https://bitkitbtc.com/product/seedsigner-play/",
+      "model_reference_urls": [
+        "https://bitkitbtc.com/product/seedsigner-play/"
+      ],
+      "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: Official Nintendo gameplay screenshot. Pok\u00e9mon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
+      "license": "Original SVG artwork: GPL-2.0-or-later. Embedded game frame retains its original artwork rights and notices; see game-sources.json. Regular-device reference credited under CC BY 4.0. Manufacturer photographs are references only, not embedded or relicensed.",
+      "description": "Maker-listed 76:99 front proportions; symmetric diamond-like octagonal D-pad recess with five separate direction/select tactile switches, three separate action switches, four front screws and two left-side SD slots.",
+      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Pok\u00e9mon Ruby / Sapphire game frame. Original PNG bytes are embedded without pixel edits; source aspect ratio is retained with letterboxing. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale.",
+      "screen_capture": "pokemon.png",
+      "screen_capture_sha256": "ab50e4de53a7153d9a629c7a8f17e500e6c0c5da5beb457f7c2d8e638df25600",
+      "bytes": 68338,
+      "sha256": "abd4203198033e8aa73e08887e6833d8a15ef0fe178d6cef579adafb697e7aa3",
+      "width": 600,
+      "height": 400,
+      "screen_game": "Pok\u00e9mon Ruby / Sapphire",
+      "screen_capture_credit": "Official Nintendo gameplay screenshot. Pok\u00e9mon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
+      "screen_source_url": "https://www.nintendo.co.jp/n08/axvp/ss02.jpg",
+      "screen_source_page": "https://www.nintendo.co.jp/n08/axvp/"
+    },
+    {
+      "kind": "render",
+      "file": "seedsigner-play-hero.svg",
+      "model": "SeedSigner Play",
+      "source_url": "https://bitkitbtc.com/product/seedsigner-play/",
+      "model_reference_urls": [
+        "https://bitkitbtc.com/product/seedsigner-play/"
+      ],
+      "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: V-Rally 3 GBA, Eden Studios/Infogrames. Emulator capture from user-supplied ROM; shown for identification, no game distributed.",
+      "license": "Original SVG artwork: GPL-2.0-or-later. Embedded game frame retains its original artwork rights and notices; see game-sources.json. Regular-device reference credited under CC BY 4.0. Manufacturer photographs are references only, not embedded or relicensed.",
+      "description": "Same corrected symmetric-octagon Play render with a technical grid and outer-action-button entry shortcut annotation.",
+      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded V-Rally 3 game frame. Original PNG bytes are embedded without pixel edits; source aspect ratio is retained with letterboxing. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale.",
+      "screen_capture": "vrally3.png",
+      "screen_capture_sha256": "2352aab3bc8bd2040c47f476c1f408032fdbef2bf309680e8d0e9ac6a1ac54f5",
+      "bytes": 38988,
+      "sha256": "0ccd90d6c201d9a5de498805a50de22d5979b8cd6faaf1af0f879ccbfeaefded",
+      "width": 600,
+      "height": 400,
+      "screen_game": "V-Rally 3",
+      "screen_capture_credit": "V-Rally 3 GBA, Eden Studios/Infogrames. Emulator capture from user-supplied ROM; shown for identification, no game distributed."
+    },
+    {
+      "kind": "render",
+      "file": "seedsigner-plus-render.svg",
+      "model": "SeedSigner Plus reference design",
+      "source_url": "https://github.com/3rdIteration/seedsigner-hardware/tree/main/signer_enclosures/seedsigner_plus/reference_design",
+      "model_reference_urls": [
+        "https://github.com/3rdIteration/seedsigner-hardware/tree/main/signer_enclosures/seedsigner_plus/reference_design",
+        "https://bitkitbtc.com/product/seedsigner-plus/"
+      ],
+      "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: GBA gameplay capture hosted by VGMPF, contributor GatoVerde95. DOOM artwork belongs to id Software and respective rights holders; no project-code license asserted.",
+      "license": "Original SVG artwork: GPL-2.0-or-later. Embedded game frame retains its original artwork rights and notices; see game-sources.json. Regular-device reference credited under CC BY 4.0. Manufacturer photographs are references only, not embedded or relicensed.",
+      "description": "144.4:58.5 reference-CAD front ratio; exact reference display opening and five-left/three-right individual button coordinates. Reference CAD dimensions are not confirmed BitKit measurements.",
+      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded DOOM (Game Boy Advance) game frame. Original PNG bytes are embedded without pixel edits; source aspect ratio is retained with letterboxing. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale.",
+      "screen_capture": "doom.png",
+      "screen_capture_sha256": "6d183221321c582a9358e2a904a15405d4dac4af5de70398d8c4a7c087db61d4",
+      "bytes": 52015,
+      "sha256": "30d22cf50b152a7c38a537e6547603beb461c4dba0a4dd689abf73e338e3ba37",
+      "width": 600,
+      "height": 400,
+      "screen_game": "DOOM (Game Boy Advance)",
+      "screen_capture_credit": "GBA gameplay capture hosted by VGMPF, contributor GatoVerde95. DOOM artwork belongs to id Software and respective rights holders; no project-code license asserted.",
+      "screen_source_url": "https://www.vgmpf.com/Wiki/images/4/4c/Doom_-_GBA_-_Gameplay_1.png",
+      "screen_source_page": "https://www.vgmpf.com/Wiki/index.php?title=File:Doom_-_GBA_-_Gameplay_1.png"
+    },
+    {
+      "kind": "render",
+      "file": "seedsigner-regular-render.svg",
+      "model": "regular SeedSigner reference enclosure",
+      "source_url": "https://bitcoin.design/guide/case-studies/seedsigner/",
+      "model_reference_urls": [
+        "https://bitcoin.design/guide/case-studies/seedsigner/",
+        "https://seedsigner.com/seedsigner-independent-custody-guide/"
+      ],
+      "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: Celeste Classic 2 by Maddy Thorson, Noel Berry and Lena Raine; GBA port and screenshot by Skale. https://github.com/Skaleee/Celeste2-GBA/blob/main/screenshots/celeste2-grappling.gif",
+      "license": "Original SVG artwork: GPL-2.0-or-later. Embedded game frame retains its original artwork rights and notices; see game-sources.json. Regular-device reference credited under CC BY 4.0. Manufacturer photographs are references only, not embedded or relicensed.",
+      "description": "Observed approximately 2.13:1 silhouette, square display, one left joystick and three right pill-shaped action buttons. Exact case variant and dimensions are unconfirmed.",
+      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Celeste Classic 2 game frame. Original PNG bytes are embedded without pixel edits; source aspect ratio is retained with letterboxing. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale.",
+      "screen_capture": "celeste2.png",
+      "screen_capture_sha256": "a706762d0b27a95188f5194d2230bed7fdef81c221be72266bb4bbe4e0e5256e",
+      "bytes": 6444,
+      "sha256": "8c3ff027c739cb00a397904dd6a63a8596df2945772e39f8a33704e274cb1686",
+      "width": 600,
+      "height": 400,
+      "screen_game": "Celeste Classic 2",
+      "screen_capture_credit": "Celeste Classic 2 by Maddy Thorson, Noel Berry and Lena Raine; GBA port and screenshot by Skale. https://github.com/Skaleee/Celeste2-GBA/blob/main/screenshots/celeste2-grappling.gif"
+    }
+  ],
+  "reference_photographs": [
+    {
+      "file": "bitkit-seedsigner-plus.jpg",
+      "source_url": "https://bitkitbtc.com/wp-content/uploads/2026/09/KakaoTalk_20260226_142353027-scaled.jpg",
+      "source_page": "https://bitkitbtc.com/product/seedsigner-plus/",
+      "credit": "BitKit",
+      "license": "Manufacturer product photograph. Reuse license not stated on product page; not covered by project GPL.",
+      "modifications": "None; downloaded original bytes.",
+      "description": "Orange rounded capsule with five directional/select buttons and three action buttons.",
+      "bytes": 384303,
+      "sha256": "7a80566525bc279baa58c95457d86fa4c65c7c9f93bbae88a30b2c077e4663e7",
+      "width": 2560,
+      "height": 2560
+    },
+    {
+      "file": "bitkit-seedsigner-play-front.webp",
+      "source_url": "https://bitkitbtc.com/wp-content/uploads/2026/04/ssp-1-e1777372911545.png",
+      "source_page": "https://bitkitbtc.com/product/seedsigner-play/",
+      "credit": "BitKit",
+      "license": "Manufacturer product photograph. Reuse license not stated on product page; not covered by project GPL.",
+      "modifications": "Lossless WebP encoding only; identical visible pixel values, no resizing, cropping or geometry changes.",
+      "description": "Angled front, unlit display, black Play enclosure; eight exposed tactile buttons and two SD slots visible.",
+      "bytes": 464544,
+      "sha256": "39fd25b6641fc65420ebb27e0a0bff77d09c0efb566353c94d0a32aed577ac8f",
+      "derived_from": "bitkit-seedsigner-play-front.png",
+      "width": 896,
+      "height": 1006
+    },
+    {
+      "file": "seedsigner-regular-enclosed.webp",
+      "source_url": "https://raw.githubusercontent.com/BitcoinDesign/Guide/master/assets/images/guide/case-studies/seedsigner/seedsigner-redesign-with-enclosure.png",
+      "source_page": "https://bitcoin.design/guide/case-studies/seedsigner/",
+      "credit": "Bitcoin Design Guide contributors",
+      "license": "CC BY 4.0; https://github.com/BitcoinDesign/Guide/blob/master/LICENSE and local CC-BY-4.0.txt. Attribute and indicate modifications.",
+      "modifications": "Lossless WebP encoding only; identical visible pixel values, no resizing, cropping or geometry changes.",
+      "description": "Actual enclosed regular SeedSigner straight front, orange shell, square screen, joystick and three side buttons.",
+      "derived_from": "seedsigner-regular-enclosed.png",
+      "bytes": 526874,
+      "sha256": "2ae3d46f863a85b2d29459a257040e321d89874f92deeb77554eda389e5ec548",
+      "width": 961,
+      "height": 451
+    }
+  ]
+}

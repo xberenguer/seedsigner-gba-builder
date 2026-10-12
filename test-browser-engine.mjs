@@ -7,6 +7,7 @@
 import assert from 'node:assert/strict';
 import { readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
+import { createHash } from 'node:crypto';
 import { gzipSync, deflateRawSync } from 'node:zlib';
 import { buildImage, decodeTemplate, inspectRom, parseNewc, packNewc, readFat16, readRomFile, unpackRomZip, sha256 } from './image-engine.js';
 
@@ -33,6 +34,9 @@ function fixtureArchive() {
     ['opt', '', true], ['start.sh', '#!/bin/sh\n'], ['opt/dino', '', true],
     ['opt/dino/native', '', true], ['opt/dino/launcher.py', '# synthetic launcher\n'],
     ['opt/dino/game.json', '{"game":"gba","rom":"User-Game.gba","title":"GBA game","input_profile":"standard"}\n'],
+    ['opt/dino/hardware.json', '{"schema":1,"display":"st7789_320x240"}\n'],
+    ['opt/dino/source-manifest.json', '{"schema":1,"rom_included":false}\n'],
+    ['opt/dino/native/source-manifest.json', '{"schema":1,"rom_included":false,"core":{"preserved":"fixture"}}\n'],
     ['opt/dino/native/dino-native', 'synthetic host'], ['opt/dino/native/gpsp_libretro.so', 'synthetic core'],
     ['opt/dino/native/source.tar.gz', 'preserve exact source bytes'],
   ];
@@ -81,6 +85,21 @@ function fixtureImage(archive = fixtureArchive()) {
   const config = encode('kernel=kernel.img\ninitramfs dino-overlay.cpio followkernel\n');
   view.setUint32(configEntry + 28, config.length, true); fatWrite(configCluster, 0xffff);
   image.set(config, data + (configCluster - 2) * 512);
+  const settingsEntry = configEntry + 32, settingsCluster = configCluster + 1;
+  image.set(encode('SETTINGSJSN'), settingsEntry); image[settingsEntry + 11] = 0x20; image[settingsEntry + 12] = 24;
+  view.setUint16(settingsEntry + 26, settingsCluster, true);
+  const settings = encode(JSON.stringify({ persistent_settings: 'E', display_config: 'st7789_320x240', custom: 'retained' }, null, 2) + '\n');
+  view.setUint32(settingsEntry + 28, settings.length, true); fatWrite(settingsCluster, 0xffff);
+  image.set(settings, data + (settingsCluster - 2) * 512);
+  // SETTINGS.JSN cannot represent the real .json extension in 8.3; use an LFN.
+  const shortSettings = encode('SETTIN~1JSO'), longSettings = 'settings.json';
+  image.set(shortSettings, settingsEntry);
+  // Exactly thirteen UTF-16 code units fit one long-filename entry.
+  image.copyWithin(settingsEntry + 32, settingsEntry, settingsEntry + 32);
+  image.fill(0, settingsEntry, settingsEntry + 32);
+  image[settingsEntry] = 0x41; image[settingsEntry + 11] = 0x0f; image[settingsEntry + 13] = shortChecksum(shortSettings);
+  const settingsPositions = [1, 3, 5, 7, 9, 14, 16, 18, 20, 22, 24, 28, 30];
+  settingsPositions.forEach((position, index) => view.setUint16(settingsEntry + position, longSettings.charCodeAt(index), true));
   return image;
 }
 function fixtureZip(entries) {
@@ -118,6 +137,8 @@ function fixtureZip(entries) {
 await test('GBA validation and regional V-Rally auto detection', async () => {
   for (const code of ['AVRE', 'AVRP', 'AVRJ']) assert.equal((await inspectRom(fixtureRom(4096, 'V-RALLY 3', code))).is_vrally3, true);
   assert.equal((await inspectRom(fixtureRom(4096, 'OTHER GAME', 'ABCE'))).is_vrally3, false);
+  const homebrew = await inspectRom(fixtureRom(4096, '', ''));
+  assert.equal(homebrew.title, 'GBA game'); assert.equal(homebrew.game_code, ''); assert.equal(homebrew.is_vrally3, false);
   for (const size of [0, 191, 32 * 1024 * 1024 + 1]) await assert.rejects(() => inspectRom(new Uint8Array(size)), /GBA ROM/);
   const bad = fixtureRom(); bad[0xbd] ^= 1; await assert.rejects(() => inspectRom(bad), /checksum/);
   const identification = fixtureRom(); identification[0xb2] = 0; await assert.rejects(() => inspectRom(identification), /identification/);
@@ -189,7 +210,9 @@ await test('building is deterministic, preserves firmware and untouched overlay 
   const beforeFat = readFat16(template), afterFat = readFat16(first.image);
   assert.deepEqual(beforeFat.readFile('config.txt'), afterFat.readFile('config.txt'));
   const before = parseNewc(beforeFat.readFile('dino-overlay.cpio')), after = parseNewc(afterFat.readFile('dino-overlay.cpio'));
-  for (const [name, record] of before.entries) if (name !== 'opt/dino/game.json') assert.deepEqual(record.raw, after.entries.get(name).raw, name);
+  for (const [name, record] of before.entries) if (!['opt/dino/game.json', 'opt/dino/hardware.json',
+    'opt/dino/source-manifest.json', 'opt/dino/native/source-manifest.json'].includes(name))
+    assert.deepEqual(record.raw, after.entries.get(name).raw, name);
   assert.deepEqual(after.entries.get('opt/dino/native/User-Game.gba').data, rom);
   const game = JSON.parse(decode(after.entries.get('opt/dino/game.json').data));
   assert.deepEqual(game, { game: 'gba', rom: 'User-Game.gba', title: 'VRALLY3', input_profile: 'vrally3' });
@@ -199,6 +222,31 @@ await test('building is deterministic, preserves firmware and untouched overlay 
   assert.equal(standard.profile, 'standard');
   const override = await buildImage(template, rom, { inputProfile: 'standard' }); assert.equal(override.profile, 'standard');
   await assert.rejects(() => buildImage(template, rom, { expectedSha256: '0'.repeat(64) }), /checksum/);
+});
+await test('all hardware profiles synchronize strict runtime config, signer settings and provenance', async () => {
+  const template = fixtureImage(), rom = fixtureRom(4096, 'OTHER', 'ABCE');
+  for (const hardwareProfile of ['play', 'plus', 'regular']) {
+    const result = await buildImage(template, rom, { hardwareProfile });
+    assert.equal(result.hardwareProfile, hardwareProfile); assert.equal(result.profile, 'standard');
+    const fat = readFat16(result.image), archive = parseNewc(fat.readFile('dino-overlay.cpio'));
+    const expected = hardwareProfile === 'regular' ? 'st7789_240x240' : 'st7789_320x240';
+    const hardware = archive.entries.get('opt/dino/hardware.json').data;
+    assert.deepEqual(JSON.parse(decode(hardware)), { schema: 1, display: expected });
+    const settings = JSON.parse(decode(fat.readFile('settings.json')));
+    assert.deepEqual(settings, { persistent_settings: 'E', display_config: expected, custom: 'retained' });
+    for (const name of ['opt/dino/source-manifest.json', 'opt/dino/native/source-manifest.json']) {
+      const provenance = JSON.parse(decode(archive.entries.get(name).data));
+      assert.equal(provenance.hardware_config_sha256, await sha256(hardware));
+      assert.equal(provenance.hardware_profile, hardwareProfile);
+    }
+    assert.deepEqual(archive.entries.get('opt/dino/native/User-Game.gba').data, rom);
+    if (hardwareProfile !== 'regular') assert.deepEqual(fat.readFile('settings.json'), readFat16(template).readFile('settings.json'));
+  }
+  const regular = await buildImage(template, rom, { hardwareProfile: 'regular' });
+  const restored = await buildImage(regular.image, rom, { hardwareProfile: 'play' });
+  assert.equal(JSON.parse(decode(readFat16(restored.image).readFile('settings.json'))).display_config, 'st7789_320x240');
+  await assert.rejects(() => buildImage(template, rom, { hardwareProfile: 'other-board' }), /hardware profile/);
+  await assert.rejects(() => buildImage(template, rom, { hardwareProfile: '__proto__' }), /hardware profile/);
 });
 await test('replacing a larger ROM releases and clears unused FAT clusters', async () => {
   const initial = await buildImage(fixtureImage(), fixtureRom(128 * 1024));
@@ -232,7 +280,7 @@ const args = Object.fromEntries(process.argv.slice(2).reduce((pairs, value, inde
 }, []));
 if (args.template || args.rom || args.manifest) {
   assert.ok((args.template || args.manifest) && args.rom, 'Integration requires --template or --manifest, plus --rom');
-  await test('actual template + user V-Rally ROM independent readback and preserved firmware', async () => {
+  await test('actual template + selected ROM independent readback and preserved firmware', async () => {
     const manifest = args.manifest ? JSON.parse(await readFile(args.manifest, 'utf8')) : {};
     let input;
     if (args.template) input = new Uint8Array(await readFile(args.template));
@@ -252,22 +300,35 @@ if (args.template || args.rom || args.manifest) {
       expectedCompressedSha256: manifest.compressedSha256,
     }) : input;
     const rom = (await readRomFile(new Uint8Array(await readFile(args.rom)), { name: args.rom })).data;
-    const result = await buildImage(template, rom, { expectedSha256: manifest.sha256, inputProfile: 'auto' });
-    assert.equal(result.profile, 'vrally3');
-    assert.equal(result.rom.sha256, '5818fa74fdcacf39b53a1acea99432c4362979dd656c8153fd9861094aca51f7');
+    const hardwareProfiles = args.hardware === 'all' ? ['play', 'plus', 'regular'] : [args.hardware || 'plus'];
+    for (const hardwareProfile of hardwareProfiles) {
+    const result = await buildImage(template, rom, { expectedSha256: manifest.sha256, inputProfile: 'auto', hardwareProfile });
+    assert.equal(result.profile, result.rom.is_vrally3 ? 'vrally3' : 'standard');
+    assert.equal(result.hardwareProfile, hardwareProfile);
+    assert.equal(result.rom.sha256, createHash('sha256').update(rom).digest('hex'));
+    if (args.expectedRomSha256) assert.equal(result.rom.sha256, args.expectedRomSha256);
     const before = readFat16(template), after = readFat16(result.image);
     assert.deepEqual([...before.entries.keys()], [...after.entries.keys()]);
-    for (const [name, entry] of before.entries) if (!entry.directory && name !== 'dino-overlay.cpio')
+    for (const [name, entry] of before.entries) if (!entry.directory && name !== 'dino-overlay.cpio' &&
+      !(name === 'settings.json' && hardwareProfile === 'regular'))
       assert.equal(await sha256(before.readFile(name)), await sha256(after.readFile(name)), name);
     const archive = parseNewc(after.readFile('dino-overlay.cpio'));
     assert.deepEqual(archive.entries.get('opt/dino/native/User-Game.gba').data, rom);
-    assert.equal(JSON.parse(decode(archive.entries.get('opt/dino/game.json').data)).input_profile, 'vrally3');
+    assert.equal(JSON.parse(decode(archive.entries.get('opt/dino/game.json').data)).input_profile, result.profile);
+    const display = hardwareProfile === 'regular' ? 'st7789_240x240' : 'st7789_320x240';
+    const hardwareData = archive.entries.get('opt/dino/hardware.json').data;
+    assert.deepEqual(JSON.parse(decode(hardwareData)), { schema: 1, display });
+    assert.equal(JSON.parse(decode(after.readFile('settings.json'))).display_config, display);
     for (const path of ['opt/dino/native/source-manifest.json', 'opt/dino/source-manifest.json']) {
       const provenance = JSON.parse(decode(archive.entries.get(path).data));
       assert.equal(provenance.rom_included, true); assert.equal(provenance.template_rom_included, false);
+      assert.equal(provenance.hardware_profile, hardwareProfile);
+      assert.equal(provenance.hardware_config_sha256, await sha256(hardwareData));
     }
-    if (args.output) await writeFile(args.output, result.image);
-    process.stdout.write(JSON.stringify({ imageBytes: result.image.length, sha256: result.sha256, profile: result.profile, rom: result.rom }) + '\n');
+    if (args.output && (hardwareProfiles.length === 1 || args.outputHardware === hardwareProfile)) await writeFile(args.output, result.image);
+    process.stdout.write(JSON.stringify({ imageBytes: result.image.length, sha256: result.sha256, profile: result.profile,
+      hardwareProfile: result.hardwareProfile, rom: result.rom }) + '\n');
+    }
   });
 }
 process.stdout.write(`${passed} browser-engine checks passed.\n`);

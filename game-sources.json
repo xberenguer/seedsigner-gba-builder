@@ -1,0 +1,81 @@
+{
+  "schema": 1,
+  "note": "Actual gameplay captures and published game screenshots; no invented gameplay and no ROMs included. Original screenshot pixels are preserved. Device SVG illustrations compose these screenshots within the displays and do not establish hardware compatibility.",
+  "frames": [
+    {
+      "file": "dino.png",
+      "source_file": "build/dino-art-audit/frames/raw-000300.ppm",
+      "dimensions": [
+        240,
+        160
+      ],
+      "frame": 300,
+      "sha256": "0fd73598c08d0961c4de915bb6b5ec400c1575ffdd0048926c2d6573da612649",
+      "rom_version": "Google Dino Advance 1.1",
+      "rom_sha256": "d08239bea3044af0b0224cb5436221fec59e1ea3ba811ed0ec17212683a2cb81",
+      "capture_scope": "Actual gameplay pixels from test-only gpSP interpreter diagnostic; physical device testing remains pending. Released runtime unchanged.",
+      "modifications": "PNG encoding only; original 240 x 160 pixels retained."
+    },
+    {
+      "file": "vrally3.png",
+      "source_file": "build/vrally3-runtime/controls/raw-006200.ppm",
+      "dimensions": [
+        240,
+        160
+      ],
+      "frame": 0,
+      "sha256": "2352aab3bc8bd2040c47f476c1f408032fdbef2bf309680e8d0e9ac6a1ac54f5"
+    },
+    {
+      "file": "celeste2.png",
+      "source_file": "build/game-references/celeste2.gif",
+      "dimensions": [
+        240,
+        160
+      ],
+      "frame": 20,
+      "sha256": "a706762d0b27a95188f5194d2230bed7fdef81c221be72266bb4bbe4e0e5256e"
+    },
+    {
+      "file": "pokemon.png",
+      "game": "Pokémon Ruby / Sapphire",
+      "source_url": "https://www.nintendo.co.jp/n08/axvp/ss02.jpg",
+      "source_page": "https://www.nintendo.co.jp/n08/axvp/",
+      "credit": "Official Nintendo gameplay screenshot. Pokémon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
+      "license": "Screenshot and underlying game artwork retain their original rights; not GPL project code. Informational visual example only. No game ROM distributed.",
+      "capture": "Published gameplay screenshot; not captured on SeedSigner and not a compatibility result.",
+      "modifications": "Lossless PNG format conversion only; no crop, resize or pixel edits. Device renders compose this screenshot within the display.",
+      "dimensions": [
+        180,
+        120
+      ],
+      "sha256": "ab50e4de53a7153d9a629c7a8f17e500e6c0c5da5beb457f7c2d8e638df25600",
+      "original_sha256": "64c6c7fd31972007dca7f62cd42bf34b096aa786603bc7b3b4b7a129b07b8710",
+      "hardware_tested": false
+    },
+    {
+      "file": "doom.png",
+      "game": "DOOM (Game Boy Advance)",
+      "source_url": "https://www.vgmpf.com/Wiki/images/4/4c/Doom_-_GBA_-_Gameplay_1.png",
+      "source_page": "https://www.vgmpf.com/Wiki/index.php?title=File:Doom_-_GBA_-_Gameplay_1.png",
+      "credit": "GBA gameplay capture hosted by VGMPF, contributor GatoVerde95. DOOM artwork belongs to id Software and respective rights holders; no project-code license asserted.",
+      "license": "Screenshot and underlying game artwork retain their original rights; not GPL project code. Informational visual example only. No game ROM distributed.",
+      "capture": "Published gameplay screenshot; not captured on SeedSigner and not a compatibility result.",
+      "modifications": "Lossless PNG format conversion only; no crop, resize or pixel edits. Device renders compose this screenshot within the display.",
+      "dimensions": [
+        1006,
+        668
+      ],
+      "sha256": "6d183221321c582a9358e2a904a15405d4dac4af5de70398d8c4a7c087db61d4",
+      "original_sha256": "5661509e5ebe1f987d718e1c63842ca277f6273f795bb216449ab26d7ac83f3d",
+      "hardware_tested": false
+    }
+  ],
+  "credits": {
+    "dino": "Google Dino Advance by Ethan Fritz; game art Google/Chromium. https://github.com/fritzem/Google-Dino-GBA",
+    "celeste2": "Celeste Classic 2 by Maddy Thorson, Noel Berry and Lena Raine; GBA port and screenshot by Skale. https://github.com/Skaleee/Celeste2-GBA/blob/main/screenshots/celeste2-grappling.gif",
+    "vrally3": "V-Rally 3 GBA, Eden Studios/Infogrames. Emulator capture from user-supplied ROM; shown for identification, no game distributed.",
+    "pokemon": "Official Nintendo gameplay screenshot. Pokémon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
+    "doom": "GBA gameplay capture hosted by VGMPF, contributor GatoVerde95. DOOM artwork belongs to id Software and respective rights holders; no project-code license asserted."
+  }
+}

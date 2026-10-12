@@ -1,19 +1,53 @@
-SeedSigner GBA Image Builder
+SeedSigner GBA Image Builder v0.2.0
 
 Original browser tool and native launcher/frontend changes: GPL-2.0-or-later.
-Third-party components retain their respective licenses. A complete IMG is
-not licensed solely by this root license.
+Third-party components retain their respective licenses. The root GPL license
+does not cover the complete IMG, photographs, fonts or user-selected games.
 
 SeedSigner 0.8.7: MIT.
 gpSP: GPL-2.0-or-later. Open GBA BIOS: GPL-2.0; see retained upstream notices.
-Raspberry Pi firmware, Linux, BusyBox, libraries and fonts: see the complete
-OS-and-font-notices.txt and the linked stock OS corresponding-source collection.
+Raspberry Pi firmware, Linux, BusyBox, libraries and stock fonts: see the
+complete OS-and-font-notices.txt and linked OS corresponding-source collection.
 The stock kernel/firmware are preserved. This is an independent experimental
-community project, not an official SeedSigner release.
+community project, not an official SeedSigner release or a BitKit product.
 
 No commercial game ROM, Nintendo BIOS, private key or seed is distributed here.
 User-selected ROMs are processed locally in the browser. Game files retain
 their own copyright and are not covered by this project's license.
+
+Website hardware illustrations:
+- Original inspectable SVG enclosure/control illustrations: GPL-2.0-or-later.
+  Materials, perspective and comparative sizes are illustrative, not exact scale.
+  Embedded game screens are composites of credited game-frame captures,
+  not photographs of working hardware or evidence of device compatibility.
+- Play shape and control reference: BitKit,
+  https://bitkitbtc.com/product/seedsigner-play/ . Maker lists 99 x 76 x 16 mm.
+- Plus shape, screen and button-coordinate reference: 3rdIteration,
+  https://github.com/3rdIteration/seedsigner-hardware/tree/main/signer_enclosures/seedsigner_plus/reference_design
+  Reference-design CAD dimensions are not measurements of BitKit hardware.
+  Secondary reference: https://bitkitbtc.com/product/seedsigner-plus/ .
+- Regular enclosure and control reference: Bitcoin Design Guide contributors,
+  https://bitcoin.design/guide/case-studies/seedsigner/ . CC BY 4.0,
+  https://creativecommons.org/licenses/by/4.0/ . Exact case dimensions unconfirmed.
+- Manufacturer photographs are provenance references only, not embedded in the
+  SVGs, and are not relicensed by this project. Reference photographs retained
+  locally have no broader reuse permission claimed.
+  See hardware-sources.json and HARDWARE-RESEARCH.md for provenance.
+
+Game-frame screenshots:
+Dino: Google/Chromium artwork; GBA port by Ethan Fritz. Celeste Classic 2:
+Maddy Thorson, Noel Berry and Lena Raine; GBA port/screenshot by Skale.
+V-Rally 3 GBA: Eden Studios/Infogrames. Pokémon Ruby / Sapphire: official
+Nintendo screenshot, artwork Pokémon / Nintendo / Creatures / GAME FREAK.
+DOOM GBA: gameplay capture hosted by VGMPF, contributor GatoVerde95; artwork
+id Software and respective rights holders. These frames illustrate the games;
+underlying artwork retains its creators' rights and is not relicensed under
+this project GPL. No game ROM is included. See game-sources.json.
+
+Website font:
+InterVariable.woff2, Copyright (c) 2016 The Inter Project Authors
+(https://github.com/rsms/inter), SIL Open Font License 1.1.
+See Inter-LICENSE.txt. This font is NOT relicensed under GPL.
 
 Runtime/launcher/core source: source.tar.gz (SHA256 in template.json).
 Stock OS source:

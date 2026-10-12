@@ -1,16 +1,75 @@
 {
-  "schema": 1,
+  "schema": 2,
   "date": "2026-10-11",
-  "target": "Pi Zero 1.3 + Plus 320x240",
+  "builder_version": "0.2.0",
   "base_seedsigner_version": "0.8.7",
-  "python_tests_passed": 61,
+  "target_board": "Pi Zero v1.3 / ARMv6",
+  "hardware_profiles": {
+    "plus": {
+      "display": "ST7789 320x240",
+      "status": "software-tested",
+      "physical_tested": false
+    },
+    "play": {
+      "display": "compatible ST7789 320x240",
+      "status": "requires-hardware-match",
+      "physical_tested": false,
+      "requires": "Pi Zero ARMv6, Plus-compatible ST7789 panel and standard SeedSigner GPIO wiring"
+    },
+    "regular": {
+      "display": "Waveshare ST7789 240x240",
+      "status": "experimental-software-tested",
+      "physical_tested": false
+    }
+  },
+  "python_tests_passed": 79,
   "browser_engine_checks_passed": 11,
-  "browser_integration": "V-Rally 3 USA ZIP validated, image assembled with same SHA256 as Node engine",
-  "personal_vrally_image_sha256": "783a7aaa2fe884b6dd52113bffb2ecda53e4a1e0f4342b1855826031abe4b77f",
-  "template_raw_sha256": "9f4b8f0fb59f66d601f8b725fa98b1592bc37cf68d78942da9e5a31c827e7da4",
+  "browser_integration": {
+    "status": "PASS",
+    "browser": "Brave desktop, local preview",
+    "game": "Celeste Classic 2 GBA",
+    "hardware_profile": "regular",
+    "downloaded_image_bytes": 134217728,
+    "downloaded_image_sha256": "832d110477ebd493f216898b9f71943eec42f29c267f1944578666859d531d40",
+    "matches_node_matrix_image": true
+  },
+  "template_raw_sha256": "379243c2a748355893f920b7d2c2a9d7363f263bfa1e2027bd2a18cf5247a89e",
+  "template_source_sha256": "282e251f82aec7b53a16186e82e99770e653d564d4a603b80c8a3f8c985d6b19",
   "template_rebuilt_byte_identically": true,
   "stock_files_preserved": 334,
+  "public_payload_audit": {
+    "status": "PASS",
+    "source_files_recursively_scanned": 148,
+    "overlay_entries": 26,
+    "private_rom_bytes_absent": true,
+    "native_core_open_bios_digests_verified": true,
+    "runtime_source_correspondence_verified": true,
+    "hardware_renders_verified": 4,
+    "embedded_game_screens_verified": 4,
+    "game_frames_verified": 5
+  },
   "ROM_distributed": false,
   "physical_hardware_tested": false,
-  "SD_card_written": false
+  "SD_card_written": false,
+  "previous_v0_1_0_evidence": {
+    "python_tests_passed": 61,
+    "browser_engine_checks_passed": 11,
+    "browser_integration": "V-Rally 3 USA ZIP validated, image assembled with same SHA256 as Node engine",
+    "personal_vrally_image_sha256": "783a7aaa2fe884b6dd52113bffb2ecda53e4a1e0f4342b1855826031abe4b77f",
+    "template_raw_sha256": "9f4b8f0fb59f66d601f8b725fa98b1592bc37cf68d78942da9e5a31c827e7da4",
+    "template_rebuilt_byte_identically": true,
+    "physical_hardware_tested": false
+  },
+  "real_rom_hardware_matrix_runs_passed": 9,
+  "matrix_validation": "matrix-validation.json",
+  "template_compressed_sha256": "17245849687f6249df484ead2de3cdc4ac6871955f454e2197176c0e245a23af",
+  "website_review": {
+    "explicit_device_choice": true,
+    "versioned_script_and_stylesheet_urls": "0.2.0",
+    "render_geometry": "Play maker proportions and tactile-switch layout; Plus reference-CAD enclosure/screen/button coordinates; regular reference enclosure proportions and joystick; perspective and comparative sizes illustrative",
+    "screens": "Distinct illustrative game screens composed into original SVGs; not hardware compatibility evidence",
+    "local_regular_Celeste_browser_download_sha256": "832d110477ebd493f216898b9f71943eec42f29c267f1944578666859d531d40",
+    "local_regular_Celeste_browser_download_bytes": 134217728,
+    "physical_hardware_tested": false
+  }
 }

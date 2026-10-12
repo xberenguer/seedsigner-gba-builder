@@ -3,6 +3,8 @@ const MAX_ROM_BYTES = 32 * 1024 * 1024;
 const ROM_PATH = 'opt/dino/native/User-Game.gba';
 const GAME_PATH = 'opt/dino/game.json';
 const MANIFEST_PATH = 'opt/dino/rom-manifest.json';
+const HARDWARE_PATH = 'opt/dino/hardware.json';
+const HARDWARE_DISPLAYS = Object.freeze({ play: 'st7789_320x240', plus: 'st7789_320x240', regular: 'st7789_240x240' });
 const encoder = new TextEncoder();
 const decoder = new TextDecoder('utf-8', { fatal: true });
 const align = (value, boundary) => Math.ceil(value / boundary) * boundary;
@@ -61,10 +63,14 @@ export async function inspectRom(input) {
   ensure(data.length >= 0xc0 && data.length <= MAX_ROM_BYTES, 'Select a GBA ROM between 192 bytes and 32 MiB.');
   let titleEnd = 0xac;
   while (titleEnd > 0xa0 && (data[titleEnd - 1] === 0 || data[titleEnd - 1] === 0x20)) titleEnd--;
-  const title = ascii(data.subarray(0xa0, titleEnd), 'GBA title');
-  ensure(title.length, 'The GBA header has no game title.');
-  const gameCode = ascii(data.subarray(0xac, 0xb0), 'GBA game code');
-  ensure(/^[A-Z0-9]{4}$/.test(gameCode) && data[0xb2] === 0x96, 'Invalid GBA header identification.');
+  const headerTitle = ascii(data.subarray(0xa0, titleEnd), 'GBA title');
+  // Homebrew often has blank title/game-code fields, including the established
+  // open-source Dino ROM. These fields describe the game; 0x96 and the checked
+  // header checksum remain mandatory. Never put untrusted control bytes in UI.
+  const title = headerTitle || 'GBA game';
+  const codeBytes = data.subarray(0xac, 0xb0);
+  const gameCode = codeBytes.every(value => value === 0 || value === 0x20) ? '' : ascii(codeBytes, 'GBA game code');
+  ensure(data[0xb2] === 0x96, 'Invalid GBA header identification.');
   let checksum = -0x19;
   for (let index = 0xa0; index < 0xbd; index++) checksum -= data[index];
   ensure(data[0xbd] === (checksum & 255), 'The GBA header checksum does not match.');
@@ -450,9 +456,26 @@ export async function buildImage(templateInput, romInput, options = {}) {
   const rom = await inspectRom(romData), selected = options.inputProfile ?? 'auto';
   ensure(['auto', 'vrally3', 'standard'].includes(selected), 'Unsupported input profile.');
   const profile = selected === 'auto' ? (rom.is_vrally3 ? 'vrally3' : 'standard') : selected;
+  const hardwareProfile = options.hardwareProfile ?? 'plus';
+  ensure(typeof hardwareProfile === 'string' && Object.hasOwn(HARDWARE_DISPLAYS, hardwareProfile), 'Unsupported hardware profile.');
+  const display = HARDWARE_DISPLAYS[hardwareProfile];
   const fat = readFat16(template), archive = parseNewc(fat.readFile('dino-overlay.cpio'));
   ensure(archive.entries.has('start.sh') && archive.entries.has('opt/dino/launcher.py') && archive.entries.has(GAME_PATH), 'Template application is incomplete.');
   ensure(archive.entries.has('opt/dino/native/dino-native') && archive.entries.has('opt/dino/native/gpsp_libretro.so'), 'Template emulator is incomplete.');
+  ensure(archive.entries.has(HARDWARE_PATH), 'This image template does not support device selection. Reload the published builder.');
+  let previousHardware, settings;
+  const hardwareRecord = archive.entries.get(HARDWARE_PATH), settingsData = fat.readFile('settings.json');
+  ensure(hardwareRecord.data.length <= 256 && settingsData.length <= 4096, 'Template hardware or signer settings are too large.');
+  try { previousHardware = JSON.parse(decoder.decode(hardwareRecord.data)); settings = JSON.parse(decoder.decode(settingsData)); }
+  catch { throw new Error('Template hardware or signer settings are invalid.'); }
+  ensure(previousHardware && typeof previousHardware === 'object' && !Array.isArray(previousHardware) &&
+    Object.keys(previousHardware).length === 2 && previousHardware.schema === 1 &&
+    Object.values(HARDWARE_DISPLAYS).includes(previousHardware.display), 'Template hardware configuration is invalid.');
+  ensure(settings && typeof settings === 'object' && !Array.isArray(settings) && settings.persistent_settings === 'E' &&
+    Object.values(HARDWARE_DISPLAYS).includes(settings.display_config), 'Template signer display settings are invalid.');
+  const hardwareData = encoder.encode(JSON.stringify({ schema: 1, display }) + '\n');
+  const selectedSettingsData = settings.display_config === display ? settingsData :
+    encoder.encode(JSON.stringify({ ...settings, display_config: display }, null, 2) + '\n');
   ensure(!archive.records.some(record => /\.gba$/i.test(record.name) && record.name !== ROM_PATH), 'Unexpected game ROM in template.');
   progress('patch', 'Adding your ROM and selected controls locally…');
   const game = { game: 'gba', rom: 'User-Game.gba', title: rom.title, input_profile: profile };
@@ -460,12 +483,15 @@ export async function buildImage(templateInput, romInput, options = {}) {
   replaceRecord(archive, ROM_PATH, romData);
   const gameData = encoder.encode(JSON.stringify(game) + '\n');
   replaceRecord(archive, GAME_PATH, gameData);
+  replaceRecord(archive, HARDWARE_PATH, hardwareData);
   replaceRecord(archive, MANIFEST_PATH, encoder.encode(JSON.stringify(manifest) + '\n'));
-  const gameSha256 = await sha256(gameData);
+  const gameSha256 = await sha256(gameData), hardwareSha256 = await sha256(hardwareData);
   for (const [name, additions] of [
     ['opt/dino/native/source-manifest.json', { rom_included: true, rom: { file: 'User-Game.gba', bytes: rom.bytes,
-      sha256: rom.sha256, title: rom.title, game_code: rom.game_code }, input_profile: profile }],
-    ['opt/dino/source-manifest.json', { rom_included: true, rom_sha256: rom.sha256, game_config_sha256: gameSha256 }],
+      sha256: rom.sha256, title: rom.title, game_code: rom.game_code }, input_profile: profile,
+      hardware_profile: hardwareProfile, hardware_config_sha256: hardwareSha256, display_config: display }],
+    ['opt/dino/source-manifest.json', { rom_included: true, rom_sha256: rom.sha256, game_config_sha256: gameSha256,
+      hardware_profile: hardwareProfile, hardware_config_sha256: hardwareSha256 }],
   ]) {
     const existing = archive.entries.get(name);
     if (existing) {
@@ -480,15 +506,18 @@ export async function buildImage(templateInput, romInput, options = {}) {
   }
   const overlay = packNewc(archive);
   progress('image', 'Writing and checking the flashable image…');
-  const image = replaceFatFile(fat, 'dino-overlay.cpio', overlay);
+  let image = replaceFatFile(fat, 'dino-overlay.cpio', overlay);
+  if (settings.display_config !== display) image = replaceFatFile(readFat16(image), 'settings.json', selectedSettingsData);
   const checkFat = readFat16(image), checkArchive = parseNewc(checkFat.readFile('dino-overlay.cpio'));
   ensure(await sha256(checkArchive.entries.get(ROM_PATH).data) === rom.sha256, 'ROM image readback failed.');
   ensure(decoder.decode(checkArchive.entries.get(GAME_PATH).data) === JSON.stringify(game) + '\n', 'Game configuration readback failed.');
+  ensure(await sha256(checkArchive.entries.get(HARDWARE_PATH).data) === hardwareSha256 &&
+    await sha256(checkFat.readFile('settings.json')) === await sha256(selectedSettingsData), 'Selected hardware readback failed.');
   for (const [name, entry] of archive.entries) {
     if (![ROM_PATH, GAME_PATH, MANIFEST_PATH].includes(name)) {
       ensure(checkArchive.entries.has(name) && await sha256(entry.data) === await sha256(checkArchive.entries.get(name).data), `Application file changed unexpectedly: ${name}`);
     }
   }
   progress('hash', 'Calculating your image checksum…');
-  return { image, rom, profile, sha256: await sha256(image) };
+  return { image, rom, profile, hardwareProfile, sha256: await sha256(image) };
 }

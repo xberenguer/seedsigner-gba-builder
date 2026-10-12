@@ -1,27 +1,61 @@
 {
   "schema": 1,
-  "file": "seedsigner-v0.8.7-gba-v0.1.0-plus-pi0.img.gz",
-  "sha256": "9f4b8f0fb59f66d601f8b725fa98b1592bc37cf68d78942da9e5a31c827e7da4",
+  "configVersion": 2,
+  "file": "seedsigner-v0.8.7-gba-v0.2.0-pi0.img.gz",
+  "sha256": "379243c2a748355893f920b7d2c2a9d7363f263bfa1e2027bd2a18cf5247a89e",
   "files": [
     {
-      "file": "seedsigner-v0.8.7-gba-v0.1.0-plus-pi0.img.gz.part001",
+      "file": "seedsigner-v0.8.7-gba-v0.2.0-pi0.img.gz.part001",
       "bytes": 16777216,
-      "sha256": "26c3aad31336b8fefe6acad72795dbc4d33ad2e36f5eaa1fde98391bae1e7213"
+      "sha256": "ee58e612eb70ac575783db5d7bc6d2c7f559c1d2fbedd1108f6dbfcdb7ea2b1f"
     },
     {
-      "file": "seedsigner-v0.8.7-gba-v0.1.0-plus-pi0.img.gz.part002",
-      "bytes": 15425662,
-      "sha256": "da8c902b5e6f1a764c9221b5cc8d432f78f3895df41db84b42f16edd10ba5811"
+      "file": "seedsigner-v0.8.7-gba-v0.2.0-pi0.img.gz.part002",
+      "bytes": 15431611,
+      "sha256": "144f293aedcb1a9f9a1ec53fef34fee1e2ec7c4068b4ed084bdcede2693b1422"
     }
   ],
-  "bytes": 32202878,
+  "bytes": 32208827,
   "imageBytes": 134217728,
-  "compressedSha256": "8d450bbbaa2bafa8e0016392b8c420e851cade7a1e8da165b4364cc78eeac96e",
+  "compressedSha256": "17245849687f6249df484ead2de3cdc4ac6871955f454e2197176c0e245a23af",
   "compression": "gzip",
   "maxRomBytes": 33554432,
   "overlay": "dino-overlay.cpio",
   "baseSeedsignerVersion": "0.8.7",
-  "hardware": "Pi Zero 1.3 + Plus 320x240",
+  "hardware": "Pi Zero 1.3; Plus-type 320x240 or experimental regular 240x240",
+  "hardwareProfiles": [
+    "plus",
+    "play",
+    "regular"
+  ],
+  "hardwareDetails": [
+    {
+      "id": "plus",
+      "displayConfig": "st7789_320x240",
+      "width": 320,
+      "height": 240,
+      "status": "software-tested",
+      "label": "SeedSigner Plus / compatible 320x240 ST7789 HAT"
+    },
+    {
+      "id": "play",
+      "displayConfig": "st7789_320x240",
+      "width": 320,
+      "height": 240,
+      "status": "requires-hardware-match",
+      "label": "SeedSigner Play with compatible Plus-type HAT",
+      "requires": "Pi Zero ARMv6, ST7789 320x240 and standard SeedSigner GPIO wiring"
+    },
+    {
+      "id": "regular",
+      "displayConfig": "st7789_240x240",
+      "width": 240,
+      "height": 240,
+      "status": "experimental",
+      "label": "Regular SeedSigner / Waveshare 1.3-inch 240x240",
+      "requires": "Physical boot, display, controls and signing validation"
+    }
+  ],
   "source": "source.tar.gz",
-  "sourceSha256": "eb50cbdd2c91a329516eab9116875ebab3e037bec52022be29f5d33c8a1d2c8a"
+  "sourceSha256": "282e251f82aec7b53a16186e82e99770e653d564d4a603b80c8a3f8c985d6b19"
 }

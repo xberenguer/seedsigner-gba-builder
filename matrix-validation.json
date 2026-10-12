@@ -1,0 +1,191 @@
+{
+  "schema": 1,
+  "version": "gba-web-v0.2.0",
+  "validated_on": "2026-10-11",
+  "timezone": "America/Los_Angeles",
+  "public_template": {
+    "configVersion": 2,
+    "sha256": "379243c2a748355893f920b7d2c2a9d7363f263bfa1e2027bd2a18cf5247a89e",
+    "compressedSha256": "17245849687f6249df484ead2de3cdc4ac6871955f454e2197176c0e245a23af",
+    "imageBytes": 134217728,
+    "sourceSha256": "282e251f82aec7b53a16186e82e99770e653d564d4a603b80c8a3f8c985d6b19"
+  },
+  "engine_files_sha256": {
+    "web/image-engine.js": "fe0cc08fb9ad3178eff3f27ab8694ce2ca9ef5178112e3a6986a7a7f04b56d7f",
+    "web/builder-worker.js": "f8315a29832fafbe661f25ad1da5ba9b4012e47ecc003f0589075b6bd082c857",
+    "scripts/test_browser_engine.mjs": "e3bb3e7885938bcb9e9c69d39ce1568024e36fdfc927cf3a8117660598feb4d5"
+  },
+  "checks": {
+    "python_tests_passed": 79,
+    "browser_synthetic_check_groups_passed": 11,
+    "real_rom_hardware_combinations_passed": 9,
+    "independent_python_image_decodes_passed": 2,
+    "stock_boot_files_verified_each_independent_image": 335,
+    "final_template_regression_tests_passed": 4
+  },
+  "matrix": [
+    {
+      "game": "V-Rally 3",
+      "hardwareProfile": "play",
+      "inputProfile": "vrally3",
+      "sha256": "45816ac6884390ac1c93fe47d6321533d082480ef918c92085fd7006577db7d0",
+      "imageBytes": 134217728,
+      "pack_and_readback_passed": true,
+      "gameplay_tested_in_this_audit": false
+    },
+    {
+      "game": "V-Rally 3",
+      "hardwareProfile": "plus",
+      "inputProfile": "vrally3",
+      "sha256": "6fc0a228c2f2ae1a0b19d76c3dce194e5c6e0f1cbea9b295bbe42543b4b639e2",
+      "imageBytes": 134217728,
+      "pack_and_readback_passed": true,
+      "gameplay_tested_in_this_audit": false
+    },
+    {
+      "game": "V-Rally 3",
+      "hardwareProfile": "regular",
+      "inputProfile": "vrally3",
+      "sha256": "e9483ebad5a3138212f229606c8dd267e7e56217690d89255bdd809b20b8debb",
+      "imageBytes": 134217728,
+      "pack_and_readback_passed": true,
+      "gameplay_tested_in_this_audit": false
+    },
+    {
+      "game": "Celeste 2 GBA",
+      "hardwareProfile": "play",
+      "inputProfile": "standard",
+      "sha256": "28913c86b380a758803f968b3ceeaf84215369cfb6edc8fc87e8b0a61a381035",
+      "imageBytes": 134217728,
+      "pack_and_readback_passed": true,
+      "gameplay_tested_in_this_audit": false
+    },
+    {
+      "game": "Celeste 2 GBA",
+      "hardwareProfile": "plus",
+      "inputProfile": "standard",
+      "sha256": "beb55aba54274c30fe62401fa90a2134e23307f67d7acf58540c56b664988171",
+      "imageBytes": 134217728,
+      "pack_and_readback_passed": true,
+      "gameplay_tested_in_this_audit": false
+    },
+    {
+      "game": "Celeste 2 GBA",
+      "hardwareProfile": "regular",
+      "inputProfile": "standard",
+      "sha256": "832d110477ebd493f216898b9f71943eec42f29c267f1944578666859d531d40",
+      "imageBytes": 134217728,
+      "pack_and_readback_passed": true,
+      "gameplay_tested_in_this_audit": false
+    },
+    {
+      "game": "Google Dino Advance",
+      "hardwareProfile": "play",
+      "inputProfile": "standard",
+      "sha256": "5a3a171fa8bda0a36045958f4df9309efd4eeffb061f2e8d2a309d4c66ebd792",
+      "imageBytes": 134217728,
+      "pack_and_readback_passed": true,
+      "gameplay_tested_in_this_audit": false
+    },
+    {
+      "game": "Google Dino Advance",
+      "hardwareProfile": "plus",
+      "inputProfile": "standard",
+      "sha256": "7636dedaa6a0717d5a9c62e31b6461dd97e35a77dc123d8137e2b2f4caa9e70e",
+      "imageBytes": 134217728,
+      "pack_and_readback_passed": true,
+      "gameplay_tested_in_this_audit": false
+    },
+    {
+      "game": "Google Dino Advance",
+      "hardwareProfile": "regular",
+      "inputProfile": "standard",
+      "sha256": "9d5c1460df237ea45a3a7c04be5f78c9a7b316b33eb689adbf66ef105e90fec5",
+      "imageBytes": 134217728,
+      "pack_and_readback_passed": true,
+      "gameplay_tested_in_this_audit": false
+    }
+  ],
+  "rom_identifiers": {
+    "V-Rally 3": {
+      "bytes": 4194304,
+      "sha256": "5818fa74fdcacf39b53a1acea99432c4362979dd656c8153fd9861094aca51f7",
+      "game_code": "AVRE",
+      "header_title": "VRALLY 3",
+      "input": "single-ROM deflate ZIP"
+    },
+    "Celeste 2 GBA": {
+      "bytes": 4506328,
+      "sha256": "fcfa4fd98b434d0462784c24cb80b1e38f00efc570b7847bd287d05e486a5158",
+      "game_code": "CEL2",
+      "header_title": "Celelste2",
+      "input": "raw GBA"
+    },
+    "Google Dino Advance": {
+      "bytes": 109072,
+      "sha256": "5942beac698ecee57c4d93da042b37ce632121f3500804cf3679d5edd642663d",
+      "game_code": "",
+      "header_title": "",
+      "display_title": "GBA game",
+      "input": "raw GBA"
+    }
+  },
+  "verified": [
+    "ROM SHA-256 and bytes read back from generated CPIO",
+    "Strict game and hardware JSON accepted by Python launcher",
+    "Hardware JSON and SeedSigner settings agree for all profiles",
+    "Persistent-settings flag preserved",
+    "FAT16 copies, chains, allocation, bounds and root long filenames validated",
+    "All template boot files preserved except explicit regular display settings change",
+    "Both personalized source manifests contain matching ROM and hardware hashes",
+    "Original working ARMv6 frontend and gpSP core bytes retained",
+    "Stock firmware, kernel, application and fonts remain unchanged",
+    "OS/font notices match the corresponding public notice file"
+  ],
+  "homebrew_header_fix": "Accepts blank title and game-code fields in the known working Dino ROM; mandatory 0x96 identification, header checksum and 32 MiB size limit remain enforced. Empty title displays as GBA game.",
+  "compatibility_limits": {
+    "play": "Requires Pi Zero ARMv6, ST7789 320x240 Plus-type panel and standard SeedSigner GPIO wiring; enclosure alone does not establish compatibility.",
+    "plus": "Pi Zero 1.3 with ST7789 320x240 and standard SeedSigner GPIO wiring.",
+    "regular": "Experimental original Waveshare 1.3-inch ST7789 240x240; nearest 240x160 game viewport at y40.",
+    "standard_controls": "D-pad, A, B, Start, Select; no L/R shoulder mapping.",
+    "other_limits": "GBA only; game compatibility and speed vary; audio discarded; saves volatile RAM only."
+  },
+  "physical_validation": {
+    "sd_card_written": false,
+    "boot_tested": false,
+    "buttons_tested": false,
+    "display_tested": false,
+    "camera_tested": false,
+    "signing_tested": false,
+    "performance_measured_on_pi": false
+  },
+  "published_by_this_audit": false,
+  "rom_content_in_report": false,
+  "reproducibility": {
+    "first_build_sha256": "379243c2a748355893f920b7d2c2a9d7363f263bfa1e2027bd2a18cf5247a89e",
+    "second_build_sha256": "379243c2a748355893f920b7d2c2a9d7363f263bfa1e2027bd2a18cf5247a89e",
+    "byte_identical": true,
+    "second_build_included_web_root": false
+  },
+  "independent_image_decodes": [
+    {
+      "image": "browser-vrally3-play-v0.2.0.img",
+      "sha256": "45816ac6884390ac1c93fe47d6321533d082480ef918c92085fd7006577db7d0",
+      "stock_files_verified": 335,
+      "display": "st7789_320x240",
+      "rom_sha256": "5818fa74fdcacf39b53a1acea99432c4362979dd656c8153fd9861094aca51f7",
+      "native_binaries_unchanged": true,
+      "bios_license_correct": true
+    },
+    {
+      "image": "browser-celeste2-regular-v0.2.0.img",
+      "sha256": "832d110477ebd493f216898b9f71943eec42f29c267f1944578666859d531d40",
+      "stock_files_verified": 335,
+      "display": "st7789_240x240",
+      "rom_sha256": "fcfa4fd98b434d0462784c24cb80b1e38f00efc570b7847bd287d05e486a5158",
+      "native_binaries_unchanged": true,
+      "bios_license_correct": true
+    }
+  ],
+  "attribution_correction": "open_bios license metadata is GPL-2.0 (see retained upstream BIOS notice); no or-later grant is asserted. Retained BIOS binary and upstream notice bytes are unchanged."
+}
