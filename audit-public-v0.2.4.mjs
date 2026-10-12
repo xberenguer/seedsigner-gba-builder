@@ -378,8 +378,9 @@ for (const frame of heroFrames) {
   assert.deepEqual([data.readUInt32BE(16), data.readUInt32BE(20)], frame.dimensions, `Hero PNG dimensions: ${frame.file}`);
   noGame(frame.file, data);
 }
-const scrollSources = await firstExisting(['scroll-sources-v2.json', 'scroll-sources.json']);
+const scrollSources = await firstExisting(['scroll-sources-v3.json', 'scroll-sources-v2.json', 'scroll-sources.json']);
 const scrollMetadata = JSON.parse(scrollSources.data), scrollDir = dirname(scrollSources.name);
+const extendedScrollTail = scrollSources.name === 'scroll-sources-v3.json';
 assert.equal(scrollMetadata.schema, 2, 'Extended scroll-frame metadata schema');
 assert.deepEqual([scrollMetadata.width, scrollMetadata.height], [240, 160], 'Scroll-frame dimensions');
 assert(Number.isInteger(scrollMetadata.frame_count) && scrollMetadata.frame_count >= 2 && scrollMetadata.frame_count <= 200,
@@ -407,10 +408,30 @@ assert.equal(digest(Buffer.from(capture.input_script)), capture.input_script_sha
 assert.equal(capture.source_capture_every, 4, 'Scroll capture cadence');
 assert.equal(capture.selected_source_frame_step, 4, 'Scroll selected-frame cadence');
 assert.equal(capture.selected_source_frame_start, 352, 'Scroll sequence start');
-assert.equal(capture.selected_source_frame_end, 840, 'Scroll sequence end');
+assert.equal(capture.selected_source_frame_end, extendedScrollTail ? 888 : 840, 'Scroll sequence end');
 assert.equal(scrollMetadata.frame_count,
   (capture.selected_source_frame_end - capture.selected_source_frame_start) / capture.selected_source_frame_step + 1,
   'Complete extended scroll sequence');
+if (extendedScrollTail) {
+  // The continuation adds real captures after the existing 123-frame sequence.
+  // Published v2 is retained so its original gameplay and metadata can be
+  // compared byte-for-byte instead of accepting a silently replaced prefix.
+  const previousSources = await local('scroll-sources-v2.json');
+  const previousMetadata = JSON.parse(previousSources);
+  assert.equal(previousMetadata.schema, 2, 'Original scroll metadata schema');
+  assert.equal(previousMetadata.frame_count, 123, 'Original scroll-frame count');
+  assert.equal(previousMetadata.capture.selected_source_frame_end, 840, 'Original scroll sequence end');
+  for (const key of ['game_code', 'rom_sha256', 'frontend_sha256', 'core_sha256',
+    'input_script_sha256', 'selected_source_frame_start', 'selected_source_frame_step']) {
+    assert.equal(capture[key], previousMetadata.capture[key], `Scroll extension changed original capture provenance: ${key}`);
+  }
+  assert.deepEqual(scrollMetadata.frames.slice(0, 123), previousMetadata.frames, 'Scroll extension must preserve every original frame');
+  assert.equal(scrollMetadata.frame_count, 135, 'Extended-tail scroll-frame count');
+  for (const [key, value] of Object.entries(previousMetadata.events)) {
+    assert.deepEqual(scrollMetadata.events[key], value, `Scroll extension changed original event: ${key}`);
+  }
+  noGame('scroll-sources-v2.json', previousSources);
+}
 const scrollDigests = new Set();
 const scrollFramesBySource = new Map();
 let previousSourceFrame = -1;
@@ -465,6 +486,17 @@ const eventLinks = [
   ['second_question_block_used_first_observed_frame', 'second_question_block_used_file'],
   ['final_landed_mushroom_score_300_coin_01_frame', 'final_file'],
 ];
+if (extendedScrollTail) {
+  assert.equal(scrollEvents.tail_start_frame, 844, 'Mario continuation start');
+  assert.equal(scrollEvents.tail_end_frame, 888, 'Mario continuation end');
+  assert.equal(scrollEvents.mushroom_fully_visible_above_blocks_frame, 864, 'Mushroom continuation event');
+  assert.equal(scrollEvents.mushroom_moving_right_on_blocks_observed_frame, 876, 'Mushroom movement event');
+  for (const key of ['tail_start_frame', 'mushroom_fully_visible_above_blocks_frame',
+    'mushroom_moving_right_on_blocks_observed_frame', 'tail_end_frame']) {
+    assert(scrollFramesBySource.has(scrollEvents[key]), `Missing Mario continuation event: ${key}`);
+  }
+  eventLinks.push(['tail_start_frame', 'tail_start_file'], ['tail_end_frame', 'tail_end_file']);
+}
 const eventDigests = new Set();
 for (const [frameKey, fileKey] of eventLinks) {
   const frame = scrollFramesBySource.get(scrollEvents[frameKey]);
