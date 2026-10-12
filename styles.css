@@ -128,3 +128,12 @@
   .has-scroll-preview .scene-step h3{top:0;font-size:20px}
   .has-scroll-preview .scene-step p,.has-scroll-preview .scene-step-detail{position:static;width:auto;margin-top:10px}
 }
+
+/* Company mark: original white .WS outlines, sized for the existing navigation. */
+.brand{flex-direction:column;align-items:flex-start;flex-shrink:0;gap:6px}
+.brand-logo{display:block;width:168px;height:auto;max-width:100%;flex:none}
+.brand .brand-subtitle{margin:0;font-size:12px;font-weight:400;letter-spacing:0;line-height:1.25;text-transform:none}
+.footer-brand{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.footer-brand .brand-logo{width:110px}
+.footer-brand span{margin:0;font-size:12px;line-height:1.25}
+@media(max-width:700px){.brand .brand-logo{width:142px}}
