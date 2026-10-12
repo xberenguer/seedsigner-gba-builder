@@ -29,6 +29,9 @@ async function preparePreview() {
   const metadata = await framesResponse.json();
   if (!Array.isArray(metadata.frames) || metadata.frames.length < 2 || metadata.frames.length > 120 ||
       !metadata.frames.every(frame => /^mario-\d{2}\.png$/.test(frame.file))) return;
+  const sourceFrames = metadata.frames.map(frame => frame.source_frame);
+  if (!sourceFrames.every((frame, index) => Number.isInteger(frame) && frame >= 0 &&
+      (index === 0 || frame > sourceFrames[index - 1]))) return;
   const [frames, splash, home] = await Promise.all([
     Promise.all(metadata.frames.map(frame => loadImage(`./${frame.file}`))),
     loadImage('./seedsigner-splash.png'),
@@ -107,9 +110,8 @@ async function preparePreview() {
     const section = story.getBoundingClientRect();
     const range = Math.max(1, section.height - pin.offsetHeight);
     const progress = reducedMotion.matches ? 0 : clamp(-section.top / range);
-    // Start gameplay and zoom with the first page scroll, including on phones
-    // where the pinned story is still below the fold. Ease out the intro so
-    // small opening scrolls visibly advance Mario; keep the rest for the story.
+    // Start the device zoom with the first scroll, including on phones where
+    // the pinned story is still below the fold.
     const storyTop = Math.max(1, section.top + scrollY);
     const intro = reducedMotion.matches ? 0 : 1 - (1 - clamp(scrollY / storyTop)) ** 3;
     // Tall viewports can already include the story on first load. Anchor the
@@ -132,8 +134,12 @@ async function preparePreview() {
         width: interpolate(from.width, to.width), height: interpolate(from.height, to.height),
       })) stage.style[property] = `${value.toFixed(3)}px`;
     }
-    const gameProgress = intro * .50 + clamp(progress / .50) * .50;
-    const frame = Math.ceil(gameProgress * (frames.length - 1));
+    // One linear gameplay timeline from page top to the black-screen cut.
+    // Captures are unevenly spaced, so scrub their source time, not image index.
+    const gameProgress = reducedMotion.matches ? 0 : clamp(scrollY / (storyTop + range * .50));
+    const sourceFrame = sourceFrames[0] + gameProgress * (sourceFrames.at(-1) - sourceFrames[0]);
+    const nextFrame = sourceFrames.findIndex(frame => frame >= sourceFrame);
+    const frame = nextFrame < 0 ? frames.length - 1 : nextFrame;
     // Hard cuts: game, a black pause, the splash screen, then SeedSigner Home.
     const screenName = progress < .50 ? 'game' : progress < .58 ? 'black'
       : progress < .86 ? 'splash' : 'home';
