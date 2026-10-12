@@ -83,7 +83,6 @@ async function preparePreview() {
     [box.x, box.y + box.height], [box.x + box.width, box.y + box.height]]
     .map(([x, y]) => new DOMPoint(x, y).matrixTransform(originalMatrix));
   story.classList.add('has-scroll-preview');
-  stage.classList.add('is-travelling');
 
   const steps = [...story.querySelectorAll('[data-scene-step]')];
   let request = 0;
@@ -96,13 +95,16 @@ async function preparePreview() {
     const section = story.getBoundingClientRect();
     const range = Math.max(1, section.height - pin.offsetHeight);
     const progress = reducedMotion.matches ? 0 : clamp(-section.top / range);
-    const transfer = reducedMotion.matches ? 0 : smooth(1 - section.top / innerHeight);
+    // Tall viewports can already include the story on first load. Anchor the
+    // transfer to page scroll so the device still starts at its hero origin.
+    const transferRange = Math.max(1, Math.min(innerHeight, section.top + scrollY));
+    const transfer = reducedMotion.matches ? 0 : smooth(1 - section.top / transferRange);
     const from = origin.getBoundingClientRect();
     const to = target.getBoundingClientRect();
     const interpolate = (a, b) => a + (b - a) * transfer;
     story.style.setProperty('--scene-intro-opacity', String(reducedMotion.matches ? 1 : smooth((transfer - .92) / .08)));
     origin.closest('figure').querySelector('figcaption').style.opacity = String(1 - transfer);
-    if (reducedMotion.matches) {
+    if (reducedMotion.matches || transfer === 0) {
       stage.classList.remove('is-travelling');
       stage.removeAttribute('style');
     } else {
