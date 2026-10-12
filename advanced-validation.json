@@ -281,5 +281,22 @@
       }
     }
   ],
-  "marioCompatibilityImageSha256": "ded94f4217b852bb41e44cdd6664059fe6de86f4f8703b0dc9c7209c3b3aff25"
+  "marioCompatibilityImageSha256": "ded94f4217b852bb41e44cdd6664059fe6de86f4f8703b0dc9c7209c3b3aff25",
+  "baselineReferences": {
+    "validation": {
+      "file": "validation.json",
+      "sha256": "1a5d4fe246fb4e613f18dbbad65ddf06199de82180796baa2cba7c518e9c6309"
+    },
+    "matrixValidation": {
+      "file": "matrix-validation.json",
+      "sha256": "2116d720b099f6096d5c2e2ec2532b4a45fd879221d1fa8e62f8b536cf6fb649"
+    },
+    "templateManifest": {
+      "file": "template.json",
+      "sha256": "885949c204315d7ec657f411f9c8adb57fd17f40a5e80c0f354da624ca2e8fee"
+    },
+    "builderVersion": "0.2.3",
+    "templateRawSha256": "d4223e0cf3763ec4e4467663cd66e4427a640bd4e03503222b5701dcb773bad4",
+    "scope": "Unchanged Basic template and prior software checks; physical hardware testing remains pending."
+  }
 }
