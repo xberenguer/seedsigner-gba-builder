@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "checked": "2026-10-11",
-  "note": "Original SVG hardware illustrations, not product photographs or hardware-test evidence. Manufacturer photographs and CAD were consulted for shape/control layout. Distinct example screens use V-Rally 3, Pokémon Ruby / Sapphire, DOOM GBA and Celeste Classic 2 game-frame composites, not device captures. Frame aspect ratios are preserved with letterboxing. Approximate perspective and comparative sizes, not exact scale.",
+  "note": "Original SVG hardware illustrations, not product photographs or hardware-test evidence. Manufacturer photographs and CAD were consulted for shape/control layout. Distinct example screens use V-Rally 3, Pokémon Ruby / Sapphire, DOOM GBA and Celeste Classic 2 game-frame composites, not device captures. Frame aspect ratios are preserved. The regular display clips only the black padding around the square Celeste gameplay area; other screens use letterboxing. Approximate perspective and comparative sizes, not exact scale.",
   "assets": [
     {
       "kind": "render",
@@ -83,15 +83,30 @@
       "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: Celeste Classic 2 by Maddy Thorson, Noel Berry and Lena Raine; GBA port and screenshot by Skale. https://github.com/Skaleee/Celeste2-GBA/blob/main/screenshots/celeste2-grappling.gif",
       "license": "Original SVG artwork: GPL-2.0-or-later. Embedded game frame retains its original artwork rights and notices; see game-sources.json. Regular-device reference credited under CC BY 4.0. Manufacturer photographs are references only, not embedded or relicensed.",
       "description": "Observed approximately 2.13:1 silhouette, square display, one left joystick and three right pill-shaped action buttons. Exact case variant and dimensions are unconfirmed.",
-      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Celeste Classic 2 game frame. Original PNG bytes are embedded without pixel edits; source aspect ratio is retained with letterboxing. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale. Device artwork is uniformly enlarged 1.5× within the shared canvas; enclosure and control proportions are unchanged.",
+      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Celeste Classic 2 game frame. Original PNG bytes are unchanged. The 128 × 128 square gameplay area at (56, 16) in the 240 × 160 capture fills the square display without stretching; only black capture padding is clipped. Device size, enclosure and control proportions match the original render. No manufacturer photograph embedded; comparison is not to exact scale.",
       "screen_capture": "celeste2.png",
       "screen_capture_sha256": "a706762d0b27a95188f5194d2230bed7fdef81c221be72266bb4bbe4e0e5256e",
-      "bytes": 6514,
-      "sha256": "e05f14d5c66e9ec80bb7e898091c8dc892dcab3cd7bfcb67f2a164dfbfb84ede",
+      "bytes": 6658,
+      "sha256": "56cda4693e7e3ef200127e84e6b209fe84e0d7107827398fbe4397296dd9492f",
       "width": 600,
       "height": 400,
       "screen_game": "Celeste Classic 2",
-      "screen_capture_credit": "Celeste Classic 2 by Maddy Thorson, Noel Berry and Lena Raine; GBA port and screenshot by Skale. https://github.com/Skaleee/Celeste2-GBA/blob/main/screenshots/celeste2-grappling.gif"
+      "screen_capture_credit": "Celeste Classic 2 by Maddy Thorson, Noel Berry and Lena Raine; GBA port and screenshot by Skale. https://github.com/Skaleee/Celeste2-GBA/blob/main/screenshots/celeste2-grappling.gif",
+      "screen_viewport": {
+        "source_rect": [
+          56,
+          16,
+          128,
+          128
+        ],
+        "display_rect": [
+          108,
+          24,
+          94,
+          94
+        ],
+        "operation": "Clip black capture padding; uniform scale; no gameplay cropped"
+      }
     }
   ],
   "reference_photographs": [
