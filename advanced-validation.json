@@ -1,0 +1,285 @@
+{
+  "schema": 1,
+  "scope": "Browser engine APIs on Node; synthetic ROM headers; no physical boot or gameplay claim",
+  "runtimePayloadSha256": "3ef6847b9d38d31bcfaae96ce238e58ea57acf11aaf7e3c29ebfbc3319a50add",
+  "correspondingSourceFilesVerified": 34,
+  "configurations": [
+    {
+      "hardwareProfile": "plus",
+      "inputProfile": "standard",
+      "imageSha256": "f1f22e4585b1c6c0de48ea379354d8ab331a03b3193ca290941fb28908d521a6",
+      "advanced": {
+        "mapping": {
+          "up": [
+            "up"
+          ],
+          "down": [
+            "down"
+          ],
+          "left": [
+            "left"
+          ],
+          "right": [
+            "right"
+          ],
+          "center": [
+            "select"
+          ],
+          "key1": [
+            "a",
+            "l"
+          ],
+          "key2": [
+            "b",
+            "r"
+          ],
+          "key3": [
+            "start"
+          ]
+        },
+        "switch": {
+          "buttons": [
+            "key1",
+            "key3"
+          ],
+          "hold_ms": 2000,
+          "release_ms": 80
+        },
+        "configSha256": "94a25b231412418b8bfca82c6a64583fc31109dee1e18e85e7844a893e4ca2ee",
+        "runtimeId": "advanced-controls-v1",
+        "runtimePayloadSha256": "3ef6847b9d38d31bcfaae96ce238e58ea57acf11aaf7e3c29ebfbc3319a50add"
+      }
+    },
+    {
+      "hardwareProfile": "plus",
+      "inputProfile": "vrally3",
+      "imageSha256": "6cae2335e5b60e37a0816563ae11dfce178c2bbf5b4e1a799884c3b1e9d89408",
+      "advanced": {
+        "mapping": {
+          "up": [
+            "up"
+          ],
+          "down": [
+            "down"
+          ],
+          "left": [
+            "left"
+          ],
+          "right": [
+            "right"
+          ],
+          "center": [
+            "select"
+          ],
+          "key1": [
+            "a",
+            "l"
+          ],
+          "key2": [
+            "b",
+            "r"
+          ],
+          "key3": [
+            "start"
+          ]
+        },
+        "switch": {
+          "buttons": [
+            "key1",
+            "key3"
+          ],
+          "hold_ms": 2000,
+          "release_ms": 80
+        },
+        "configSha256": "7799696e89fa8d2ba46b181f6b8a91e086508515248ddb2aee39335a22587e32",
+        "runtimeId": "advanced-controls-v1",
+        "runtimePayloadSha256": "3ef6847b9d38d31bcfaae96ce238e58ea57acf11aaf7e3c29ebfbc3319a50add"
+      }
+    },
+    {
+      "hardwareProfile": "play",
+      "inputProfile": "standard",
+      "imageSha256": "5b5692e2546d24c10e5878276945adade4f59f1e0a590f5526e5c455d453055a",
+      "advanced": {
+        "mapping": {
+          "up": [
+            "up"
+          ],
+          "down": [
+            "down"
+          ],
+          "left": [
+            "left"
+          ],
+          "right": [
+            "right"
+          ],
+          "center": [
+            "select"
+          ],
+          "key1": [
+            "a",
+            "l"
+          ],
+          "key2": [
+            "b",
+            "r"
+          ],
+          "key3": [
+            "start"
+          ]
+        },
+        "switch": {
+          "buttons": [
+            "key1",
+            "key3"
+          ],
+          "hold_ms": 2000,
+          "release_ms": 80
+        },
+        "configSha256": "94a25b231412418b8bfca82c6a64583fc31109dee1e18e85e7844a893e4ca2ee",
+        "runtimeId": "advanced-controls-v1",
+        "runtimePayloadSha256": "3ef6847b9d38d31bcfaae96ce238e58ea57acf11aaf7e3c29ebfbc3319a50add"
+      }
+    },
+    {
+      "hardwareProfile": "play",
+      "inputProfile": "vrally3",
+      "imageSha256": "7e3ed0b7ff5776291c1c4b4b0e9da35ee7c6254936d3f652f165a964c1c85cd2",
+      "advanced": {
+        "mapping": {
+          "up": [
+            "up"
+          ],
+          "down": [
+            "down"
+          ],
+          "left": [
+            "left"
+          ],
+          "right": [
+            "right"
+          ],
+          "center": [
+            "select"
+          ],
+          "key1": [
+            "a",
+            "l"
+          ],
+          "key2": [
+            "b",
+            "r"
+          ],
+          "key3": [
+            "start"
+          ]
+        },
+        "switch": {
+          "buttons": [
+            "key1",
+            "key3"
+          ],
+          "hold_ms": 2000,
+          "release_ms": 80
+        },
+        "configSha256": "7799696e89fa8d2ba46b181f6b8a91e086508515248ddb2aee39335a22587e32",
+        "runtimeId": "advanced-controls-v1",
+        "runtimePayloadSha256": "3ef6847b9d38d31bcfaae96ce238e58ea57acf11aaf7e3c29ebfbc3319a50add"
+      }
+    },
+    {
+      "hardwareProfile": "regular",
+      "inputProfile": "standard",
+      "imageSha256": "b24cd68afef3a27cb69b8cff589f615ea6d6e060fa64511c34cca4f63e8fb6c7",
+      "advanced": {
+        "mapping": {
+          "up": [
+            "up"
+          ],
+          "down": [
+            "down"
+          ],
+          "left": [
+            "left"
+          ],
+          "right": [
+            "right"
+          ],
+          "center": [
+            "select"
+          ],
+          "key1": [
+            "a",
+            "l"
+          ],
+          "key2": [
+            "b",
+            "r"
+          ],
+          "key3": [
+            "start"
+          ]
+        },
+        "switch": {
+          "buttons": [
+            "key1",
+            "key3"
+          ],
+          "hold_ms": 2000,
+          "release_ms": 80
+        },
+        "configSha256": "94a25b231412418b8bfca82c6a64583fc31109dee1e18e85e7844a893e4ca2ee",
+        "runtimeId": "advanced-controls-v1",
+        "runtimePayloadSha256": "3ef6847b9d38d31bcfaae96ce238e58ea57acf11aaf7e3c29ebfbc3319a50add"
+      }
+    },
+    {
+      "hardwareProfile": "regular",
+      "inputProfile": "vrally3",
+      "imageSha256": "d629933710014994dc6ef99083514ae1a8d13be476d5deb5ebfc90c35eec967e",
+      "advanced": {
+        "mapping": {
+          "up": [
+            "up"
+          ],
+          "down": [
+            "down"
+          ],
+          "left": [
+            "left"
+          ],
+          "right": [
+            "right"
+          ],
+          "center": [
+            "select"
+          ],
+          "key1": [
+            "a",
+            "l"
+          ],
+          "key2": [
+            "b",
+            "r"
+          ],
+          "key3": [
+            "start"
+          ]
+        },
+        "switch": {
+          "buttons": [
+            "key1",
+            "key3"
+          ],
+          "hold_ms": 2000,
+          "release_ms": 80
+        },
+        "configSha256": "7799696e89fa8d2ba46b181f6b8a91e086508515248ddb2aee39335a22587e32",
+        "runtimeId": "advanced-controls-v1",
+        "runtimePayloadSha256": "3ef6847b9d38d31bcfaae96ce238e58ea57acf11aaf7e3c29ebfbc3319a50add"
+      }
+    }
+  ],
+  "marioCompatibilityImageSha256": "ded94f4217b852bb41e44cdd6664059fe6de86f4f8703b0dc9c7209c3b3aff25"
+}
