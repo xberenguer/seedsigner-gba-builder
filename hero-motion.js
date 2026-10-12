@@ -49,6 +49,7 @@ async function preparePreview() {
   const device = svg.querySelector('#hero-device');
   const game = svg.querySelector('#hero-game-screen');
   const signer = svg.querySelector('#hero-signer-screen');
+  const glass = svg.querySelector('rect[fill="url(#glass)"]');
   const screen = game?.querySelector('image');
   if (!device || !screen || !signer) return;
   const zoom = document.createElementNS(svgNS, 'g');
@@ -61,14 +62,25 @@ async function preparePreview() {
   }
   homeImage.setAttribute('href', home);
   signer.append(homeImage);
+  signer.removeAttribute('opacity');
+  signer.style.display = 'none';
+  const blackScreen = document.createElementNS(svgNS, 'rect');
+  blackScreen.id = 'hero-black-screen';
+  for (const name of ['x', 'y', 'width', 'height']) {
+    blackScreen.setAttribute(name, screen.getAttribute(name));
+  }
+  blackScreen.setAttribute('fill', '#000');
+  blackScreen.style.display = 'none';
+  game.before(blackScreen);
   const splashLayer = document.createElementNS(svgNS, 'g');
   splashLayer.id = 'hero-splash-screen';
-  splashLayer.setAttribute('opacity', '0');
+  splashLayer.style.display = 'none';
   splashLayer.setAttribute('clip-path', game.getAttribute('clip-path'));
   const splashImage = homeImage.cloneNode();
   splashImage.setAttribute('href', splash);
   splashLayer.append(splashImage);
   signer.before(splashLayer);
+  const screenLayers = { game, black: blackScreen, splash: splashLayer, home: signer };
   screen.setAttribute('href', frames[0]);
   svg.removeAttribute('aria-labelledby');
   svg.setAttribute('role', 'img');
@@ -102,8 +114,9 @@ async function preparePreview() {
     const from = origin.getBoundingClientRect();
     const to = target.getBoundingClientRect();
     const interpolate = (a, b) => a + (b - a) * transfer;
-    story.style.setProperty('--scene-intro-opacity', String(reducedMotion.matches ? 1 : smooth((transfer - .92) / .08)));
-    origin.closest('figure').querySelector('figcaption').style.opacity = String(1 - transfer);
+    story.classList.toggle('is-intro-visible', reducedMotion.matches || transfer >= .96);
+    story.classList.toggle('is-docked', reducedMotion.matches || transfer === 1);
+    origin.closest('figure').querySelector('figcaption').style.visibility = transfer < 1 ? 'visible' : 'hidden';
     if (reducedMotion.matches || transfer === 0) {
       stage.classList.remove('is-travelling');
       stage.removeAttribute('style');
@@ -115,9 +128,9 @@ async function preparePreview() {
       })) stage.style[property] = `${value.toFixed(3)}px`;
     }
     const frame = Math.round(clamp((transfer * .12 + progress * .88) / .50) * (frames.length - 1));
-    // A full viewport of scrolling separates the game, splash and Home screen.
-    const splashMix = reducedMotion.matches ? 0 : smooth((progress - .50) / .16);
-    const homeMix = reducedMotion.matches ? 0 : smooth((progress - .78) / .16);
+    // Hard cuts: game, a black pause, the splash screen, then SeedSigner Home.
+    const screenName = progress < .50 ? 'game' : progress < .58 ? 'black'
+      : progress < .86 ? 'splash' : 'home';
     const matrix = svg.getScreenCTM();
     const corners = deviceCorners.map(point => point.matrixTransform(matrix));
     const baseHeight = Math.max(...corners.map(p => p.y)) - Math.min(...corners.map(p => p.y));
@@ -126,10 +139,10 @@ async function preparePreview() {
       stage.clientWidth * .92 / baseWidth));
     const scale = reducedMotion.matches ? 1 : 1 + (maximum - 1) * smooth(progress / .40);
     zoom.setAttribute('transform', `translate(300 184) scale(${scale.toFixed(4)}) translate(-300 -184)`);
-    // Opaque layers below each fade keep the screen from dimming between views.
-    game.setAttribute('opacity', '1');
-    splashLayer.setAttribute('opacity', String(splashMix));
-    signer.setAttribute('opacity', String(homeMix));
+    for (const [name, layer] of Object.entries(screenLayers)) {
+      layer.style.display = name === screenName ? '' : 'none';
+    }
+    if (glass) glass.style.visibility = screenName === 'black' ? 'hidden' : 'visible';
     if (frame !== lastFrame) { screen.setAttribute('href', frames[frame]); lastFrame = frame; }
     const step = progress < .50 ? 0 : progress < .86 ? 1 : 2;
     if (step !== lastStep) {
@@ -141,12 +154,13 @@ async function preparePreview() {
       }
       lastStep = step;
     }
-    const screenName = homeMix >= .5 ? 'home' : splashMix >= .5 ? 'splash' : 'game';
     label.textContent = screenName === 'home' ? 'SeedSigner · Home preview'
-      : screenName === 'splash' ? 'SeedSigner · splash screen' : 'Super Mario Bros. · gameplay preview';
+      : screenName === 'splash' ? 'SeedSigner · splash screen'
+      : screenName === 'black' ? 'Switching to SeedSigner · black screen' : 'Super Mario Bros. · gameplay preview';
     svg.setAttribute('aria-label', screenName === 'home'
       ? 'SeedSigner Play illustration showing the official SeedSigner Home screen.'
       : screenName === 'splash' ? 'SeedSigner Play illustration showing the official SeedSigner splash screen.'
+      : screenName === 'black' ? 'SeedSigner Play illustration with a black screen while switching to SeedSigner.'
       : 'SeedSigner Play illustration showing Mario walking, jumping and hitting a question block.');
   }
   function schedule() {
