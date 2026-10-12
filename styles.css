@@ -129,11 +129,14 @@
   .has-scroll-preview .scene-step p,.has-scroll-preview .scene-step-detail{position:static;width:auto;margin-top:10px}
 }
 
-/* Company mark: original white .WS outlines, sized for the existing navigation. */
-.brand{flex-direction:column;align-items:flex-start;flex-shrink:0;gap:6px}
-.brand-logo{display:block;width:84px;height:auto;max-width:100%;flex:none}
-.brand .brand-subtitle{margin:0;font-size:12px;font-weight:400;letter-spacing:0;line-height:1.25;text-transform:none}
-.footer-brand{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
-.footer-brand .brand-logo{width:60px}
-.footer-brand span{margin:0;font-size:12px;line-height:1.25}
-@media(max-width:700px){.brand .brand-logo{width:72px}}
+/* Two-emoji company mark beside the SeedSigner wordmark. */
+.brand{flex-direction:row;align-items:center;flex-shrink:0;gap:12px}
+.brand-logo{display:block;width:48px;height:auto;max-width:100%;flex:none}
+.brand-wordmark{display:block}
+.brand .brand-subtitle{display:block;margin-top:5px;font-size:12px;font-weight:400;letter-spacing:1.1px;line-height:1.06;color:#b0b0b0;text-transform:uppercase}
+.footer-brand{display:flex;align-items:center;gap:10px;min-height:44px}
+.footer-brand .brand-logo{width:40px}
+.footer-brand>.brand-wordmark{margin:0;font-size:16px;font-weight:500;line-height:1.1;color:inherit}
+.footer-brand .brand-subtitle{display:block;margin:5px 0 0;font-size:12px;font-weight:400;letter-spacing:.8px;line-height:1.1;color:#b0b0b0;text-transform:uppercase}
+@media(max-width:700px){.brand{gap:10px}.brand .brand-logo{width:40px}.brand .brand-subtitle{letter-spacing:.9px}.footer-brand>.brand-wordmark{font-size:14px}.footer-brand .brand-logo{width:36px}}
+@media(max-width:380px){.site-header{gap:12px}.brand{font-size:20px;gap:8px}.brand .brand-logo{width:36px}}
