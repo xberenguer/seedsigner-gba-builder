@@ -45,7 +45,7 @@
 .scroll-scene-footer p{font-size:10px;line-height:1.7;color:#606060}
 .scroll-scene-footer a{display:inline-flex;align-items:center;gap:13px;min-height:40px;font-size:12px;color:#b8b8b8;white-space:nowrap}
 .scroll-scene-footer a:hover{color:#fff;text-decoration:underline;text-underline-offset:4px}
-.scroll-story.has-scroll-preview{height:340svh}
+.scroll-story.has-scroll-preview{height:420svh}
 .has-scroll-preview .scene-device-caption{visibility:hidden}
 .has-scroll-preview.is-docked .scene-device-caption{visibility:visible}
 .has-scroll-preview .scroll-pin{position:sticky;top:0;height:100svh;overflow:hidden}
@@ -98,7 +98,7 @@
   .scroll-scene-footer{gap:15px;align-items:end}
   .scroll-scene-footer p{font-size:9px;max-width:235px;line-height:1.6}
   .scroll-scene-footer a{font-size:10px;gap:8px;min-height:30px}
-  .scroll-story.has-scroll-preview{height:300svh}
+  .scroll-story.has-scroll-preview{height:380svh}
   .has-scroll-preview .scroll-scene-body{display:flex;flex-direction:column;align-items:stretch;gap:12px}
   .has-scroll-preview .scene-device-view{flex:1}
   .has-scroll-preview .scene-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-self:stretch;position:relative;min-height:124px;padding-top:0}
