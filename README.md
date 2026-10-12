@@ -1,4 +1,4 @@
-# SeedSigner GBA Image Builder v0.2.3
+# SeedSigner GBA Image Builder v0.2.4
 
 [Open the browser tool](https://xberenguer.github.io/seedsigner-gba-builder/)
 
@@ -8,15 +8,18 @@ browser. The site does not upload, host or distribute commercial game ROMs.
 
 ## Use
 
-1. Open the tool in a current desktop browser and choose your hardware profile.
+1. Open the tool in a current desktop browser and choose **Regular** or
+   **Larger (Plus / Play)** to match your display.
 2. Select your `.gba` or single-game `.zip`. V-Rally 3 is detected automatically.
+   Optionally open **Advanced** to change controls or the SeedSigner shortcut.
 3. Click **Build image**, then **Download IMG**. Keep the SHA-256 file.
 4. In Raspberry Pi Imager, choose **Use custom**, select the IMG and your intended
    microSD card. Writing erases that card; let verification finish.
-5. Power on the Pi. Hold the outer two of the three action buttons
+5. Power on the Pi. By default, hold the outer two of the three action buttons
    (**KEY1 + KEY3**, usually top + bottom) for two seconds, then release all
-   buttons to open SeedSigner. Reboot to return
-   to the game.
+   buttons for 80 ms to open SeedSigner. If you customized the shortcut in
+   Advanced, use the buttons and timing shown with your download. Reboot to
+   return to the game.
 
 ## Hardware scope
 
@@ -54,8 +57,25 @@ games retain the original gpSP core. Physical Pi Zero speed remains to be verifi
 
 V-Rally: D-pad left/right steer; up/down forward/reverse in automatic transmission;
 top/middle accelerate/brake; bottom pauses; center changes camera; top+middle
-handbrake. Standard GBA exposes D-pad, A, B, Start and Select, without L/R
-shoulder buttons. There is no audio or persistent game-save storage.
+handbrake. Standard GBA exposes D-pad, A, B, Start and Select. Its default map
+does not assign L/R; **Advanced** can map those GBA inputs to existing HAT
+buttons. There is no audio or persistent game-save storage.
+
+Basic use needs only a display and game. Advanced provides automatic, standard,
+V-Rally 3 and custom control choices, with a separate mapping for each of the
+eight physical HAT buttons. Select a GBA action, **None**, or the combined
+Up + R / Down + L actions used by the racing preset. Assigning an input does
+not add a physical button; eight HAT buttons cannot provide ten distinct GBA
+buttons at once.
+
+The SeedSigner shortcut uses two or three selected **physical** HAT buttons,
+independently of their game mappings. The hold time is configurable from
+0.5 to 10 seconds, and every button must remain released for 50–1,000 ms.
+The defaults are KEY1 + KEY3, 2 seconds, then 80 ms released. Once the complete
+shortcut is held or latched, its buttons' game actions are suppressed. A short
+or interrupted hold does not open SeedSigner. Reset restores the automatic
+preset and default shortcut. Advanced does not expose audio, saves, BIOS,
+frameskip or other emulator options that this runtime does not implement.
 
 ## Image assembly and validation
 
@@ -65,6 +85,12 @@ then inserts the selected game and restricted game/hardware configuration.
 The result is a 128 MiB IMG plus its SHA-256. The tool does not flash SD cards.
 There are no accounts, analytics, external scripts or ROM-upload endpoints.
 
+Custom mappings or shortcut settings also download a checksummed, ROM-free
+[Advanced runtime payload](advanced-runtime.json). It replaces five existing
+initramfs files: the launcher, ARMv6 frontend, matching frontend/launcher source
+archive, and their two source manifests. The base template and its published
+checksums remain unchanged. Basic builds retain the existing runtime.
+
 The stock kernel, firmware and SeedSigner application come from pinned
 SeedSigner 0.8.7 (IMG SHA-256
 `67f005c7ace26500a78be3f4d97eaf02d76d018550ec54df011741dde1933ce9`).
@@ -73,18 +99,30 @@ configuration adds the external initramfs directive. The launcher and display
 bridge read a restricted hardware profile, and SeedSigner display settings
 are set for the chosen screen.
 
-33 launcher/display/bridge/template tests, 13 native frontend tests, 12
-browser-engine groups and twelve real ROM/display-profile assembly/readback
-combinations passed. Template assembly repeated with an
-identical SHA-256. See [validation.json](validation.json) and
+The v0.2.3 baseline recorded passing results for 33 launcher/display/bridge/template
+tests, 13 native frontend tests, 12 browser-engine groups and twelve real
+ROM/display-profile assembly/readback combinations. Template assembly repeated
+with an identical SHA-256. See [validation.json](validation.json) and
 [matrix-validation.json](matrix-validation.json); prior results are kept
 as historical evidence.
 The compatibility core and frontend rebuilt byte-identically from their
 corresponding sources. Sustained 20/30/40 ms mock-core delays keep changing
 display frames and responsive input, including deliberate signer entry; these
 are software regression tests, not physical Pi frame-rate measurements.
-The failure screen shows only game availability and retry instructions;
-it does not disclose the signer-entry gesture.
+
+The v0.2.4 Advanced update passed 33 launcher compatibility tests, 6 new
+configuration/recovery tests, the native self-test and 17 native frontend
+tests. The ARMv6 frontend rebuilt byte-identically and passed self-test and a
+custom hold/release check under QEMU ARM1176 with the stock SeedSigner libc.
+The browser engine and worker passed 18 test groups, plus an actual-template
+integration group with synthetic-ROM assembly/readback for all six display/preset
+combinations and the FSME core selection. All 34 files in the new corresponding-source
+archive matched its manifest. These checks use host tests and software emulation, not a physical
+device or new game-playability test. See [advanced-validation.json](advanced-validation.json).
+
+The failure screen shows game availability and retry instructions. Its retry
+button is chosen outside a customized signer shortcut, so a partial shortcut
+cannot trigger a retry. Game or GPIO failures do not implicitly enter SeedSigner.
 
 Physical cold-boot, display/buttons, gameplay speed, camera and signing checks
 remain pending for these exact outputs. This is an experimental community fork
@@ -99,12 +137,63 @@ GPL-2.0-or-later. A complete IMG and the website's visual assets have separate
 third-party licenses; the root license does not cover everything. See
 [NOTICE](NOTICE) and [OS/font notices](OS-and-font-notices.txt).
 
-[Runtime corresponding source](source.tar.gz) includes the launcher, display
+[Baseline runtime corresponding source](source.tar.gz) includes the launcher, display
 adapter, native frontend, pinned gpSP/open-BIOS source, template builder and
 tests. Its SHA-256 is in template.json. Extract `runtime-source.tar.gz` inside
-that bundle for the image-build source tree. Restore the pinned native binaries
-and base image as documented in the source manifests; no fresh binary/source
-equivalence claim is made by this website. No private game ROM is included.
+that bundle for the baseline image-build source tree. It remains the source
+for the unchanged base template, not the updated Advanced frontend.
+
+The [Advanced runtime JSON](advanced-runtime.json) includes the complete updated
+launcher/frontend sources, tests and build recipes as the base64 file entry
+`opt/dino/native/source/gba-web-native-source.tar.gz`. The same archive is
+embedded at that path in a customized IMG. Its source manifests record the
+new binary and source hashes; the gpSP cores, embedded open BIOS and their
+baseline corresponding sources are unchanged. No private game ROM is included.
+
+For v0.2.4 the Advanced payload SHA-256 is
+`3ef6847b9d38d31bcfaae96ce238e58ea57acf11aaf7e3c29ebfbc3319a50add`.
+Download `advanced-runtime.json` and verify/extract the source archive without
+executing its contents:
+
+```sh
+python3 - <<'PY'
+import base64, hashlib, json
+from pathlib import Path
+
+data = Path("advanced-runtime.json").read_bytes()
+assert hashlib.sha256(data).hexdigest() == "3ef6847b9d38d31bcfaae96ce238e58ea57acf11aaf7e3c29ebfbc3319a50add"
+payload = json.loads(data)
+entry = next(item for item in payload["files"]
+             if item["path"] == "opt/dino/native/source/gba-web-native-source.tar.gz")
+source = base64.b64decode(entry["base64"], validate=True)
+assert len(source) == entry["bytes"]
+assert hashlib.sha256(source).hexdigest() == entry["sha256"] == "c18e1ef6b77e8547b4d39c75f8abb3a0b4e707738dc8048277775460572ac639"
+Path("advanced-controls-source.tar.gz").write_bytes(source)
+print("Verified Advanced corresponding source")
+PY
+mkdir advanced-controls-source
+tar -xzf advanced-controls-source.tar.gz -C advanced-controls-source
+```
+
+Inside that source tree, `ADVANCED-CONTROLS.txt` documents the strict optional
+`advanced` configuration and native arguments. Build on Linux with Debian
+GCC 12.2 ARM cross-tools and the original Raspbian GCC 8 ARMv6 sysroot:
+
+```sh
+cd advanced-controls-source
+sh scripts/build_native_armv6_cross.sh "$PWD" /path/to/original-armv6-sysroot ./rebuilt
+sha256sum rebuilt/dino-native
+```
+
+The expected frontend SHA-256 is
+`7444a3f1313915fd0288b4f843ea05a0e62b53e1252e4f5263ef9acd49bc8061`.
+The original toolchain filesystem image used for these checks has SHA-256
+`dab23d6040bad1d421368fc6dafd914888e42111e0997e750f96d6e8ea6fa353`;
+it was mounted read-only. The script uses its headers, startup objects and
+libraries rather than ARMv7 defaults, and records ELF architecture and GLIBC
+requirements. `scripts/build_advanced_runtime_payload.py` reproduces the JSON
+payload from the pinned base template and rebuilt frontend. Build and source
+equivalence are software results; physical validation is separate.
 
 [Stock OS corresponding source](https://github.com/xberenguer/seedsigner-dino/releases/download/v0.1.1-beta/seedsigner-v0.8.7-os-corresponding-source.tar.gz)
 SHA-256: `20751b5076b6b309928bd650f9846d2481f16a5f5d85943071b285abc246f6c6`.
@@ -123,9 +212,10 @@ Manufacturer photographs are references and are not embedded. Inter is self-host
 Run browser-engine tests and the read-only public-payload audit with Node 22+:
 
 ```sh
-node test-browser-engine.mjs
-node test-browser-engine.mjs --manifest template.json --rom /path/to/game.zip --output personal.img
-node audit-public.mjs --rom /path/to/game.zip
+node test-browser-engine-v0.2.4.mjs
+node test-browser-engine-v0.2.4.mjs --advanced-template /path/to/template.img --advanced-report advanced-validation-local.json
+node test-browser-engine-v0.2.4.mjs --manifest template.json --rom /path/to/game.zip --output personal.img
+node audit-public-v0.2.4.mjs --rom /path/to/game.zip
 ```
 
 Serve this directory over HTTP locally or HTTPS on GitHub Pages. Opening
