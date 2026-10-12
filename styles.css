@@ -46,12 +46,13 @@
 .scroll-scene-footer a{display:inline-flex;align-items:center;gap:13px;min-height:40px;font-size:12px;color:#b8b8b8;white-space:nowrap}
 .scroll-scene-footer a:hover{color:#fff;text-decoration:underline;text-underline-offset:4px}
 .scroll-story.has-scroll-preview{height:340svh}
-.has-scroll-preview .scroll-scene-header,.has-scroll-preview .scene-steps,.has-scroll-preview .scene-device-caption,.has-scroll-preview .scroll-scene-footer{opacity:var(--scene-intro-opacity,1)}
+.has-scroll-preview .scene-device-caption{visibility:hidden}
+.has-scroll-preview.is-docked .scene-device-caption{visibility:visible}
 .has-scroll-preview .scroll-pin{position:sticky;top:0;height:100svh;overflow:hidden}
 .has-scroll-preview .scroll-scene-body{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,285px);gap:40px;align-items:stretch;flex:1}
 .has-scroll-preview .scene-device-view{display:flex}
 .has-scroll-preview .scene-device-target{height:100%;flex:1}
-.has-scroll-preview .scene-steps{display:block;align-self:center}
+.has-scroll-preview .scene-steps{display:block;align-self:start;padding-top:24px}
 .has-scroll-preview .scene-step:not(.is-active):not([aria-current="step"]) p,.has-scroll-preview .scene-step:not(.is-active):not([aria-current="step"]) .scene-step-detail{display:none}
 
 @media(min-width:1500px){
@@ -71,6 +72,7 @@
   .scroll-cue{font-size:10px;gap:12px}
 }
 @media(max-width:700px){
+  .has-scroll-preview:not(.is-intro-visible) .scroll-scene-header,.has-scroll-preview:not(.is-intro-visible) .scene-steps,.has-scroll-preview:not(.is-intro-visible) .scroll-scene-footer{visibility:hidden}
   .hero-story .hero-feature{margin-top:10px;max-width:none}
   .hero-device-origin{height:260px}
   .hero-story .hero-feature figcaption{min-height:38px}
