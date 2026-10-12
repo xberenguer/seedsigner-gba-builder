@@ -1,7 +1,7 @@
 {
-  "schema": 4,
+  "schema": 5,
   "date": "2026-10-11",
-  "builder_version": "0.2.2",
+  "builder_version": "0.2.3",
   "base_seedsigner_version": "0.8.7",
   "target_board": "Pi Zero v1.3 / ARMv6",
   "hardware_profiles": {
@@ -22,80 +22,232 @@
       "physical_tested": false
     }
   },
-  "python_tests_passed": 70,
+  "python_tests_passed": 33,
+  "native_frontend_tests_passed": 13,
   "browser_engine_checks_passed": 12,
   "real_rom_hardware_matrix_runs_passed": 12,
   "matrix_validation": "matrix-validation.json",
-  "template_raw_sha256": "ef9991e508b15e94d8b58442b657aa2820ddc5c3572dad4c6eed725e118ed84d",
-  "template_source_sha256": "a3006026e1fef2e9fadd2539711f06da9df5a10aa6325b01635dddb4e49fee17",
-  "template_compressed_sha256": "75a66ec3ba6a65c2159d9cf84101112ec540c8ba965cdc87dd703dd4f6b784e9",
+  "template_raw_sha256": "d4223e0cf3763ec4e4467663cd66e4427a640bd4e03503222b5701dcb773bad4",
+  "template_source_sha256": "adfe41b8da4ef0e08a84173486b174d25000ffaee7861ee0be304505d5efaca0",
+  "template_compressed_sha256": "0c990620267e0248a05bd537d214875590d2c146564a523cf2ecb79501f7703c",
   "template_rebuilt_byte_identically": true,
   "stock_files_preserved": 334,
-  "public_payload_audit": {
-    "status": "PASS",
-    "variant": "gba-web-v0.2.2",
-    "chunks": 2,
-    "imageBytes": 134217728,
-    "imageSha256": "ef9991e508b15e94d8b58442b657aa2820ddc5c3572dad4c6eed725e118ed84d",
-    "sourceFilesScanned": 259,
-    "overlayEntries": 29,
-    "hardwareAssetsVerified": 4,
-    "rendersVerified": 4,
-    "embeddedScreensVerified": 4,
-    "classicCompatibilityCoreVerified": true,
-    "gameFramesVerified": 5,
-    "privateRomCompared": true,
-    "physicalHardwareTested": false
-  },
   "changes": [
-    "Exact unchanged FSME Mario ROM automatically uses a separate patched gpSP compatibility core",
-    "VRAM instruction prefetch and EEPROM initialization correct Classic NES startup",
-    "Original native frontend and default emulator remain byte-identical; other games retain existing core",
-    "Neutral game-failure screen does not disclose the signer-entry shortcut"
+    "FSME Mario uses a hybrid core: ordinary RAM/ROM dynamically recompiled; mutable VRAM keeps prefetch-aware interpretation",
+    "Default gpSP core and user ROM bytes remain unchanged",
+    "Overloaded cores get a fresh presentation opportunity after 100ms without a successful display update",
+    "Added nonempty changed-frame count and presentation-gap diagnostics; game clock and hold/release entry remain unchanged"
   ],
   "classic_compatibility": {
     "game_code": "FSME",
-    "core_sha256": "48912065ed6a1cbad5987f866eb1e0b996ef2b6fc44dff8c35cc89763a92f787",
-    "frontend_unchanged_sha256": "ced5d35f1aa4851b9d9605e44e533c4fb96c46ed208dc226dc759af0153e951a",
-    "default_core_unchanged_sha256": "0f7e0aa79793de3327542c3545f6651e56b676ca87f7771c3662f25c5e026c86",
+    "core_sha256": "d12bf76ca7ffb714efb68a407a426e13c218c7ff3fa3e6fb48ad04464f39826c",
+    "source_sha256": "26d074449b829e498699a41a412f8aa139dc40bf86eff11dbae49ac4ccd2eb71",
     "core_rebuilt_byte_identically": true,
+    "frontend_sha256": "27cf3646e3ae721efef873c6e495d6d3599f06b66b7c9f1361e26dc02071ebd9",
+    "frontend_rebuilt_byte_identically": true,
+    "default_core_unchanged_sha256": "0f7e0aa79793de3327542c3545f6651e56b676ca87f7771c3662f25c5e026c86",
     "external_Nintendo_BIOS_used": false,
-    "gameplay_scope": "ARM1176 software emulation with stock runtime libraries; actual title, World 1-1, walking, jumps, coins and score verified",
-    "software_frames": 1200,
+    "software_gameplay_frames": 680,
     "physical_hardware_tested": false
+  },
+  "relative_software_throughput": {
+    "schema": 1,
+    "claim": "Relative software throughput only; not physicalPiFPS.",
+    "rom_sha256": "23e247be81422f29dfc0e48c152d670292c304a8f9f35fe05e4dcb1b02a1a6c3",
+    "unchanged_rom": true,
+    "input_script_sha256": "47bc948ed0d35a2ade92a5229a586a026dc5079a6cbaabe33f79ed8ae45c93cb",
+    "frontend_sha256": "27cf3646e3ae721efef873c6e495d6d3599f06b66b7c9f1361e26dc02071ebd9",
+    "old_core_sha256": "48912065ed6a1cbad5987f866eb1e0b996ef2b6fc44dff8c35cc89763a92f787",
+    "new_core_sha256": "d12bf76ca7ffb714efb68a407a426e13c218c7ff3fa3e6fb48ad04464f39826c",
+    "old": {
+      "frames": 2400,
+      "video_frames": 2400,
+      "audio_frames": 2633144,
+      "elapsed_seconds": 16.252632,
+      "emulated_fps": 147.668,
+      "target_fps": 59.72750092,
+      "frame_hash": "2ac200c437da55c3",
+      "raw_frame_hash": "8ad38ddc876778d1",
+      "dirty_rects": 57796,
+      "spi_bytes_estimate": 62633324,
+      "max_frame_bytes": 153611,
+      "max_steady_frame_bytes": 143371,
+      "p95_steady_frame_bytes": 38854,
+      "steady_frames": 2399,
+      "mean_frame_bytes": 26097.22,
+      "p95_steady_wire_ms": 12.433,
+      "max_steady_wire_ms": 45.879,
+      "frames_over_wire_budget": 8,
+      "option_reads": 767,
+      "exit_code": 0,
+      "presented_frames": 2400,
+      "changed_frames": 2321,
+      "max_present_gap_ms": 0.0,
+      "suppressed_frames": 0,
+      "discarded_clock_frames": 0,
+      "max_lag_ms": 0.0,
+      "input_requests": 0
+    },
+    "new": {
+      "frames": 2400,
+      "video_frames": 2400,
+      "audio_frames": 2633144,
+      "elapsed_seconds": 6.5235,
+      "emulated_fps": 367.901,
+      "target_fps": 59.72750092,
+      "frame_hash": "9dd56f83340ad252",
+      "raw_frame_hash": "1b2a8e48929d4f6a",
+      "dirty_rects": 57590,
+      "spi_bytes_estimate": 62423954,
+      "max_frame_bytes": 153611,
+      "max_steady_frame_bytes": 143371,
+      "p95_steady_frame_bytes": 38598,
+      "steady_frames": 2399,
+      "mean_frame_bytes": 26009.98,
+      "p95_steady_wire_ms": 12.351,
+      "max_steady_wire_ms": 45.879,
+      "frames_over_wire_budget": 8,
+      "option_reads": 1023,
+      "exit_code": 0,
+      "presented_frames": 2400,
+      "changed_frames": 2317,
+      "max_present_gap_ms": 0.0,
+      "suppressed_frames": 0,
+      "discarded_clock_frames": 0,
+      "max_lag_ms": 0.0,
+      "input_requests": 0
+    },
+    "relative_throughput": 2.491397562658082,
+    "core_clean_archive_rebuild_identical": true,
+    "frontend_two_clean_crossbuilds_identical": true,
+    "old_vs_new_frontend_hybrid_capture_pixels_identical": true,
+    "no_game_rom_distributed": true
+  },
+  "overload_regression": {
+    "status": "PASS",
+    "scope": "Host-native software-only busy-core and mock-display IPC tests",
+    "cases": 7,
+    "source_sha256": "d32360c62b443c1d7d75c5a411e17a9181f1f06071b26d8fe9e772d934f67581",
+    "cases_summary": [
+      {
+        "name": "regressed-core20-lcd0",
+        "pass": true,
+        "fresh_presentations": 3,
+        "max_display_gap_ms_including_silent_tail": 5495.187,
+        "max_input_gap_ms": 20.677,
+        "short_chord_did_not_exit": true,
+        "all_keys_release_required": true,
+        "exit_status": 42
+      },
+      {
+        "name": "fixed-core0-lcd0",
+        "pass": true,
+        "fresh_presentations": 153,
+        "max_display_gap_ms_including_silent_tail": 109.473,
+        "max_input_gap_ms": 17.693,
+        "short_chord_did_not_exit": true,
+        "all_keys_release_required": true,
+        "exit_status": 42
+      },
+      {
+        "name": "fixed-core20-lcd0",
+        "pass": true,
+        "fresh_presentations": 51,
+        "max_display_gap_ms_including_silent_tail": 120.943,
+        "max_input_gap_ms": 20.54,
+        "short_chord_did_not_exit": true,
+        "all_keys_release_required": true,
+        "exit_status": 42
+      },
+      {
+        "name": "fixed-core30-lcd0",
+        "pass": true,
+        "fresh_presentations": 40,
+        "max_display_gap_ms_including_silent_tail": 150.769,
+        "max_input_gap_ms": 30.45,
+        "short_chord_did_not_exit": true,
+        "all_keys_release_required": true,
+        "exit_status": 42
+      },
+      {
+        "name": "fixed-core40-lcd0",
+        "pass": true,
+        "fresh_presentations": 37,
+        "max_display_gap_ms_including_silent_tail": 160.618,
+        "max_input_gap_ms": 40.465,
+        "short_chord_did_not_exit": true,
+        "all_keys_release_required": true,
+        "exit_status": 42
+      },
+      {
+        "name": "fixed-core40-lcd60",
+        "pass": true,
+        "fresh_presentations": 27,
+        "max_display_gap_ms_including_silent_tail": 230.673,
+        "max_input_gap_ms": 110.526,
+        "short_chord_did_not_exit": true,
+        "all_keys_release_required": true,
+        "exit_status": 42
+      },
+      {
+        "name": "fixed-core0-lcd60",
+        "pass": true,
+        "fresh_presentations": 90,
+        "max_display_gap_ms_including_silent_tail": 73.629,
+        "max_input_gap_ms": 70.495,
+        "short_chord_did_not_exit": true,
+        "all_keys_release_required": true,
+        "exit_status": 42
+      }
+    ],
+    "physical_Pi_FPS_claim": false
   },
   "production_bridge": {
     "status": "PASS",
-    "scope": "Real ARM core and production frontend/IPC with a mock RGB565 display and scripted buttons",
-    "full_hold_and_release_exit_code": 42,
-    "premature_hold_does_not_unlock": true,
-    "forced_core_crash_stays_in_neutral_recovery": true,
-    "hardware_tested": false
+    "scope": "Actual ARM1176 QEMU frontend/core with production Python IPC bridge and mocked RGB565 display/input. No physical GPIO, SPI, display, button, boot, camera, signing or Pi FPS test.",
+    "exit_code": 42,
+    "elapsed_seconds_from_first_input": 11.01297712500002,
+    "input_requests": 657,
+    "rectangles_presented": 2257,
+    "short_hold_did_not_exit": true,
+    "full_hold_waited_for_all_release": true,
+    "crash_recovery": {
+      "exit_code": -11,
+      "visible_rectangles_before_crash": 272,
+      "gate_returned_toward_signer": false,
+      "events": [
+        "hardware_open",
+        [
+          "Starting SUPER MARIO..."
+        ],
+        {
+          "native_exit": -11
+        },
+        [
+          "Game unavailable",
+          "Middle button: retry"
+        ],
+        "recovery_reached_without_signer_entry",
+        "hardware_closed"
+      ],
+      "child_reaped": true
+    }
   },
-  "browser_integration": {
-    "status": "PASS",
-    "browser": "Brave desktop, local preview",
+  "user_reported_hardware_result": {
+    "date": "2026-10-11",
+    "device": "SeedSigner Play",
     "game": "Classic NES Series: Super Mario Bros. (FSME)",
-    "hardware_profile": "plus (Play/larger display)",
-    "downloaded_image_bytes": 134217728,
-    "downloaded_image_sha256": "704c74553124fd93988c9b27424b6d876730c5f58fdbef0f9cfc2ca69de7fc88",
-    "matches_independent_image_build": true
+    "builder_version": "0.2.2",
+    "result": "User reports online-generated image now boots and plays but is quite laggy",
+    "scope": "User report; new v0.2.3 performance build requires device retest"
   },
   "ROM_distributed": false,
   "physical_hardware_tested": false,
   "SD_card_written": false,
-  "user_reported_hardware_result": {
+  "previous_v0_2_2_evidence": {
+    "schema": 4,
     "date": "2026-10-11",
-    "device": "SeedSigner Play",
-    "game": "V-Rally 3",
-    "builder_version": "0.2.0",
-    "result": "User reports ZIP-generated image loads successfully",
-    "scope": "User report; agent did not observe boot, gameplay speed, camera or signing"
-  },
-  "previous_v0_2_1_evidence": {
-    "schema": 3,
-    "date": "2026-10-11",
-    "builder_version": "0.2.1",
+    "builder_version": "0.2.2",
     "base_seedsigner_version": "0.8.7",
     "target_board": "Pi Zero v1.3 / ARMv6",
     "hardware_profiles": {
@@ -116,28 +268,64 @@
         "physical_tested": false
       }
     },
-    "python_tests_passed": 64,
-    "python_test_scope": "59 launcher/bridge/display/template/recovery tests plus 5 image tests",
+    "python_tests_passed": 70,
     "browser_engine_checks_passed": 12,
-    "real_rom_hardware_matrix_runs_passed": 9,
+    "real_rom_hardware_matrix_runs_passed": 12,
     "matrix_validation": "matrix-validation.json",
-    "template_raw_sha256": "d9f75451662ce73d27dadaf1eb6cfc9f90574c996c89d7156f961a52b75589e3",
-    "template_source_sha256": "d3a9124e6a6e05ef6f1964b323b406440e292eb38dce421a9d524dd77f56d4a5",
-    "template_compressed_sha256": "609798561b7b466adfe9175cf1879beaea2443c450dd2da33d59db00520dc4b5",
+    "template_raw_sha256": "ef9991e508b15e94d8b58442b657aa2820ddc5c3572dad4c6eed725e118ed84d",
+    "template_source_sha256": "a3006026e1fef2e9fadd2539711f06da9df5a10aa6325b01635dddb4e49fee17",
+    "template_compressed_sha256": "75a66ec3ba6a65c2159d9cf84101112ec540c8ba965cdc87dd703dd4f6b784e9",
     "template_rebuilt_byte_identically": true,
     "stock_files_preserved": 334,
+    "public_payload_audit": {
+      "status": "PASS",
+      "variant": "gba-web-v0.2.2",
+      "chunks": 2,
+      "imageBytes": 134217728,
+      "imageSha256": "ef9991e508b15e94d8b58442b657aa2820ddc5c3572dad4c6eed725e118ed84d",
+      "sourceFilesScanned": 259,
+      "overlayEntries": 29,
+      "hardwareAssetsVerified": 4,
+      "rendersVerified": 4,
+      "embeddedScreensVerified": 4,
+      "classicCompatibilityCoreVerified": true,
+      "gameFramesVerified": 5,
+      "privateRomCompared": true,
+      "physicalHardwareTested": false
+    },
     "changes": [
-      "Known unsupported Classic NES Series Super Mario Bros. (FSME) rejected before image generation",
-      "Game failure screen says Game unavailable / Middle button: retry and does not disclose signer-entry controls"
+      "Exact unchanged FSME Mario ROM automatically uses a separate patched gpSP compatibility core",
+      "VRAM instruction prefetch and EEPROM initialization correct Classic NES startup",
+      "Original native frontend and default emulator remain byte-identical; other games retain existing core",
+      "Neutral game-failure screen does not disclose the signer-entry shortcut"
     ],
-    "known_incompatible_game": {
-      "title": "Classic NES Series: Super Mario Bros.",
+    "classic_compatibility": {
       "game_code": "FSME",
-      "result": "Packaged ARM emulator crashes; tested interpreter and mirrored-ROM variants remain black. No working emulator fix validated."
+      "core_sha256": "48912065ed6a1cbad5987f866eb1e0b996ef2b6fc44dff8c35cc89763a92f787",
+      "frontend_unchanged_sha256": "ced5d35f1aa4851b9d9605e44e533c4fb96c46ed208dc226dc759af0153e951a",
+      "default_core_unchanged_sha256": "0f7e0aa79793de3327542c3545f6651e56b676ca87f7771c3662f25c5e026c86",
+      "core_rebuilt_byte_identically": true,
+      "external_Nintendo_BIOS_used": false,
+      "gameplay_scope": "ARM1176 software emulation with stock runtime libraries; actual title, World 1-1, walking, jumps, coins and score verified",
+      "software_frames": 1200,
+      "physical_hardware_tested": false
+    },
+    "production_bridge": {
+      "status": "PASS",
+      "scope": "Real ARM core and production frontend/IPC with a mock RGB565 display and scripted buttons",
+      "full_hold_and_release_exit_code": 42,
+      "premature_hold_does_not_unlock": true,
+      "forced_core_crash_stays_in_neutral_recovery": true,
+      "hardware_tested": false
     },
     "browser_integration": {
-      "status": "engine-level integration passed; no new browser download claimed",
-      "previous_version_evidence": "previous_v0_2_0_evidence"
+      "status": "PASS",
+      "browser": "Brave desktop, local preview",
+      "game": "Classic NES Series: Super Mario Bros. (FSME)",
+      "hardware_profile": "plus (Play/larger display)",
+      "downloaded_image_bytes": 134217728,
+      "downloaded_image_sha256": "704c74553124fd93988c9b27424b6d876730c5f58fdbef0f9cfc2ca69de7fc88",
+      "matches_independent_image_build": true
     },
     "ROM_distributed": false,
     "physical_hardware_tested": false,
@@ -150,10 +338,10 @@
       "result": "User reports ZIP-generated image loads successfully",
       "scope": "User report; agent did not observe boot, gameplay speed, camera or signing"
     },
-    "previous_v0_2_0_evidence": {
-      "schema": 2,
+    "previous_v0_2_1_evidence": {
+      "schema": 3,
       "date": "2026-10-11",
-      "builder_version": "0.2.0",
+      "builder_version": "0.2.1",
       "base_seedsigner_version": "0.8.7",
       "target_board": "Pi Zero v1.3 / ARMv6",
       "hardware_profiles": {
@@ -174,55 +362,114 @@
           "physical_tested": false
         }
       },
-      "python_tests_passed": 79,
-      "browser_engine_checks_passed": 11,
-      "browser_integration": {
-        "status": "PASS",
-        "browser": "Brave desktop, local preview",
-        "game": "Celeste Classic 2 GBA",
-        "hardware_profile": "regular",
-        "downloaded_image_bytes": 134217728,
-        "downloaded_image_sha256": "832d110477ebd493f216898b9f71943eec42f29c267f1944578666859d531d40",
-        "matches_node_matrix_image": true
-      },
-      "template_raw_sha256": "379243c2a748355893f920b7d2c2a9d7363f263bfa1e2027bd2a18cf5247a89e",
-      "template_source_sha256": "282e251f82aec7b53a16186e82e99770e653d564d4a603b80c8a3f8c985d6b19",
+      "python_tests_passed": 64,
+      "python_test_scope": "59 launcher/bridge/display/template/recovery tests plus 5 image tests",
+      "browser_engine_checks_passed": 12,
+      "real_rom_hardware_matrix_runs_passed": 9,
+      "matrix_validation": "matrix-validation.json",
+      "template_raw_sha256": "d9f75451662ce73d27dadaf1eb6cfc9f90574c996c89d7156f961a52b75589e3",
+      "template_source_sha256": "d3a9124e6a6e05ef6f1964b323b406440e292eb38dce421a9d524dd77f56d4a5",
+      "template_compressed_sha256": "609798561b7b466adfe9175cf1879beaea2443c450dd2da33d59db00520dc4b5",
       "template_rebuilt_byte_identically": true,
       "stock_files_preserved": 334,
-      "public_payload_audit": {
-        "status": "PASS",
-        "source_files_recursively_scanned": 148,
-        "overlay_entries": 26,
-        "private_rom_bytes_absent": true,
-        "native_core_open_bios_digests_verified": true,
-        "runtime_source_correspondence_verified": true,
-        "hardware_renders_verified": 4,
-        "embedded_game_screens_verified": 4,
-        "game_frames_verified": 5
+      "changes": [
+        "Known unsupported Classic NES Series Super Mario Bros. (FSME) rejected before image generation",
+        "Game failure screen says Game unavailable / Middle button: retry and does not disclose signer-entry controls"
+      ],
+      "known_incompatible_game": {
+        "title": "Classic NES Series: Super Mario Bros.",
+        "game_code": "FSME",
+        "result": "Packaged ARM emulator crashes; tested interpreter and mirrored-ROM variants remain black. No working emulator fix validated."
+      },
+      "browser_integration": {
+        "status": "engine-level integration passed; no new browser download claimed",
+        "previous_version_evidence": "previous_v0_2_0_evidence"
       },
       "ROM_distributed": false,
       "physical_hardware_tested": false,
       "SD_card_written": false,
-      "previous_v0_1_0_evidence": {
-        "python_tests_passed": 61,
-        "browser_engine_checks_passed": 11,
-        "browser_integration": "V-Rally 3 USA ZIP validated, image assembled with same SHA256 as Node engine",
-        "personal_vrally_image_sha256": "783a7aaa2fe884b6dd52113bffb2ecda53e4a1e0f4342b1855826031abe4b77f",
-        "template_raw_sha256": "9f4b8f0fb59f66d601f8b725fa98b1592bc37cf68d78942da9e5a31c827e7da4",
-        "template_rebuilt_byte_identically": true,
-        "physical_hardware_tested": false
+      "user_reported_hardware_result": {
+        "date": "2026-10-11",
+        "device": "SeedSigner Play",
+        "game": "V-Rally 3",
+        "builder_version": "0.2.0",
+        "result": "User reports ZIP-generated image loads successfully",
+        "scope": "User report; agent did not observe boot, gameplay speed, camera or signing"
       },
-      "real_rom_hardware_matrix_runs_passed": 9,
-      "matrix_validation": "matrix-validation.json",
-      "template_compressed_sha256": "17245849687f6249df484ead2de3cdc4ac6871955f454e2197176c0e245a23af",
-      "website_review": {
-        "explicit_device_choice": true,
-        "versioned_script_and_stylesheet_urls": "0.2.0",
-        "render_geometry": "Play maker proportions and tactile-switch layout; Plus reference-CAD enclosure/screen/button coordinates; regular reference enclosure proportions and joystick; perspective and comparative sizes illustrative",
-        "screens": "Distinct illustrative game screens composed into original SVGs; not hardware compatibility evidence",
-        "local_regular_Celeste_browser_download_sha256": "832d110477ebd493f216898b9f71943eec42f29c267f1944578666859d531d40",
-        "local_regular_Celeste_browser_download_bytes": 134217728,
-        "physical_hardware_tested": false
+      "previous_v0_2_0_evidence": {
+        "schema": 2,
+        "date": "2026-10-11",
+        "builder_version": "0.2.0",
+        "base_seedsigner_version": "0.8.7",
+        "target_board": "Pi Zero v1.3 / ARMv6",
+        "hardware_profiles": {
+          "plus": {
+            "display": "ST7789 320x240",
+            "status": "software-tested",
+            "physical_tested": false
+          },
+          "play": {
+            "display": "compatible ST7789 320x240",
+            "status": "requires-hardware-match",
+            "physical_tested": false,
+            "requires": "Pi Zero ARMv6, Plus-compatible ST7789 panel and standard SeedSigner GPIO wiring"
+          },
+          "regular": {
+            "display": "Waveshare ST7789 240x240",
+            "status": "experimental-software-tested",
+            "physical_tested": false
+          }
+        },
+        "python_tests_passed": 79,
+        "browser_engine_checks_passed": 11,
+        "browser_integration": {
+          "status": "PASS",
+          "browser": "Brave desktop, local preview",
+          "game": "Celeste Classic 2 GBA",
+          "hardware_profile": "regular",
+          "downloaded_image_bytes": 134217728,
+          "downloaded_image_sha256": "832d110477ebd493f216898b9f71943eec42f29c267f1944578666859d531d40",
+          "matches_node_matrix_image": true
+        },
+        "template_raw_sha256": "379243c2a748355893f920b7d2c2a9d7363f263bfa1e2027bd2a18cf5247a89e",
+        "template_source_sha256": "282e251f82aec7b53a16186e82e99770e653d564d4a603b80c8a3f8c985d6b19",
+        "template_rebuilt_byte_identically": true,
+        "stock_files_preserved": 334,
+        "public_payload_audit": {
+          "status": "PASS",
+          "source_files_recursively_scanned": 148,
+          "overlay_entries": 26,
+          "private_rom_bytes_absent": true,
+          "native_core_open_bios_digests_verified": true,
+          "runtime_source_correspondence_verified": true,
+          "hardware_renders_verified": 4,
+          "embedded_game_screens_verified": 4,
+          "game_frames_verified": 5
+        },
+        "ROM_distributed": false,
+        "physical_hardware_tested": false,
+        "SD_card_written": false,
+        "previous_v0_1_0_evidence": {
+          "python_tests_passed": 61,
+          "browser_engine_checks_passed": 11,
+          "browser_integration": "V-Rally 3 USA ZIP validated, image assembled with same SHA256 as Node engine",
+          "personal_vrally_image_sha256": "783a7aaa2fe884b6dd52113bffb2ecda53e4a1e0f4342b1855826031abe4b77f",
+          "template_raw_sha256": "9f4b8f0fb59f66d601f8b725fa98b1592bc37cf68d78942da9e5a31c827e7da4",
+          "template_rebuilt_byte_identically": true,
+          "physical_hardware_tested": false
+        },
+        "real_rom_hardware_matrix_runs_passed": 9,
+        "matrix_validation": "matrix-validation.json",
+        "template_compressed_sha256": "17245849687f6249df484ead2de3cdc4ac6871955f454e2197176c0e245a23af",
+        "website_review": {
+          "explicit_device_choice": true,
+          "versioned_script_and_stylesheet_urls": "0.2.0",
+          "render_geometry": "Play maker proportions and tactile-switch layout; Plus reference-CAD enclosure/screen/button coordinates; regular reference enclosure proportions and joystick; perspective and comparative sizes illustrative",
+          "screens": "Distinct illustrative game screens composed into original SVGs; not hardware compatibility evidence",
+          "local_regular_Celeste_browser_download_sha256": "832d110477ebd493f216898b9f71943eec42f29c267f1944578666859d531d40",
+          "local_regular_Celeste_browser_download_bytes": 134217728,
+          "physical_hardware_tested": false
+        }
       }
     }
   }

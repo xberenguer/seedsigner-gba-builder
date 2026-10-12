@@ -1,23 +1,23 @@
 {
   "schema": 1,
   "configVersion": 2,
-  "file": "seedsigner-v0.8.7-gba-v0.2.2-pi0.img.gz",
-  "sha256": "ef9991e508b15e94d8b58442b657aa2820ddc5c3572dad4c6eed725e118ed84d",
+  "file": "base/seedsigner-v0.8.7-gba-v0.2.3-pi0.img.gz",
+  "sha256": "d4223e0cf3763ec4e4467663cd66e4427a640bd4e03503222b5701dcb773bad4",
   "files": [
     {
-      "file": "seedsigner-v0.8.7-gba-v0.2.2-pi0.img.gz.part001",
+      "file": "seedsigner-v0.8.7-gba-v0.2.3-pi0.img.gz.part001",
       "bytes": 16777216,
-      "sha256": "b85365004109d6f2f50608e1816e3a087ae2d3ea9bd63ad2595cb13f4945a8e8"
+      "sha256": "f33161ded3fca5816a1ff96d1247b36583dc8a163903c92f114e8910395e701c"
     },
     {
-      "file": "seedsigner-v0.8.7-gba-v0.2.2-pi0.img.gz.part002",
-      "bytes": 16059929,
-      "sha256": "c8156ea571d0db9baa8b4caeef740fc1a714afb96fd3836349ba133b6e3805a4"
+      "file": "seedsigner-v0.8.7-gba-v0.2.3-pi0.img.gz.part002",
+      "bytes": 16119734,
+      "sha256": "edb512424628d570d484475c6a9c8988bc35cf5062b135a5e864df65938923eb"
     }
   ],
-  "bytes": 32837145,
+  "bytes": 32896950,
   "imageBytes": 134217728,
-  "compressedSha256": "75a66ec3ba6a65c2159d9cf84101112ec540c8ba965cdc87dd703dd4f6b784e9",
+  "compressedSha256": "0c990620267e0248a05bd537d214875590d2c146564a523cf2ecb79501f7703c",
   "compression": "gzip",
   "maxRomBytes": 33554432,
   "overlay": "dino-overlay.cpio",
@@ -57,7 +57,7 @@
     }
   ],
   "source": "source.tar.gz",
-  "sourceSha256": "a3006026e1fef2e9fadd2539711f06da9df5a10aa6325b01635dddb4e49fee17",
+  "sourceSha256": "adfe41b8da4ef0e08a84173486b174d25000ffaee7861ee0be304505d5efaca0",
   "classicCompatibilityGameCodes": [
     "FSME"
   ]

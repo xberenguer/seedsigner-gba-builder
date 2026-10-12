@@ -1,4 +1,4 @@
-import { readRomFile, sha256 } from './image-engine.js?v=0.2.2';
+import { readRomFile, sha256 } from './image-engine.js?v=0.2.3';
 
 const byId = (id) => document.getElementById(id);
 const ui = Object.fromEntries([
@@ -411,7 +411,7 @@ function runBuild(template, selectedRom, profile, hardwareProfile, build) {
     const onAbort = () => settle(undefined, abortError());
     build.controller.signal.addEventListener('abort', onAbort, { once: true });
     try {
-      ownedWorker = new Worker('./builder-worker.js?v=0.2.2', { type: 'module' });
+      ownedWorker = new Worker('./builder-worker.js?v=0.2.3', { type: 'module' });
       worker = ownedWorker;
       ownedWorker.onerror = () => settle(undefined, new Error('The local builder stopped unexpectedly. Reload this page or try a current desktop browser.'));
       ownedWorker.onmessageerror = () => settle(undefined, new Error('The browser could not read the build result. Choose Try again.'));
@@ -448,7 +448,7 @@ function displayResult(result, selectedRom, hardwareProfile) {
   }
   clearDownloads();
   const code = romCode(result.rom || selectedRom.metadata).replace(/[^A-Za-z0-9_-]/g, '').slice(0, 12) || 'personal';
-  const filename = `seedsigner-v0.8.7-gba-v0.2.2-${hardwareProfile}-pi0-${code}.img`;
+  const filename = `seedsigner-v0.8.7-gba-v0.2.3-${hardwareProfile}-pi0-${code}.img`;
   const imageUrl = URL.createObjectURL(new Blob([result.image], { type: 'application/octet-stream' }));
   const checksumUrl = URL.createObjectURL(new Blob([`${result.sha256}  ${filename}\n`], { type: 'text/plain;charset=utf-8' }));
   downloadUrls.push(imageUrl, checksumUrl);

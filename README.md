@@ -1,4 +1,4 @@
-# SeedSigner GBA Image Builder v0.2.2
+# SeedSigner GBA Image Builder v0.2.3
 
 [Open the browser tool](https://xberenguer.github.io/seedsigner-gba-builder/)
 
@@ -45,9 +45,12 @@ different emulator integrations.
 
 **Classic NES Series: Super Mario Bros. (FSME)** automatically uses a separate
 compatibility core. Its ARM7 instruction-prefetch and EEPROM handling fixes
-the original startup failure. The same unmodified game file reaches the title
-and World 1-1 with movement and jumps in ARMv6 software tests. Other games
-retain the original gpSP core. Physical Pi Zero speed remains to be verified.
+the original startup failure. The compatibility core now dynamically recompiles
+ordinary RAM/ROM code and interprets only the mutable VRAM instructions that
+need the prefetch fix. The unmodified game file reaches the title and World 1-1
+with movement, jumps and coin pickup in ARMv6 software tests. The frontend also
+keeps fresh screen updates when a core cannot maintain the game clock. Other
+games retain the original gpSP core. Physical Pi Zero speed remains to be verified.
 
 V-Rally: D-pad left/right steer; up/down forward/reverse in automatic transmission;
 top/middle accelerate/brake; bottom pauses; center changes camera; top+middle
@@ -70,15 +73,16 @@ configuration adds the external initramfs directive. The launcher and display
 bridge read a restricted hardware profile, and SeedSigner display settings
 are set for the chosen screen.
 
-70 Python tests, 12 browser-engine groups and twelve real ROM/display-profile
-assembly/readback combinations passed. Template assembly repeated with an
+33 launcher/display/bridge/template tests, 13 native frontend tests, 12
+browser-engine groups and twelve real ROM/display-profile assembly/readback
+combinations passed. Template assembly repeated with an
 identical SHA-256. See [validation.json](validation.json) and
 [matrix-validation.json](matrix-validation.json); prior results are kept
 as historical evidence.
-The exact Mario ZIP also built and downloaded in Brave, matching the independent
-image SHA-256. The compatibility core rebuilt byte-identically from its ROM-free
-source archive. The production IPC path passed a real ARM-core test with a mock
-display, including the deliberate signer-entry gesture and crash recovery.
+The compatibility core and frontend rebuilt byte-identically from their
+corresponding sources. Sustained 20/30/40 ms mock-core delays keep changing
+display frames and responsive input, including deliberate signer entry; these
+are software regression tests, not physical Pi frame-rate measurements.
 The failure screen shows only game availability and retry instructions;
 it does not disclose the signer-entry gesture.
 

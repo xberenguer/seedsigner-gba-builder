@@ -1,34 +1,71 @@
 {
-  "schema": 2,
-  "version": "gba-web-v0.2.2",
-  "validated_on": "2026-10-11",
-  "timezone": "America/Los_Angeles",
-  "scope": "The 12-combination matrix tests software image assembly, independent Python readback, preservation and embedded core dispatch. A separate ARM1176 QEMU test exercises Mario through the production IPC bridge with mocked display/buttons. Neither establishes physical-device behavior, Pi performance, signing safety or compatibility of arbitrary games.",
-  "public_template": {
+  "schema": 3,
+  "date": "2026-10-11",
+  "version": "gba-web-v0.2.3",
+  "scope": "Image assembly and independent readback only; physical gameplay is not tested by this matrix.",
+  "template": {
+    "schema": 1,
     "configVersion": 2,
-    "sha256": "ef9991e508b15e94d8b58442b657aa2820ddc5c3572dad4c6eed725e118ed84d",
-    "compressedSha256": "75a66ec3ba6a65c2159d9cf84101112ec540c8ba965cdc87dd703dd4f6b784e9",
+    "file": "base/seedsigner-v0.8.7-gba-v0.2.3-pi0.img.gz",
+    "sha256": "d4223e0cf3763ec4e4467663cd66e4427a640bd4e03503222b5701dcb773bad4",
+    "files": [
+      {
+        "file": "seedsigner-v0.8.7-gba-v0.2.3-pi0.img.gz.part001",
+        "bytes": 16777216,
+        "sha256": "f33161ded3fca5816a1ff96d1247b36583dc8a163903c92f114e8910395e701c"
+      },
+      {
+        "file": "seedsigner-v0.8.7-gba-v0.2.3-pi0.img.gz.part002",
+        "bytes": 16119734,
+        "sha256": "edb512424628d570d484475c6a9c8988bc35cf5062b135a5e864df65938923eb"
+      }
+    ],
+    "bytes": 32896950,
     "imageBytes": 134217728,
-    "sourceSha256": "a3006026e1fef2e9fadd2539711f06da9df5a10aa6325b01635dddb4e49fee17"
-  },
-  "engine_files_sha256": {
-    "web/image-engine.js": "634cf63a83316fe1696909fe2de90066541fc880ef938945279f954ddb56e6c0",
-    "web/builder-worker.js": "495223522e235095b0ef29d9df0f7a3c5f44b8b9883be81f6e8d0893eeb989bb",
-    "scripts/test_browser_engine.mjs": "e5d923722370d0bab6f9efdb98abf07b612c17c77563bf3f69a5aad067a56d4b",
-    "web/test-browser-engine.mjs": "5364af00b21372f9ad910873faeab4b627b12e21c060e723afb8c212439e8f4c"
-  },
-  "checks": {
-    "browser_synthetic_check_groups_passed": 12,
-    "root_focused_python_tests_passed": 70,
-    "root_python_log_checked_by_this_audit": true,
-    "real_rom_hardware_combinations_passed": 12,
-    "independent_python_image_decodes_passed": 12,
-    "actual_FSME_zip_and_extracted_rom_accepted": true,
-    "stale_FSME_template_and_tampered_classic_core_rejected": true,
-    "native_frontend_default_core_and_game_config_unchanged": true,
-    "public_template_rom_free": true,
-    "template_rebuild_byte_identical": true,
-    "production_ARM1176_IPC_mock_test_passed": true
+    "compressedSha256": "0c990620267e0248a05bd537d214875590d2c146564a523cf2ecb79501f7703c",
+    "compression": "gzip",
+    "maxRomBytes": 33554432,
+    "overlay": "dino-overlay.cpio",
+    "baseSeedsignerVersion": "0.8.7",
+    "hardware": "Pi Zero 1.3; Plus-type 320x240 or experimental regular 240x240",
+    "hardwareProfiles": [
+      "plus",
+      "play",
+      "regular"
+    ],
+    "hardwareDetails": [
+      {
+        "id": "plus",
+        "displayConfig": "st7789_320x240",
+        "width": 320,
+        "height": 240,
+        "status": "software-tested",
+        "label": "SeedSigner Plus / compatible 320x240 ST7789 HAT"
+      },
+      {
+        "id": "play",
+        "displayConfig": "st7789_320x240",
+        "width": 320,
+        "height": 240,
+        "status": "requires-hardware-match",
+        "label": "SeedSigner Play with compatible Plus-type HAT",
+        "requires": "Pi Zero ARMv6, ST7789 320x240 and standard SeedSigner GPIO wiring"
+      },
+      {
+        "id": "regular",
+        "displayConfig": "st7789_240x240",
+        "width": 240,
+        "height": 240,
+        "status": "experimental",
+        "label": "Regular SeedSigner / Waveshare 1.3-inch 240x240",
+        "requires": "Physical boot, display, controls and signing validation"
+      }
+    ],
+    "source": "source.tar.gz",
+    "sourceSha256": "adfe41b8da4ef0e08a84173486b174d25000ffaee7861ee0be304505d5efaca0",
+    "classicCompatibilityGameCodes": [
+      "FSME"
+    ]
   },
   "matrix": [
     {
@@ -36,7 +73,7 @@
       "hardwareProfile": "play",
       "inputProfile": "standard",
       "selected_emulator_core": "gpsp_classic_libretro.so",
-      "sha256": "c9d61ac6fac2925e13347f7c6cdc17d7da89e89d19cd1ec7fdd3b3bf4a386283",
+      "sha256": "dbf85138ff945e45173d798af9984c16d4a45f93cbb092d4163132d229911188",
       "imageBytes": 134217728,
       "python_independent_decode_passed": true,
       "rom_bytes_exact": true,
@@ -44,15 +81,14 @@
       "invalid_header_dispatch_rejected": true,
       "all_unchanged_overlay_files_preserved": true,
       "preserved_boot_files": 336,
-      "gameplay_tested_in_this_matrix": false,
-      "pack_and_readback_passed": true
+      "gameplay_tested_in_this_matrix": false
     },
     {
       "game": "Classic NES Series: Super Mario Bros.",
       "hardwareProfile": "plus",
       "inputProfile": "standard",
       "selected_emulator_core": "gpsp_classic_libretro.so",
-      "sha256": "704c74553124fd93988c9b27424b6d876730c5f58fdbef0f9cfc2ca69de7fc88",
+      "sha256": "3dd9d3fb1946c431496dad465467d718f6287c0a5540c4f925bf12ac213b5030",
       "imageBytes": 134217728,
       "python_independent_decode_passed": true,
       "rom_bytes_exact": true,
@@ -60,15 +96,14 @@
       "invalid_header_dispatch_rejected": true,
       "all_unchanged_overlay_files_preserved": true,
       "preserved_boot_files": 336,
-      "gameplay_tested_in_this_matrix": false,
-      "pack_and_readback_passed": true
+      "gameplay_tested_in_this_matrix": false
     },
     {
       "game": "Classic NES Series: Super Mario Bros.",
       "hardwareProfile": "regular",
       "inputProfile": "standard",
       "selected_emulator_core": "gpsp_classic_libretro.so",
-      "sha256": "3929299e6801009be6ea1b9e40c77d614004a344f3d2da6d7c7697fb0a246385",
+      "sha256": "f06617a70635ea88b31a2ded6341972df350f2ff7a8070e62ea5392f8d5d13a4",
       "imageBytes": 134217728,
       "python_independent_decode_passed": true,
       "rom_bytes_exact": true,
@@ -76,15 +111,14 @@
       "invalid_header_dispatch_rejected": true,
       "all_unchanged_overlay_files_preserved": true,
       "preserved_boot_files": 335,
-      "gameplay_tested_in_this_matrix": false,
-      "pack_and_readback_passed": true
+      "gameplay_tested_in_this_matrix": false
     },
     {
       "game": "V-Rally 3",
       "hardwareProfile": "play",
       "inputProfile": "vrally3",
       "selected_emulator_core": "gpsp_libretro.so",
-      "sha256": "650ee5f88ba16aaea49260e833ab157e858542bcbbb1f69629ef409e93cd0f92",
+      "sha256": "965352059f44d9797acfbdd8d81c60c95ce6e0e267b2c243ee5071027789eaa7",
       "imageBytes": 134217728,
       "python_independent_decode_passed": true,
       "rom_bytes_exact": true,
@@ -92,15 +126,14 @@
       "invalid_header_dispatch_rejected": true,
       "all_unchanged_overlay_files_preserved": true,
       "preserved_boot_files": 336,
-      "gameplay_tested_in_this_matrix": false,
-      "pack_and_readback_passed": true
+      "gameplay_tested_in_this_matrix": false
     },
     {
       "game": "V-Rally 3",
       "hardwareProfile": "plus",
       "inputProfile": "vrally3",
       "selected_emulator_core": "gpsp_libretro.so",
-      "sha256": "cdec5a3be7e89b5e0e955b4f4938a91a8c89a43ef0846d88041b92abef6deca3",
+      "sha256": "9d82c2d63d31fadcb5ceaff43af8f4f26c82d0462a3cd64526e09470cbd0b5e7",
       "imageBytes": 134217728,
       "python_independent_decode_passed": true,
       "rom_bytes_exact": true,
@@ -108,15 +141,14 @@
       "invalid_header_dispatch_rejected": true,
       "all_unchanged_overlay_files_preserved": true,
       "preserved_boot_files": 336,
-      "gameplay_tested_in_this_matrix": false,
-      "pack_and_readback_passed": true
+      "gameplay_tested_in_this_matrix": false
     },
     {
       "game": "V-Rally 3",
       "hardwareProfile": "regular",
       "inputProfile": "vrally3",
       "selected_emulator_core": "gpsp_libretro.so",
-      "sha256": "e04f3c56adba873ec15c7bf9509d618262c3d1feabc134f98a6e2c9a60affa5e",
+      "sha256": "a2c6fb2ad0e340ab94b6f15c81f01d081979b73838be9414ffe4e99a81a3af96",
       "imageBytes": 134217728,
       "python_independent_decode_passed": true,
       "rom_bytes_exact": true,
@@ -124,15 +156,14 @@
       "invalid_header_dispatch_rejected": true,
       "all_unchanged_overlay_files_preserved": true,
       "preserved_boot_files": 335,
-      "gameplay_tested_in_this_matrix": false,
-      "pack_and_readback_passed": true
+      "gameplay_tested_in_this_matrix": false
     },
     {
       "game": "Celeste 2 GBA",
       "hardwareProfile": "play",
       "inputProfile": "standard",
       "selected_emulator_core": "gpsp_libretro.so",
-      "sha256": "792017d9850f27fa4f70f2a3b8ed2d2c604cbbca24be96794003479a5fab03f3",
+      "sha256": "8b08225c619732260e3b34022788d66354a89287651702926a207f5f8dab492e",
       "imageBytes": 134217728,
       "python_independent_decode_passed": true,
       "rom_bytes_exact": true,
@@ -140,15 +171,14 @@
       "invalid_header_dispatch_rejected": true,
       "all_unchanged_overlay_files_preserved": true,
       "preserved_boot_files": 336,
-      "gameplay_tested_in_this_matrix": false,
-      "pack_and_readback_passed": true
+      "gameplay_tested_in_this_matrix": false
     },
     {
       "game": "Celeste 2 GBA",
       "hardwareProfile": "plus",
       "inputProfile": "standard",
       "selected_emulator_core": "gpsp_libretro.so",
-      "sha256": "514d5ec43f8aeba27360bdf36a4622b7c3f5f511f581156710047db1d25cf904",
+      "sha256": "e08a4cf8630d666b54a7fa7251bd7a8f6c45ecda3a63e9a40a6fefa47a1ea31b",
       "imageBytes": 134217728,
       "python_independent_decode_passed": true,
       "rom_bytes_exact": true,
@@ -156,15 +186,14 @@
       "invalid_header_dispatch_rejected": true,
       "all_unchanged_overlay_files_preserved": true,
       "preserved_boot_files": 336,
-      "gameplay_tested_in_this_matrix": false,
-      "pack_and_readback_passed": true
+      "gameplay_tested_in_this_matrix": false
     },
     {
       "game": "Celeste 2 GBA",
       "hardwareProfile": "regular",
       "inputProfile": "standard",
       "selected_emulator_core": "gpsp_libretro.so",
-      "sha256": "f18b68e8f48ebb1cef906fd0523f88de71f06317d214e8edb42f7bfe06a17a18",
+      "sha256": "7314154998641a52612e1ed55cf10d9c83543bfec2b142b0e5a70b7ff0cc5fc7",
       "imageBytes": 134217728,
       "python_independent_decode_passed": true,
       "rom_bytes_exact": true,
@@ -172,15 +201,14 @@
       "invalid_header_dispatch_rejected": true,
       "all_unchanged_overlay_files_preserved": true,
       "preserved_boot_files": 335,
-      "gameplay_tested_in_this_matrix": false,
-      "pack_and_readback_passed": true
+      "gameplay_tested_in_this_matrix": false
     },
     {
       "game": "Google Dino Advance 1.1",
       "hardwareProfile": "play",
       "inputProfile": "standard",
       "selected_emulator_core": "gpsp_libretro.so",
-      "sha256": "9cb95b54ea653f6f0e5ae96246f93b5f402c9da5f68611895ec3cd3d339c1fbf",
+      "sha256": "e0709befcb2159c436462bc3eb068c376995b1aee3fc4c286dc955e7353b8dd8",
       "imageBytes": 134217728,
       "python_independent_decode_passed": true,
       "rom_bytes_exact": true,
@@ -188,15 +216,14 @@
       "invalid_header_dispatch_rejected": true,
       "all_unchanged_overlay_files_preserved": true,
       "preserved_boot_files": 336,
-      "gameplay_tested_in_this_matrix": false,
-      "pack_and_readback_passed": true
+      "gameplay_tested_in_this_matrix": false
     },
     {
       "game": "Google Dino Advance 1.1",
       "hardwareProfile": "plus",
       "inputProfile": "standard",
       "selected_emulator_core": "gpsp_libretro.so",
-      "sha256": "f4091a46f3817c105d2f61799aef4a51c9ef7fba149780d7a7d75131ef9d1e26",
+      "sha256": "76fc6521047e032590704712f7166a3c7fe23233f866f2557b75af5514d3829f",
       "imageBytes": 134217728,
       "python_independent_decode_passed": true,
       "rom_bytes_exact": true,
@@ -204,15 +231,14 @@
       "invalid_header_dispatch_rejected": true,
       "all_unchanged_overlay_files_preserved": true,
       "preserved_boot_files": 336,
-      "gameplay_tested_in_this_matrix": false,
-      "pack_and_readback_passed": true
+      "gameplay_tested_in_this_matrix": false
     },
     {
       "game": "Google Dino Advance 1.1",
       "hardwareProfile": "regular",
       "inputProfile": "standard",
       "selected_emulator_core": "gpsp_libretro.so",
-      "sha256": "0b9ff94ad20504443978e9d2f2ec79a07af446a92d0ecccb111501fdc3c290f8",
+      "sha256": "d3b618c7e7634063ff032d373d4cdf5f3fa587d4a550417e7d840626fc36a895",
       "imageBytes": 134217728,
       "python_independent_decode_passed": true,
       "rom_bytes_exact": true,
@@ -220,150 +246,114 @@
       "invalid_header_dispatch_rejected": true,
       "all_unchanged_overlay_files_preserved": true,
       "preserved_boot_files": 335,
-      "gameplay_tested_in_this_matrix": false,
-      "pack_and_readback_passed": true
+      "gameplay_tested_in_this_matrix": false
     }
   ],
-  "rom_identifiers": {
-    "Classic NES Series: Super Mario Bros.": {
-      "title": "SUPER MARIO",
-      "game_code": "FSME",
-      "bytes": 4194304,
-      "sha256": "23e247be81422f29dfc0e48c152d670292c304a8f9f35fe05e4dcb1b02a1a6c3",
-      "header_checksum": 158,
-      "is_vrally3": false,
-      "input": "single-ROM ZIP"
+  "python_independent_readback": {
+    "schema": 1,
+    "scope": "Independent Python image decode, preservation and core dispatch checks; no hardware or gameplay claim.",
+    "template_sha256": "d4223e0cf3763ec4e4467663cd66e4427a640bd4e03503222b5701dcb773bad4",
+    "public_template_rom_free": true,
+    "native_payload_sha256": {
+      "dino-native": "27cf3646e3ae721efef873c6e495d6d3599f06b66b7c9f1361e26dc02071ebd9",
+      "gpsp_libretro.so": "0f7e0aa79793de3327542c3545f6651e56b676ca87f7771c3662f25c5e026c86",
+      "gpsp_classic_libretro.so": "d12bf76ca7ffb714efb68a407a426e13c218c7ff3fa3e6fb48ad04464f39826c",
+      "game_config.txt": "6a29ea6e4ba3eecdbad0254621644faa504c0341c6dee4e0713da52677dc5f09"
     },
-    "V-Rally 3": {
-      "title": "VRALLY 3",
-      "game_code": "AVRE",
-      "bytes": 4194304,
-      "sha256": "5818fa74fdcacf39b53a1acea99432c4362979dd656c8153fd9861094aca51f7",
-      "header_checksum": 143,
-      "is_vrally3": true,
-      "input": "single-ROM ZIP"
+    "classic_source_sha256": "26d074449b829e498699a41a412f8aa139dc40bf86eff11dbae49ac4ccd2eb71",
+    "template_rom_free_overlay_entries": 29,
+    "comparison_to_v0_2_2": {
+      "non_overlay_boot_files_identical": 336,
+      "frontend_identical": false,
+      "default_gpsp_core_identical": true,
+      "game_config_identical": true
     },
-    "Celeste 2 GBA": {
-      "title": "Celelste2",
-      "game_code": "CEL2",
-      "bytes": 4506328,
-      "sha256": "fcfa4fd98b434d0462784c24cb80b1e38f00efc570b7847bd287d05e486a5158",
-      "header_checksum": 73,
-      "is_vrally3": false,
-      "input": "raw GBA"
-    },
-    "Google Dino Advance 1.1": {
-      "title": "Dino Advance",
-      "game_code": "",
-      "bytes": 109084,
-      "sha256": "d08239bea3044af0b0224cb5436221fec59e1ea3ba811ed0ec17212683a2cb81",
-      "header_checksum": 104,
-      "is_vrally3": false,
-      "input": "raw GBA"
-    }
+    "neutral_error_copy_present": true,
+    "signer_shortcut_hint_absent": true
   },
-  "verified": [
-    "All 12 generated images contain the selected ROM exact bytes at the fixed User-Game.gba path, with matching hashes and restricted configuration.",
-    "Independent Python decodes confirm matching device display settings, hardware hashes, ROM manifests and source provenance for all 12 images.",
-    "The embedded launcher dispatches FSME to the separately patched classic core and other tested ROMs to the original gpSP core; invalid-header dispatch is rejected.",
-    "All unchanged overlay files and boot files are preserved; the regular profile changes only the declared SeedSigner display setting outside the overlay.",
-    "Native frontend, default gpSP core and game configuration remain byte-identical to v0.2.1. The separate classic core and corresponding patched source archive are hash-verified.",
-    "The public template and corresponding source pass a ROM-free audit against the exact private Mario ROM; the template rebuild is byte-identical.",
-    "The production launcher retains neutral failure copy and does not show the former signer shortcut hint."
-  ],
-  "template_runtime_comparison": {
-    "native_binaries_and_game_config": {
-      "dino-native": {
-        "sha256": "ced5d35f1aa4851b9d9605e44e533c4fb96c46ed208dc226dc759af0153e951a",
-        "identical_to_v0_2_1": true
+  "frontend_and_core_software_validation": {
+    "performance": {
+      "schema": 1,
+      "claim": "Relative software throughput only; not physicalPiFPS.",
+      "rom_sha256": "23e247be81422f29dfc0e48c152d670292c304a8f9f35fe05e4dcb1b02a1a6c3",
+      "unchanged_rom": true,
+      "input_script_sha256": "47bc948ed0d35a2ade92a5229a586a026dc5079a6cbaabe33f79ed8ae45c93cb",
+      "frontend_sha256": "27cf3646e3ae721efef873c6e495d6d3599f06b66b7c9f1361e26dc02071ebd9",
+      "old_core_sha256": "48912065ed6a1cbad5987f866eb1e0b996ef2b6fc44dff8c35cc89763a92f787",
+      "new_core_sha256": "d12bf76ca7ffb714efb68a407a426e13c218c7ff3fa3e6fb48ad04464f39826c",
+      "old": {
+        "frames": 2400,
+        "video_frames": 2400,
+        "audio_frames": 2633144,
+        "elapsed_seconds": 16.252632,
+        "emulated_fps": 147.668,
+        "target_fps": 59.72750092,
+        "frame_hash": "2ac200c437da55c3",
+        "raw_frame_hash": "8ad38ddc876778d1",
+        "dirty_rects": 57796,
+        "spi_bytes_estimate": 62633324,
+        "max_frame_bytes": 153611,
+        "max_steady_frame_bytes": 143371,
+        "p95_steady_frame_bytes": 38854,
+        "steady_frames": 2399,
+        "mean_frame_bytes": 26097.22,
+        "p95_steady_wire_ms": 12.433,
+        "max_steady_wire_ms": 45.879,
+        "frames_over_wire_budget": 8,
+        "option_reads": 767,
+        "exit_code": 0,
+        "presented_frames": 2400,
+        "changed_frames": 2321,
+        "max_present_gap_ms": 0.0,
+        "suppressed_frames": 0,
+        "discarded_clock_frames": 0,
+        "max_lag_ms": 0.0,
+        "input_requests": 0
       },
-      "gpsp_libretro.so": {
-        "sha256": "0f7e0aa79793de3327542c3545f6651e56b676ca87f7771c3662f25c5e026c86",
-        "identical_to_v0_2_1": true
+      "new": {
+        "frames": 2400,
+        "video_frames": 2400,
+        "audio_frames": 2633144,
+        "elapsed_seconds": 6.5235,
+        "emulated_fps": 367.901,
+        "target_fps": 59.72750092,
+        "frame_hash": "9dd56f83340ad252",
+        "raw_frame_hash": "1b2a8e48929d4f6a",
+        "dirty_rects": 57590,
+        "spi_bytes_estimate": 62423954,
+        "max_frame_bytes": 153611,
+        "max_steady_frame_bytes": 143371,
+        "p95_steady_frame_bytes": 38598,
+        "steady_frames": 2399,
+        "mean_frame_bytes": 26009.98,
+        "p95_steady_wire_ms": 12.351,
+        "max_steady_wire_ms": 45.879,
+        "frames_over_wire_budget": 8,
+        "option_reads": 1023,
+        "exit_code": 0,
+        "presented_frames": 2400,
+        "changed_frames": 2317,
+        "max_present_gap_ms": 0.0,
+        "suppressed_frames": 0,
+        "discarded_clock_frames": 0,
+        "max_lag_ms": 0.0,
+        "input_requests": 0
       },
-      "game_config.txt": {
-        "sha256": "6a29ea6e4ba3eecdbad0254621644faa504c0341c6dee4e0713da52677dc5f09",
-        "identical_to_v0_2_1": true
-      }
+      "relative_throughput": 2.491397562658082,
+      "core_clean_archive_rebuild_identical": true,
+      "frontend_two_clean_crossbuilds_identical": true,
+      "old_vs_new_frontend_hybrid_capture_pixels_identical": true,
+      "no_game_rom_distributed": true
     },
-    "non_overlay_boot_files_identical_to_v0_2_1": 336,
-    "launcher_error_copy": {
-      "status": "PASS",
-      "heading": "Game unavailable",
-      "hint": "Middle button: retry",
-      "signer_shortcut_hint_absent": true
-    }
+    "overload_scope": "Host-native software-only busy-core and mock-display IPC tests",
+    "overload_cases": 7,
+    "production_bridge_status": "PASS"
   },
-  "classic_Mario_compatibility": {
-    "game": "Classic NES Series: Super Mario Bros.",
-    "game_code": "FSME",
-    "selected_emulator_core": "gpsp_classic_libretro.so",
-    "core_sha256": "48912065ed6a1cbad5987f866eb1e0b996ef2b6fc44dff8c35cc89763a92f787",
-    "source_archive_sha256": "051e402c9f2a0d542e1e61ee2f04b07858175568c6add73a3c4d5b1dc3d60824",
-    "patch": "Separate interpreter-only core with ARM7 prefetch handling and FSME EEPROM initialization. The original default core is retained.",
-    "external_Nintendo_BIOS_required": false,
-    "scope": "Exact private 4 MiB FSME ROM tested in ARM1176 QEMU; no physical Pi performance claim."
+  "previous_version_summary": {
+    "version": "gba-web-v0.2.2",
+    "matrix_combinations": 12,
+    "note": "Historical v0.2.2 image hashes are superseded; its physical Mario boot was reported laggy."
   },
-  "production_IPC_mock_test": {
-    "status": "PASS",
-    "frontend_sha256": "ced5d35f1aa4851b9d9605e44e533c4fb96c46ed208dc226dc759af0153e951a",
-    "core_sha256": "48912065ed6a1cbad5987f866eb1e0b996ef2b6fc44dff8c35cc89763a92f787",
-    "emulated_frames": 657,
-    "presented_RGB565_frames": 291,
-    "input_requests": 657,
-    "discarded_clock_frames": 0,
-    "visible_title_movement_jumps_and_scroll": true,
-    "short_hold_did_not_exit": true,
-    "full_hold_then_release_exit_code": 42,
-    "forced_crash_exit_code": -11,
-    "crash_entered_recovery_without_returning_toward_signer": true,
-    "crashed_child_reaped_and_hardware_scope_closed": true,
-    "scope": "Production Python run_bridge with mock 320x240 display and timed button masks, ARM1176 QEMU and stock runtime libraries. No GPIO/SPI or physical display/button test."
-  },
-  "public_audit": {
-    "status": "PASS",
-    "variant": "gba-web-v0.2.2",
-    "chunks": 2,
-    "imageBytes": 134217728,
-    "imageSha256": "ef9991e508b15e94d8b58442b657aa2820ddc5c3572dad4c6eed725e118ed84d",
-    "sourceFilesScanned": 259,
-    "overlayEntries": 29,
-    "hardwareAssetsVerified": 4,
-    "rendersVerified": 4,
-    "embeddedScreensVerified": 4,
-    "classicCompatibilityCoreVerified": true,
-    "gameFramesVerified": 5,
-    "privateRomCompared": true,
-    "physicalHardwareTested": false
-  },
-  "compatibility_limits": {
-    "play": "Requires Pi Zero ARMv6, ST7789 320x240 Plus-type panel and standard SeedSigner GPIO wiring; enclosure alone does not establish compatibility.",
-    "plus": "Pi Zero 1.3 with ST7789 320x240 and standard SeedSigner GPIO wiring.",
-    "regular": "Experimental original Waveshare 1.3-inch ST7789 240x240; nearest 240x160 game viewport at y40.",
-    "standard_controls": "D-pad, A, B, Start, Select; no L/R shoulder mapping.",
-    "other_limits": "GBA only; game compatibility and speed vary; audio discarded; saves volatile RAM only."
-  },
-  "physical_validation": {
-    "sd_card_written": false,
-    "boot_tested": false,
-    "buttons_tested": false,
-    "display_tested": false,
-    "camera_tested": false,
-    "signing_tested": false,
-    "performance_measured_on_pi": false
-  },
-  "published_by_this_audit": false,
-  "rom_content_in_report": false,
-  "historical_v0_2_1_evidence": {
-    "public_commit": "98924ce14b15e0e9dea55efe8eb8e13a7d59bbea",
-    "matrix_url": "https://github.com/xberenguer/seedsigner-gba-builder/blob/98924ce14b15e0e9dea55efe8eb8e13a7d59bbea/matrix-validation.json",
-    "local_record": "validation/gba-v0.2.1-matrix.json",
-    "note": "v0.2.1 rejected FSME. Those nine image hashes and checks are retained as historical evidence and are superseded by this v0.2.2 compatibility route."
-  },
-  "historical_v0_2_0_evidence": {
-    "public_commit": "eb013d275bd8fe3359dd325bca76fe5f4b2c0efc",
-    "matrix_url": "https://github.com/xberenguer/seedsigner-gba-builder/blob/eb013d275bd8fe3359dd325bca76fe5f4b2c0efc/matrix-validation.json",
-    "local_record": "validation/gba-v0.2.0-matrix.json",
-    "note": "Previous Python checks, independent Python decodes and image hashes apply to v0.2.0. They are not reported as newly performed v0.2.1 checks. The Dino input in this v0.2.1 matrix is the official 1.1 ROM."
-  }
+  "physical_hardware_tested": false,
+  "ROM_distributed": false
 }

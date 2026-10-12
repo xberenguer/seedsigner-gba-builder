@@ -232,7 +232,7 @@ if (native.classic_compatibility) {
     classicBios.embedded_offset + classicBios.bytes)), classicBios.sha256);
   classicCoreVerified = true;
 }
-if (native.variant === 'gba-web-v0.2.2') {
+if (['gba-web-v0.2.2', 'gba-web-v0.2.3'].includes(native.variant)) {
   assert(classicCoreVerified, 'Mario compatibility core is required in this release');
   assert.deepEqual(manifest.classicCompatibilityGameCodes, ['FSME']);
 }
@@ -244,7 +244,7 @@ for (const [name, expected] of Object.entries(native.native_frontend.source_arch
     assert.equal(digest(record(name.slice('payload/'.length))), expected, `Runtime/source correspondence: ${name}`);
   }
 }
-if (['gba-web-v0.2.0', 'gba-web-v0.2.1', 'gba-web-v0.2.2'].includes(native.variant)) {
+if (['gba-web-v0.2.0', 'gba-web-v0.2.1', 'gba-web-v0.2.2', 'gba-web-v0.2.3'].includes(native.variant)) {
   assert.match(bios.license, /^GPL-2\.0 \(see retained upstream BIOS notice\)$/);
   for (const name of ['payload/opt/dino/display_hardware.py', 'payload/opt/dino/hardware.json',
     'payload/opt/dino/hardware_bridge.py', 'tests/test_gba_hardware.py', 'scripts/build_web_template.py']) {
@@ -312,8 +312,20 @@ assert.equal(scrollMetadata.frame_count, 32, 'Expected 32 scroll frames');
 assert.equal(scrollMetadata.frames.length, scrollMetadata.frame_count, 'Scroll-frame count');
 const capture = scrollMetadata.capture;
 assert.equal(capture.game_code, 'FSME', 'Scroll capture game code');
-assert.equal(capture.frontend_sha256, native.native_frontend.sha256, 'Scroll capture production frontend');
-assert.equal(capture.core_sha256, native.classic_compatibility.sha256, 'Scroll capture compatibility core');
+// The unchanged scroll artwork was captured with v0.2.2. Preserve its actual
+// capture provenance when a later runtime is released; never relabel old pixels
+// as captures from a new emulator binary.
+if (native.variant === 'gba-web-v0.2.3') {
+  assert.equal(capture.frontend_sha256,
+    'ced5d35f1aa4851b9d9605e44e533c4fb96c46ed208dc226dc759af0153e951a',
+    'Historical v0.2.2 scroll capture frontend');
+  assert.equal(capture.core_sha256,
+    '48912065ed6a1cbad5987f866eb1e0b996ef2b6fc44dff8c35cc89763a92f787',
+    'Historical v0.2.2 scroll capture core');
+} else {
+  assert.equal(capture.frontend_sha256, native.native_frontend.sha256, 'Scroll capture production frontend');
+  assert.equal(capture.core_sha256, native.classic_compatibility.sha256, 'Scroll capture compatibility core');
+}
 assert.equal(capture.software_test, true, 'Scroll capture must be identified as software testing');
 assert.equal(capture.physical_validation, 'pending', 'Scroll capture cannot claim hardware validation');
 assert.equal(capture.rom_distributed, false, 'Scroll capture must not distribute the game');

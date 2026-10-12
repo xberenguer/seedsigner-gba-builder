@@ -1,4 +1,4 @@
-import { buildImage, decodeTemplate } from './image-engine.js?v=0.2.2';
+import { buildImage, decodeTemplate } from './image-engine.js?v=0.2.3';
 
 self.addEventListener('message', async event => {
   const request = event.data;
