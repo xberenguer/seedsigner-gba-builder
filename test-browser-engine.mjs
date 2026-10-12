@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Run with bundled Node 22+. Synthetic ROM fixtures contain no game content.
  * Optional integration: --template path.img.gz --rom path.gba|path.zip
- * --manifest template.json --output private.img
+ * --manifest web/template.json --output private.img
  * Uses the same browser DecompressionStream ZIP decoder as the website.
  */
 import assert from 'node:assert/strict';
@@ -143,24 +143,37 @@ await test('GBA validation and regional V-Rally auto detection', async () => {
   const bad = fixtureRom(); bad[0xbd] ^= 1; await assert.rejects(() => inspectRom(bad), /checksum/);
   const identification = fixtureRom(); identification[0xb2] = 0; await assert.rejects(() => inspectRom(identification), /identification/);
 });
-await test('known incompatible FSME is rejected for raw GBA, ZIP and image assembly', async () => {
+await test('Classic NES Mario is accepted only with its verified compatibility core', async () => {
   const rom = fixtureRom(4096, 'SUPER MARIO', 'FSME');
-  const error = { message: 'Classic NES Series: Super Mario Bros. (FSME) is not supported by this emulator. Choose another GBA game.' };
-  await assert.rejects(() => inspectRom(rom), error);
-  await assert.rejects(() => readRomFile(rom, { name: 'game.gba' }), error);
+  assert.equal((await inspectRom(rom)).game_code, 'FSME');
+  assert.equal((await readRomFile(rom, { name: 'game.gba' })).metadata.game_code, 'FSME');
   for (const method of [0, 8]) {
     const zip = fixtureZip([{ name: 'games/game.gba', data: rom, method }]);
-    await assert.rejects(() => readRomFile(zip, { name: 'game.zip' }), error);
+    assert.deepEqual((await readRomFile(zip, { name: 'game.zip' })).data, rom);
   }
-  await assert.rejects(() => buildImage(fixtureImage(), rom), error);
+  const oldTemplate = fixtureImage();
+  await assert.rejects(() => buildImage(oldTemplate, rom), /Mario compatibility update/);
+  const archive = parseNewc(fixtureArchive()), core = encode('synthetic classic core');
+  const compatibility = { file: 'gpsp_classic_libretro.so', game_codes: ['FSME'], sha256: await sha256(core) };
+  const source = archive.entries.get('opt/dino/native/source-manifest.json');
+  source.data = encode(JSON.stringify({ schema: 1, rom_included: false, classic_compatibility: compatibility }));
+  source.fields[6] = source.data.length; source.raw = null;
+  archive.records.push(newRecord('opt/dino/native/gpsp_classic_libretro.so', core, false, archive.records.length + 2));
+  const template = fixtureImage(packNewc(archive));
+  const result = await buildImage(template, rom);
+  const readback = parseNewc(readFat16(result.image).readFile('dino-overlay.cpio'));
+  assert.deepEqual(readback.entries.get('opt/dino/native/User-Game.gba').data, rom);
+  assert.equal(JSON.parse(decode(readback.entries.get('opt/dino/rom-manifest.json').data)).emulator_core, 'gpsp_classic_libretro.so');
+  assert.equal(JSON.parse(decode(readback.entries.get('opt/dino/native/source-manifest.json').data)).selected_emulator_core, 'gpsp_classic_libretro.so');
+  archive.records.find(record => record.name === 'opt/dino/native/gpsp_classic_libretro.so').data = encode('tampered classic core');
+  await assert.rejects(() => buildImage(fixtureImage(packNewc(archive)), rom), /compatibility core checksum/);
   const invalid = rom.slice(); invalid[0xbd] ^= 1;
   await assert.rejects(() => inspectRom(invalid), /header checksum/);
-  // This checks the narrow header-code block, not emulator playability.
   const other = fixtureRom(4096, 'SUPER MARIO', 'AMAE');
   assert.equal((await inspectRom(other)).game_code, 'AMAE');
-  assert.equal((await readRomFile(other, { name: 'other.gba' })).metadata.game_code, 'AMAE');
-  const otherZip = fixtureZip([{ name: 'other.gba', data: other, method: 8 }]);
-  assert.equal((await readRomFile(otherZip, { name: 'other.zip' })).metadata.game_code, 'AMAE');
+  const ordinary = await buildImage(oldTemplate, other);
+  const ordinaryReadback = parseNewc(readFat16(ordinary.image).readFile('dino-overlay.cpio'));
+  assert.equal(JSON.parse(decode(ordinaryReadback.entries.get('opt/dino/rom-manifest.json').data)).emulator_core, 'gpsp_libretro.so');
 });
 await test('browser ZIP reader supports stored/deflate, directories and one nested GBA', async () => {
   for (const method of [0, 8]) {

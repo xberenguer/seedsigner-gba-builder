@@ -1,4 +1,4 @@
-# SeedSigner GBA Image Builder v0.2.1
+# SeedSigner GBA Image Builder v0.2.2
 
 [Open the browser tool](https://xberenguer.github.io/seedsigner-gba-builder/)
 
@@ -43,9 +43,11 @@ containing one GBA file. Header validation and successful packaging do not
 prove a game will run correctly or at full speed. Other console ROMs need
 different emulator integrations.
 
-Known limitation: **Classic NES Series: Super Mario Bros. (FSME)** crashes or
-produces a black screen in this emulator. The builder rejects this game before
-image generation. Other Mario GBA releases have not been validated.
+**Classic NES Series: Super Mario Bros. (FSME)** automatically uses a separate
+compatibility core. Its ARM7 instruction-prefetch and EEPROM handling fixes
+the original startup failure. The same unmodified game file reaches the title
+and World 1-1 with movement and jumps in ARMv6 software tests. Other games
+retain the original gpSP core. Physical Pi Zero speed remains to be verified.
 
 V-Rally: D-pad left/right steer; up/down forward/reverse in automatic transmission;
 top/middle accelerate/brake; bottom pauses; center changes camera; top+middle
@@ -68,12 +70,16 @@ configuration adds the external initramfs directive. The launcher and display
 bridge read a restricted hardware profile, and SeedSigner display settings
 are set for the chosen screen.
 
-64 Python tests, 12 browser-engine groups and nine real ROM/display-profile
+70 Python tests, 12 browser-engine groups and twelve real ROM/display-profile
 assembly/readback combinations passed. Template assembly repeated with an
 identical SHA-256. See [validation.json](validation.json) and
-[matrix-validation.json](matrix-validation.json); prior v0.2.0 results are kept
+[matrix-validation.json](matrix-validation.json); prior results are kept
 as historical evidence.
-The failure screen now shows only game availability and retry instructions;
+The exact Mario ZIP also built and downloaded in Brave, matching the independent
+image SHA-256. The compatibility core rebuilt byte-identically from its ROM-free
+source archive. The production IPC path passed a real ARM-core test with a mock
+display, including the deliberate signer-entry gesture and crash recovery.
+The failure screen shows only game availability and retry instructions;
 it does not disclose the signer-entry gesture.
 
 Physical cold-boot, display/buttons, gameplay speed, camera and signing checks

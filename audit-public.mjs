@@ -213,6 +213,29 @@ assert.equal(digest(source), manifest.sourceSha256);
 const sourceTop = auditTar(source, manifest.source);
 assert.equal(digest(sourceTop.get('runtime-source.tar.gz')), native.native_frontend.source_archive_sha256);
 assert.equal(digest(sourceTop.get('gpsp-source.tar.gz')), native.core.source_archive_sha256);
+let classicCoreVerified = false;
+if (native.classic_compatibility) {
+  const classic = native.classic_compatibility;
+  assert.equal(classic.schema, 1);
+  assert.equal(classic.file, 'gpsp_classic_libretro.so');
+  assert.equal(classic.source_archive, 'source/gpsp-classic-source.tar.gz');
+  assert.deepEqual(classic.game_codes, ['FSME']);
+  const classicBytes = record(`opt/dino/native/${classic.file}`);
+  assert.equal(classicBytes.length, classic.bytes);
+  assert.equal(digest(classicBytes), classic.sha256);
+  assert.equal(digest(sourceTop.get('gpsp-classic-source.tar.gz')), classic.source_archive_sha256);
+  assert.deepEqual(JSON.parse(record('opt/dino/native/classic-core.json')), classic);
+  assert(classic.license && classic.repository && classic.commit, 'Missing Classic core source or license');
+  const classicBios = classic.builtin_bios;
+  assert.equal(classicBios.sha256, bios.sha256, 'Classic core must retain the same open BIOS');
+  assert.equal(digest(classicBytes.subarray(classicBios.embedded_offset,
+    classicBios.embedded_offset + classicBios.bytes)), classicBios.sha256);
+  classicCoreVerified = true;
+}
+if (native.variant === 'gba-web-v0.2.2') {
+  assert(classicCoreVerified, 'Mario compatibility core is required in this release');
+  assert.deepEqual(manifest.classicCompatibilityGameCodes, ['FSME']);
+}
 const runtime = tarFiles(gunzipSync(sourceTop.get('runtime-source.tar.gz')));
 for (const [name, expected] of Object.entries(native.native_frontend.source_archive_files)) {
   assert(runtime.has(name), `Missing manifest source: ${name}`);
@@ -221,7 +244,7 @@ for (const [name, expected] of Object.entries(native.native_frontend.source_arch
     assert.equal(digest(record(name.slice('payload/'.length))), expected, `Runtime/source correspondence: ${name}`);
   }
 }
-if (['gba-web-v0.2.0', 'gba-web-v0.2.1'].includes(native.variant)) {
+if (['gba-web-v0.2.0', 'gba-web-v0.2.1', 'gba-web-v0.2.2'].includes(native.variant)) {
   assert.match(bios.license, /^GPL-2\.0 \(see retained upstream BIOS notice\)$/);
   for (const name of ['payload/opt/dino/display_hardware.py', 'payload/opt/dino/hardware.json',
     'payload/opt/dino/hardware_bridge.py', 'tests/test_gba_hardware.py', 'scripts/build_web_template.py']) {
@@ -264,6 +287,6 @@ for (const frame of gameMetadata.frames) {
 console.log(JSON.stringify({ status: 'PASS', variant: native.variant, chunks: chunks.length,
   imageBytes: image.length, imageSha256: digest(image), sourceFilesScanned: sourceFiles,
   overlayEntries: overlay.entries.size, hardwareAssetsVerified: assetMetadata.assets.length,
-  rendersVerified, embeddedScreensVerified: rendersVerified,
+  rendersVerified, embeddedScreensVerified: rendersVerified, classicCompatibilityCoreVerified: classicCoreVerified,
   gameFramesVerified: gameMetadata.frames.length,
   privateRomCompared: Boolean(privateRom), physicalHardwareTested: false }, null, 2));

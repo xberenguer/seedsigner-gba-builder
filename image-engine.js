@@ -4,6 +4,7 @@ const ROM_PATH = 'opt/dino/native/User-Game.gba';
 const GAME_PATH = 'opt/dino/game.json';
 const MANIFEST_PATH = 'opt/dino/rom-manifest.json';
 const HARDWARE_PATH = 'opt/dino/hardware.json';
+const CLASSIC_CORE_PATH = 'opt/dino/native/gpsp_classic_libretro.so';
 const HARDWARE_DISPLAYS = Object.freeze({ play: 'st7789_320x240', plus: 'st7789_320x240', regular: 'st7789_240x240' });
 const encoder = new TextEncoder();
 const decoder = new TextDecoder('utf-8', { fatal: true });
@@ -74,8 +75,6 @@ export async function inspectRom(input) {
   let checksum = -0x19;
   for (let index = 0xa0; index < 0xbd; index++) checksum -= data[index];
   ensure(data[0xbd] === (checksum & 255), 'The GBA header checksum does not match.');
-  ensure(gameCode !== 'FSME',
-    'Classic NES Series: Super Mario Bros. (FSME) is not supported by this emulator. Choose another GBA game.');
   const isVrally3 = title.toUpperCase().replace(/[-_ ]/g, '').includes('VRALLY') && gameCode.startsWith('AVR');
   return { title, game_code: gameCode, bytes: data.length, sha256: await sha256(data),
     header_checksum: data[0xbd], is_vrally3: isVrally3 };
@@ -464,6 +463,20 @@ export async function buildImage(templateInput, romInput, options = {}) {
   const fat = readFat16(template), archive = parseNewc(fat.readFile('dino-overlay.cpio'));
   ensure(archive.entries.has('start.sh') && archive.entries.has('opt/dino/launcher.py') && archive.entries.has(GAME_PATH), 'Template application is incomplete.');
   ensure(archive.entries.has('opt/dino/native/dino-native') && archive.entries.has('opt/dino/native/gpsp_libretro.so'), 'Template emulator is incomplete.');
+  const classicMario = rom.game_code === 'FSME';
+  if (classicMario) {
+    const sourceRecord = archive.entries.get('opt/dino/native/source-manifest.json');
+    ensure(sourceRecord && sourceRecord.data.length <= 256 * 1024 && archive.entries.has(CLASSIC_CORE_PATH),
+      'This image template needs the Mario compatibility update. Reload the published builder.');
+    let compatibility;
+    try { compatibility = JSON.parse(decoder.decode(sourceRecord.data)).classic_compatibility; }
+    catch { throw new Error('Mario compatibility information is invalid. Reload the published builder.'); }
+    ensure(compatibility?.file === 'gpsp_classic_libretro.so' &&
+      Array.isArray(compatibility.game_codes) && compatibility.game_codes.includes('FSME') &&
+      /^[a-f0-9]{64}$/.test(compatibility.sha256 || ''), 'Mario compatibility information is incomplete.');
+    ensure(await sha256(archive.entries.get(CLASSIC_CORE_PATH).data) === compatibility.sha256,
+      'Mario compatibility core checksum does not match.');
+  }
   ensure(archive.entries.has(HARDWARE_PATH), 'This image template does not support device selection. Reload the published builder.');
   let previousHardware, settings;
   const hardwareRecord = archive.entries.get(HARDWARE_PATH), settingsData = fat.readFile('settings.json');
@@ -481,7 +494,9 @@ export async function buildImage(templateInput, romInput, options = {}) {
   ensure(!archive.records.some(record => /\.gba$/i.test(record.name) && record.name !== ROM_PATH), 'Unexpected game ROM in template.');
   progress('patch', 'Adding your ROM and selected controls locally…');
   const game = { game: 'gba', rom: 'User-Game.gba', title: rom.title, input_profile: profile };
-  const manifest = { schema: 1, sha256: rom.sha256, bytes: rom.bytes, title: rom.title, game_code: rom.game_code, input_profile: profile };
+  const emulatorCore = classicMario ? 'gpsp_classic_libretro.so' : 'gpsp_libretro.so';
+  const manifest = { schema: 1, sha256: rom.sha256, bytes: rom.bytes, title: rom.title, game_code: rom.game_code,
+    input_profile: profile, emulator_core: emulatorCore };
   replaceRecord(archive, ROM_PATH, romData);
   const gameData = encoder.encode(JSON.stringify(game) + '\n');
   replaceRecord(archive, GAME_PATH, gameData);
@@ -491,7 +506,8 @@ export async function buildImage(templateInput, romInput, options = {}) {
   for (const [name, additions] of [
     ['opt/dino/native/source-manifest.json', { rom_included: true, rom: { file: 'User-Game.gba', bytes: rom.bytes,
       sha256: rom.sha256, title: rom.title, game_code: rom.game_code }, input_profile: profile,
-      hardware_profile: hardwareProfile, hardware_config_sha256: hardwareSha256, display_config: display }],
+      hardware_profile: hardwareProfile, hardware_config_sha256: hardwareSha256, display_config: display,
+      selected_emulator_core: emulatorCore }],
     ['opt/dino/source-manifest.json', { rom_included: true, rom_sha256: rom.sha256, game_config_sha256: gameSha256,
       hardware_profile: hardwareProfile, hardware_config_sha256: hardwareSha256 }],
   ]) {
