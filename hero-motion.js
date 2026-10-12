@@ -104,8 +104,6 @@ async function preparePreview() {
   let suspended = false;
   let lastFrame = -1;
   let lastStep = -1;
-  let wheelFrame = null;
-  let positionInput = false;
   function render() {
     request = 0;
     if (suspended || document.hidden) return;
@@ -138,11 +136,12 @@ async function preparePreview() {
     }
     // One linear gameplay timeline from page top to the black-screen cut.
     // Captures are unevenly spaced, so scrub their source time, not image index.
+    // Position is the only input: wheel-event bursts cannot finish the clip
+    // before the device zoom. The last capture arrives at the black-screen cut.
     const gameProgress = reducedMotion.matches ? 0 : clamp(scrollY / (storyTop + range * .50));
     const sourceFrame = sourceFrames[0] + gameProgress * (sourceFrames.at(-1) - sourceFrames[0]);
     const nextFrame = sourceFrames.findIndex(frame => frame >= sourceFrame);
-    const positionFrame = nextFrame < 0 ? frames.length - 1 : nextFrame;
-    const frame = reducedMotion.matches ? 0 : wheelFrame ?? positionFrame;
+    const frame = nextFrame < 0 ? frames.length - 1 : nextFrame;
     // Hard cuts: game, a black pause, the splash screen, then SeedSigner Home.
     const screenName = progress < .50 ? 'game' : progress < .58 ? 'black'
       : progress < .86 ? 'splash' : 'home';
@@ -182,32 +181,9 @@ async function preparePreview() {
   function schedule() {
     if (!request && !suspended && !document.hidden) request = requestAnimationFrame(render);
   }
-  function wheelStep(event) {
-    // A vertical wheel input advances one captured image, regardless of its
-    // pixel/line delta. Keep this separate from the browser's smooth scrolling,
-    // which can produce many scroll events from that one input.
-    if (reducedMotion.matches || suspended || document.hidden || event.defaultPrevented || event.ctrlKey ||
-        event.deltaY === 0 || Math.abs(event.deltaX) > Math.abs(event.deltaY) ||
-        event.target instanceof Element && event.target.closest('input, select, textarea, [contenteditable]')) return;
-    const section = story.getBoundingClientRect();
-    const range = Math.max(1, section.height - pin.offsetHeight);
-    if (-section.top / range >= .50 || scrollY <= 0 && event.deltaY < 0) return;
-    positionInput = false;
-    wheelFrame = Math.max(0, Math.min(frames.length - 1,
-      (wheelFrame ?? Math.max(0, lastFrame)) + Math.sign(event.deltaY)));
-    schedule();
-  }
-  addEventListener('wheel', wheelStep, { passive: true });
-  addEventListener('scroll', () => {
-    // Touch, keyboard and scrollbar movement use the position-based timeline.
-    // Merely clicking or pressing a key must not change the displayed frame.
-    if (scrollY <= 0 || positionInput) { wheelFrame = null; positionInput = false; }
-    schedule();
-  }, { passive: true });
-  addEventListener('pointerdown', () => { positionInput = true; }, { passive: true });
-  addEventListener('keydown', () => { positionInput = true; }, { passive: true });
+  addEventListener('scroll', schedule, { passive: true });
   addEventListener('resize', schedule, { passive: true });
-  reducedMotion.addEventListener('change', () => { wheelFrame = null; schedule(); });
+  reducedMotion.addEventListener('change', schedule);
   document.addEventListener('visibilitychange', schedule);
   addEventListener('pagehide', () => { suspended = true; cancelAnimationFrame(request); request = 0; });
   addEventListener('pageshow', () => { suspended = false; schedule(); });
