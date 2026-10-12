@@ -76,6 +76,82 @@
     "celeste2": "Celeste Classic 2 by Maddy Thorson, Noel Berry and Lena Raine; GBA port and screenshot by Skale. https://github.com/Skaleee/Celeste2-GBA/blob/main/screenshots/celeste2-grappling.gif",
     "vrally3": "V-Rally 3 GBA, Eden Studios/Infogrames. Emulator capture from user-supplied ROM; shown for identification, no game distributed.",
     "pokemon": "Official Nintendo gameplay screenshot. Pokémon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
-    "doom": "GBA gameplay capture hosted by VGMPF, contributor GatoVerde95. DOOM artwork belongs to id Software and respective rights holders; no project-code license asserted."
-  }
+    "doom": "GBA gameplay capture hosted by VGMPF, contributor GatoVerde95. DOOM artwork belongs to id Software and respective rights holders; no project-code license asserted.",
+    "crash": "Crash Bandicoot: The Huge Adventure screenshot by IgoreshaZhu, hosted by VGMPF. Original game artwork retains its respective creators rights.",
+    "mario": "Classic NES Series: Super Mario Bros. captured from the creator-supplied game in the production emulator; Nintendo game artwork retains its rights. See scroll-sources-v2.json."
+  },
+  "example_cards": [
+    {
+      "game": "Crash Bandicoot: The Huge Adventure",
+      "file": "crash-bandicoot-example.svg",
+      "source_url": "https://vgmpf.com/Wiki/images/e/e8/Crash_Bandicoot_-_The_Huge_Adventure_-_GBA_-_Gameplay.jpg",
+      "source_page": "https://vgmpf.com/Wiki/index.php?title=File:Crash_Bandicoot_-_The_Huge_Adventure_-_GBA_-_Gameplay.jpg",
+      "credit": "Published gameplay screenshot uploaded by IgoreshaZhu to VGMPF. Crash Bandicoot artwork retains its respective rights holders; no project-code license asserted.",
+      "capture": "Published screenshot, not a capture of the creator test.",
+      "modifications": "Original JPEG bytes embedded unchanged in an SVG wrapper; no crop, resize or pixel edits.",
+      "source_sha256": "d00b2134de5e8c491d33034fac94279e48153690cf558018106cf00780e73cb5",
+      "sha256": "0d471089d0bd156e4d6d10722a7fbdc958414cdb151c58ec860e318fa6d3b3ff",
+      "dimensions": [
+        650,
+        434
+      ]
+    },
+    {
+      "game": "Pokémon Ruby / Sapphire",
+      "file": "pokemon.png",
+      "source_record": "frames: pokemon.png",
+      "hardware_tested": false
+    },
+    {
+      "game": "Classic NES Series: Super Mario Bros.",
+      "file": "mario-example.svg",
+      "source_record": "scroll-sources-v2.json",
+      "source_frame": 804,
+      "source_file": "mario-114.png",
+      "capture": "Genuine production emulator software capture; no physical test implied.",
+      "modifications": "Original PNG bytes embedded unchanged in an SVG wrapper.",
+      "source_sha256": "aa2510a44e0d928d0068990e665bbf9881d971e710ba8625f573b64d7f527ef0",
+      "sha256": "7dbb197bff552866420d4a3bdb0b1e57677a1e1cc3ef635a9e43feedb7e12503",
+      "dimensions": [
+        240,
+        160
+      ]
+    }
+  ],
+  "testing_evidence": [
+    {
+      "game": "Crash Bandicoot: The Huge Adventure",
+      "status": "creator-tested",
+      "reported_on": "2026-10-12",
+      "evidence": "The builder creator directly reported personally testing the game and that it works great.",
+      "hardware_profile": null,
+      "builder_version": null,
+      "scope": "Creator-reported gameplay result; no claim of completed full hardware, camera, signing or persistent-save qualification."
+    },
+    {
+      "game": "Pokémon Ruby / Sapphire",
+      "status": "not-yet-tested",
+      "persistent_saves_supported": false
+    },
+    {
+      "game": "Classic NES Series: Super Mario Bros.",
+      "status": "software-checked",
+      "evidence": "scroll-sources-v2.json",
+      "physical_testing": "pending"
+    },
+    {
+      "game": "Google Dino Advance",
+      "status": "earlier-build-tested",
+      "scope": "Gameplay reported on an earlier Dino hardware build; this browser-builder output is not fully physically qualified."
+    },
+    {
+      "game": "Celeste Classic 2",
+      "status": "not-yet-tested"
+    },
+    {
+      "game": "V-Rally 3",
+      "status": "software-checked",
+      "scope": "ARM emulation and control behavior checked; physical qualification pending."
+    }
+  ]
 }
