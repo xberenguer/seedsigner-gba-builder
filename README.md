@@ -61,6 +61,21 @@ handbrake. Standard GBA exposes D-pad, A, B, Start and Select. Its default map
 does not assign L/R; **Advanced** can map those GBA inputs to existing HAT
 buttons. There is no audio or persistent game-save storage.
 
+### Examples and testing status
+
+| Game | Evidence and limits |
+|---|---|
+| **Crash Bandicoot: The Huge Adventure** | Creator tested: the creator personally reported it working well on 2026-10-12. Hardware, display profile and build version were not specified. |
+| **Pokémon Ruby / Sapphire** | Not yet tested on this fork. The screenshot is an official Nintendo example, not a compatibility result. Persistent saves are not available, so progress is lost when the session ends. |
+| **Classic NES Series: Super Mario Bros.** | Software checked: World 1-1 gameplay, movement, jumps, question blocks and a Goomba stomp were captured with the ARMv6 runtime under software emulation. Physical gameplay and speed remain unverified. |
+
+These game-specific results do not establish full hardware qualification.
+Cold-boot, display/buttons, camera and signing checks remain pending for
+the exact generated images. Other examples retain their individual evidence
+limits; compatibility and speed vary. Use your own game files; no game ROMs
+are bundled or distributed. See [game-frame sources](game-sources.json) and
+[Mario capture evidence](scroll-sources-v2.json).
+
 Basic use needs only a display and game. Advanced provides automatic, standard,
 V-Rally 3 and custom control choices, with a separate mapping for each of the
 eight physical HAT buttons. Select a GBA action, **None**, or the combined
@@ -124,8 +139,10 @@ The failure screen shows game availability and retry instructions. Its retry
 button is chosen outside a customized signer shortcut, so a partial shortcut
 cannot trigger a retry. Game or GPIO failures do not implicitly enter SeedSigner.
 
-Physical cold-boot, display/buttons, gameplay speed, camera and signing checks
-remain pending for these exact outputs. This is an experimental community fork
+Full physical qualification, including cold-boot, display/buttons, sustained
+gameplay speed, camera and signing, remains pending for these exact outputs.
+The creator-reported Crash gameplay result above is a narrower check.
+This is an experimental community fork
 without an independent security audit. Use disposable test seeds for validation.
 The game and signer share one OS; the button combination is an interface gate,
 not authentication or isolation. Never enter seeds into this website.
