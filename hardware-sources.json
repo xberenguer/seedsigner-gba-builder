@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "checked": "2026-10-11",
-  "note": "Original SVG hardware illustrations, not product photographs or hardware-test evidence. Manufacturer photographs and CAD were consulted for shape/control layout. Distinct example screens use V-Rally 3, Pok\u00e9mon Ruby / Sapphire, DOOM GBA and Celeste Classic 2 game-frame composites, not device captures. Frame aspect ratios are preserved with letterboxing. Approximate perspective and comparative sizes, not exact scale.",
+  "note": "Original SVG hardware illustrations, not product photographs or hardware-test evidence. Manufacturer photographs and CAD were consulted for shape/control layout. Distinct example screens use V-Rally 3, Pokémon Ruby / Sapphire, DOOM GBA and Celeste Classic 2 game-frame composites, not device captures. Frame aspect ratios are preserved with letterboxing. Approximate perspective and comparative sizes, not exact scale.",
   "assets": [
     {
       "kind": "render",
@@ -11,18 +11,18 @@
       "model_reference_urls": [
         "https://bitkitbtc.com/product/seedsigner-play/"
       ],
-      "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: Official Nintendo gameplay screenshot. Pok\u00e9mon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
+      "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: Official Nintendo gameplay screenshot. Pokémon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
       "license": "Original SVG artwork: GPL-2.0-or-later. Embedded game frame retains its original artwork rights and notices; see game-sources.json. Regular-device reference credited under CC BY 4.0. Manufacturer photographs are references only, not embedded or relicensed.",
       "description": "Maker-listed 76:99 front proportions; symmetric diamond-like octagonal D-pad recess with five separate direction/select tactile switches, three separate action switches, four front screws and two left-side SD slots.",
-      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Pok\u00e9mon Ruby / Sapphire game frame. Original PNG bytes are embedded without pixel edits; source aspect ratio is retained with letterboxing. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale.",
+      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Pokémon Ruby / Sapphire game frame. Original PNG bytes are embedded without pixel edits; source aspect ratio is retained with letterboxing. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale.",
       "screen_capture": "pokemon.png",
       "screen_capture_sha256": "ab50e4de53a7153d9a629c7a8f17e500e6c0c5da5beb457f7c2d8e638df25600",
       "bytes": 68338,
       "sha256": "abd4203198033e8aa73e08887e6833d8a15ef0fe178d6cef579adafb697e7aa3",
       "width": 600,
       "height": 400,
-      "screen_game": "Pok\u00e9mon Ruby / Sapphire",
-      "screen_capture_credit": "Official Nintendo gameplay screenshot. Pok\u00e9mon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
+      "screen_game": "Pokémon Ruby / Sapphire",
+      "screen_capture_credit": "Official Nintendo gameplay screenshot. Pokémon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
       "screen_source_url": "https://www.nintendo.co.jp/n08/axvp/ss02.jpg",
       "screen_source_page": "https://www.nintendo.co.jp/n08/axvp/"
     },
@@ -83,11 +83,11 @@
       "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: Celeste Classic 2 by Maddy Thorson, Noel Berry and Lena Raine; GBA port and screenshot by Skale. https://github.com/Skaleee/Celeste2-GBA/blob/main/screenshots/celeste2-grappling.gif",
       "license": "Original SVG artwork: GPL-2.0-or-later. Embedded game frame retains its original artwork rights and notices; see game-sources.json. Regular-device reference credited under CC BY 4.0. Manufacturer photographs are references only, not embedded or relicensed.",
       "description": "Observed approximately 2.13:1 silhouette, square display, one left joystick and three right pill-shaped action buttons. Exact case variant and dimensions are unconfirmed.",
-      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Celeste Classic 2 game frame. Original PNG bytes are embedded without pixel edits; source aspect ratio is retained with letterboxing. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale.",
+      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Celeste Classic 2 game frame. Original PNG bytes are embedded without pixel edits; source aspect ratio is retained with letterboxing. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale. Device artwork is uniformly enlarged 1.5× within the shared canvas; enclosure and control proportions are unchanged.",
       "screen_capture": "celeste2.png",
       "screen_capture_sha256": "a706762d0b27a95188f5194d2230bed7fdef81c221be72266bb4bbe4e0e5256e",
-      "bytes": 6444,
-      "sha256": "8c3ff027c739cb00a397904dd6a63a8596df2945772e39f8a33704e274cb1686",
+      "bytes": 6514,
+      "sha256": "e05f14d5c66e9ec80bb7e898091c8dc892dcab3cd7bfcb67f2a164dfbfb84ede",
       "width": 600,
       "height": 400,
       "screen_game": "Celeste Classic 2",

@@ -14,7 +14,7 @@ const ui = Object.fromEntries([
 
 const hardwareNames = {
   play: 'SeedSigner Play',
-  plus: 'SeedSigner Plus',
+  plus: 'Larger display (Plus / Play)',
   regular: 'Regular display',
 };
 const profiles = {
@@ -107,12 +107,12 @@ function showControls() {
 function showHardware() {
   const name = hardwareNames[selectedHardware()];
   if (!ui.hardwareHelp) return;
-  if (!name) ui.hardwareHelp.textContent = 'Choose one of the listed devices.';
+  if (!name) ui.hardwareHelp.textContent = 'Choose the display size that matches your device.';
   else if (manifest && !supportedHardware().includes(selectedHardware())) {
     ui.hardwareHelp.textContent = `${name} is not supported by this image template. Choose a supported device.`;
   } else ui.hardwareHelp.textContent = {
     play: '320 × 240 Plus display profile. Requires Pi Zero 1.3; verify your Play uses the matching display/HAT.',
-    plus: '320 × 240 ST7789 Plus HAT on Pi Zero 1.3.',
+    plus: '320 × 240 ST7789 display for Plus / Play on Pi Zero 1.3. Confirm your display and HAT match.',
     regular: '240 × 240 Waveshare HAT on Pi Zero 1.3. Software checked; physical testing pending.',
   }[selectedHardware()];
 }
@@ -162,10 +162,10 @@ function updateReady() {
     ui.buildButtonLabel.textContent = 'Try loading again';
     ui.buildNote.textContent = 'Check your connection, then try again. Your selected game stays here.';
   } else if (!hardwareReady) {
-    ui.buildButtonLabel.textContent = selectedHardware() ? 'Choose a supported device' : 'Choose your device';
+    ui.buildButtonLabel.textContent = selectedHardware() ? 'Choose a supported device' : 'Choose your display';
     ui.buildNote.textContent = selectedHardware()
       ? 'This template does not support the selected device.'
-      : 'Match your device above, then add a game file.';
+      : 'Choose your display above, then add a game file.';
   } else if (selecting) {
     ui.buildButtonLabel.textContent = 'Checking game…';
     ui.buildNote.textContent = 'Reading your file on this device.';
