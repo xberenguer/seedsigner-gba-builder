@@ -74,7 +74,7 @@ Cold-boot, display/buttons, camera and signing checks remain pending for
 the exact generated images. Other examples retain their individual evidence
 limits; compatibility and speed vary. Use your own game files; no game ROMs
 are bundled or distributed. See [game-frame sources](game-sources.json) and
-[Mario capture evidence](scroll-sources-v2.json).
+[Mario capture evidence](scroll-sources-v3.json).
 
 Basic use needs only a display and game. Advanced provides automatic, standard,
 V-Rally 3 and custom control choices, with a separate mapping for each of the
