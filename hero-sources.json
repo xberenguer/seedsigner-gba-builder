@@ -1,0 +1,78 @@
+{
+  "schema": 1,
+  "note": "Authentic SeedSigner splash and Home software renderings for the scroll-controlled device illustration. The Mario gameplay sequence is documented separately in scroll-sources.json. No seed data or physical-hardware claim.",
+  "home": {
+    "file": "seedsigner-home.png",
+    "kind": "software-render",
+    "dimensions": [
+      320,
+      240
+    ],
+    "sha256": "5c0cbeee86f636976dd1a482db04227567f6c9bf02ae2c6be8fb8a23de69711f",
+    "source_repository": "https://github.com/SeedSigner/seedsigner",
+    "source_commit": "e0a80d4b33b8eb7fb1e9fd14a27b7cd11c7d2cd6",
+    "source_tag": "0.8.7",
+    "screen_class": "seedsigner.gui.screens.screen.MainMenuScreen",
+    "render_method": "Actual pinned upstream MainMenuScreen._render() plus Renderer.show_image(), original components and fonts, canonical Home/Scan/Seeds/Tools/Settings arguments; only GPIO/input singleton and display transport replaced with no-op mocks.",
+    "selection": "Scan, original default",
+    "capture_scope": "Software rendering only; no wallet/seed/user data, no physical display, buttons, QR decoding, camera or signing tested.",
+    "modifications": "Original 320x240 PIL canvas saved directly as PNG; no pixel editing, crop or resize.",
+    "source_files_sha256": {
+      "src/seedsigner/views/view.py": "b92cb1e521001a270d678ef7d32126c7736fecd629f781251a860a4d349d957d",
+      "src/seedsigner/gui/screens/screen.py": "26efdbc756f43c616579070047947be1de2eb57066afe022ba5bcab0064c9963",
+      "src/seedsigner/gui/components.py": "9bf81d18f771279eaf856a536a59a54d9b445fb7fe777ce1a0dbf412e844af93",
+      "src/seedsigner/gui/renderer.py": "308c77a3e190df410245c7c2762e2ee7464fa73933d6da4e8acc2a936460af67",
+      "src/seedsigner/resources/fonts/OpenSans-SemiBold.ttf": "5e8d9e1a89083cd1b0849993fe2f3acc9aa33b7f439f7e8616872f6897f30684",
+      "src/seedsigner/resources/fonts/Font_Awesome_6_Free-Solid-900.otf": "6d553fdfa726bb47fc2ebf01a6b22da7417645e51ad69b17f90ad9a1a5941939",
+      "src/seedsigner/resources/fonts/seedsigner-icons.otf": "85d6cbacb69633199fdf2b3bd76349f4d274367ac0c170cf5880c337a9ca6e59",
+      "LICENSE.md": "1258a5daf0928bc18bfaa2047b8eaa34cae2a70b2f97feb0d024bc52f5ca09f5"
+    },
+    "credit": "SeedSigner developers, Copyright (c) 2021 SeedSigner; UI generated from official MIT-licensed SeedSigner v0.8.7 source. Fonts retain their individual licenses included in the existing notices.",
+    "license": "SeedSigner UI source: MIT; fonts: original individual licenses.",
+    "license_url": "https://github.com/SeedSigner/seedsigner/blob/0.8.7/LICENSE.md",
+    "render_script": "build/mario-bridge-audit/render_authentic_home.py",
+    "render_script_sha256": "8d58c3c48fefc21fdcc8534f29a5733226521486dfc575abdbb6f4dd12d0288d",
+    "python": "3.12.14",
+    "pillow": "10.3.0",
+    "physical_hardware_tested": false
+  },
+  "splash": {
+    "file": "seedsigner-splash.png",
+    "kind": "software-render",
+    "dimensions": [
+      320,
+      240
+    ],
+    "sha256": "a636e9869edc2992eb2e0b595f3419a6916c2f212217ead83de07117dec6d51d",
+    "source_repository": "https://github.com/SeedSigner/seedsigner",
+    "source_commit": "e0a80d4b33b8eb7fb1e9fd14a27b7cd11c7d2cd6",
+    "source_tag": "0.8.7",
+    "screen_class": "seedsigner.views.screensaver.OpeningSplashScreen",
+    "render_method": "Actual pinned upstream OpeningSplashScreen._render() through Renderer.show_image(), original logo/HRF assets, fonts, version and default partner-logo setting. Only GPIO/input singleton, display transport, delays and Controller singleton initialization replaced with no-op / VERSION-only mocks; original Controller.VERSION retained.",
+    "selection": "Final default opening splash: SeedSigner logo, v0.8.7, With support from, HRF. Upstream partner_logos default is enabled; HRF is the only partner in the pinned source.",
+    "capture_scope": "Software rendering only; no wallet/seed/user data, no physical display, buttons, QR decoding, camera or signing tested.",
+    "modifications": "Original final 320x240 RGB PIL display canvas saved directly as PNG; no pixel editing, crop, resize, compositing, altered text or font substitutions.",
+    "source_files_sha256": {
+      "src/seedsigner/views/screensaver.py": "8e7fbe0959e402ace9a908081ce3a5d2c2f5b29dee1e8ce140830c6e2acae6ee",
+      "src/seedsigner/controller.py": "5c5635eba565e98d47437ee194f761fd93f67624572032888b2f00d926658e5a",
+      "src/seedsigner/gui/screens/screen.py": "26efdbc756f43c616579070047947be1de2eb57066afe022ba5bcab0064c9963",
+      "src/seedsigner/gui/components.py": "9bf81d18f771279eaf856a536a59a54d9b445fb7fe777ce1a0dbf412e844af93",
+      "src/seedsigner/gui/renderer.py": "308c77a3e190df410245c7c2762e2ee7464fa73933d6da4e8acc2a936460af67",
+      "src/seedsigner/models/settings_definition.py": "f7619d0f4ec2984213e9e10c1f75f9a6651c58f522b79bad680352206cb3bb71",
+      "src/seedsigner/resources/img/logo_black_240.png": "d2f1ab420159dc2a79a4f3cca5d1e262dda3b7163c65e2aacd704a0c13e05159",
+      "src/seedsigner/resources/img/partners/hrf_logo.png": "a7632f39303cc216378ff4ca4ae8dea5a43c9774f4e0c856a88a107b26e5ff4d",
+      "src/seedsigner/resources/fonts/OpenSans-SemiBold.ttf": "5e8d9e1a89083cd1b0849993fe2f3acc9aa33b7f439f7e8616872f6897f30684",
+      "src/seedsigner/resources/fonts/OpenSans-Regular.ttf": "037236ed4bf58a85f67074c165d308260fd6be01c86d7df4e79ea16eb273f8c5",
+      "LICENSE.md": "1258a5daf0928bc18bfaa2047b8eaa34cae2a70b2f97feb0d024bc52f5ca09f5"
+    },
+    "credit": "SeedSigner developers, Copyright (c) 2021 SeedSigner; UI generated from official MIT-licensed SeedSigner v0.8.7 source. Original HRF partner artwork and fonts retained; fonts retain their individual licenses included in existing notices.",
+    "license": "SeedSigner UI source: MIT; original bundled logo/partner assets retained; fonts: original individual licenses.",
+    "license_url": "https://github.com/SeedSigner/seedsigner/blob/0.8.7/LICENSE.md",
+    "render_script": "build/mario-scroll-capture/render_authentic_splash.py",
+    "render_script_sha256": "3271e8e64ddfc787f83f8c53309400b6056e142dc6265a647bfb423b3a24ae63",
+    "python": "3.12.14",
+    "pillow": "10.3.0",
+    "original_render_calls": 13,
+    "physical_hardware_tested": false
+  }
+}

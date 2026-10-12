@@ -34,6 +34,13 @@ Website hardware illustrations:
   locally have no broader reuse permission claimed.
   See hardware-sources.json and HARDWARE-RESEARCH.md for provenance.
 
+Scroll scene:
+32 actual Classic NES Series: Super Mario Bros. gameplay captures (Nintendo
+artwork) and the official SeedSigner 0.8.7 splash and Home UI rendered from pinned
+MIT-licensed source. No seed data or game ROM included. Software previews,
+not physical-device test evidence. See scroll-sources.json and
+hero-sources.json.
+
 Game-frame screenshots:
 Dino: Google/Chromium artwork; GBA port by Ethan Fritz. Celeste Classic 2:
 Maddy Thorson, Noel Berry and Lena Raine; GBA port/screenshot by Skale.

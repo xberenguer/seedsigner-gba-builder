@@ -1,7 +1,7 @@
 {
   "schema": 2,
   "checked": "2026-10-11",
-  "note": "Original SVG hardware illustrations, not product photographs or hardware-test evidence. Manufacturer photographs and CAD were consulted for shape/control layout. Distinct example screens use V-Rally 3, Pokémon Ruby / Sapphire, DOOM GBA and Celeste Classic 2 game-frame composites, not device captures. Frame aspect ratios are preserved. The regular display clips only the black padding around the square Celeste gameplay area; other screens use letterboxing. Approximate perspective and comparative sizes, not exact scale.",
+  "note": "Original SVG hardware illustrations, not product photographs or hardware-test evidence. Manufacturer photographs and CAD were consulted for shape/control layout. Distinct example screens use Google Dino Advance, Pok\u00e9mon Ruby / Sapphire, DOOM GBA and Celeste Classic 2 game-frame composites, not device captures. The hero reserves an initially empty layer for separately credited SeedSigner splash and Home software previews during page animation. Frame aspect ratios are preserved. The regular display clips only the black padding around the square Celeste gameplay area; other screens use letterboxing. Approximate perspective and comparative sizes, not exact scale.",
   "assets": [
     {
       "kind": "render",
@@ -11,18 +11,18 @@
       "model_reference_urls": [
         "https://bitkitbtc.com/product/seedsigner-play/"
       ],
-      "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: Official Nintendo gameplay screenshot. Pokémon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
+      "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: Official Nintendo gameplay screenshot. Pok\u00e9mon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
       "license": "Original SVG artwork: GPL-2.0-or-later. Embedded game frame retains its original artwork rights and notices; see game-sources.json. Regular-device reference credited under CC BY 4.0. Manufacturer photographs are references only, not embedded or relicensed.",
       "description": "Maker-listed 76:99 front proportions; symmetric diamond-like octagonal D-pad recess with five separate direction/select tactile switches, three separate action switches, four front screws and two left-side SD slots.",
-      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Pokémon Ruby / Sapphire game frame. Original PNG bytes are embedded without pixel edits; source aspect ratio is retained with letterboxing. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale.",
+      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Pok\u00e9mon Ruby / Sapphire game frame. Original PNG bytes are embedded without pixel edits; source aspect ratio is retained with letterboxing. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale.",
       "screen_capture": "pokemon.png",
       "screen_capture_sha256": "ab50e4de53a7153d9a629c7a8f17e500e6c0c5da5beb457f7c2d8e638df25600",
       "bytes": 68338,
       "sha256": "abd4203198033e8aa73e08887e6833d8a15ef0fe178d6cef579adafb697e7aa3",
       "width": 600,
       "height": 400,
-      "screen_game": "Pokémon Ruby / Sapphire",
-      "screen_capture_credit": "Official Nintendo gameplay screenshot. Pokémon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
+      "screen_game": "Pok\u00e9mon Ruby / Sapphire",
+      "screen_capture_credit": "Official Nintendo gameplay screenshot. Pok\u00e9mon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
       "screen_source_url": "https://www.nintendo.co.jp/n08/axvp/ss02.jpg",
       "screen_source_page": "https://www.nintendo.co.jp/n08/axvp/"
     },
@@ -34,18 +34,31 @@
       "model_reference_urls": [
         "https://bitkitbtc.com/product/seedsigner-play/"
       ],
-      "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: V-Rally 3 GBA, Eden Studios/Infogrames. Emulator capture from user-supplied ROM; shown for identification, no game distributed.",
+      "credit": "Original project SVG illustration; hardware reference BitKit. Screen: Nintendo Super Mario Bros. game artwork; actual project software capture, no game ROM distributed.",
       "license": "Original SVG artwork: GPL-2.0-or-later. Embedded game frame retains its original artwork rights and notices; see game-sources.json. Regular-device reference credited under CC BY 4.0. Manufacturer photographs are references only, not embedded or relicensed.",
-      "description": "Same corrected symmetric-octagon Play render with a technical grid and outer-action-button entry shortcut annotation.",
-      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded V-Rally 3 game frame. Original PNG bytes are embedded without pixel edits; source aspect ratio is retained with letterboxing. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale.",
-      "screen_capture": "vrally3.png",
-      "screen_capture_sha256": "2352aab3bc8bd2040c47f476c1f408032fdbef2bf309680e8d0e9ac6a1ac54f5",
-      "bytes": 38988,
-      "sha256": "0ccd90d6c201d9a5de498805a50de22d5979b8cd6faaf1af0f879ccbfeaefded",
+      "description": "SeedSigner Play geometry preserved, with no background grid, callout lines or shortcut labels. Shared clipped game, splash and Home layers support the scroll-controlled page preview.",
+      "modifications": "Original vector device geometry and monochrome materials unchanged. Initial screen is an unedited 240x160 Mario gameplay PNG, preserving aspect ratio with letterboxing. The page scrubs a genuine question-block sequence and transitions through the official SeedSigner splash and Home software renderings. These composites are not physical-device evidence.",
+      "screen_capture": "mario-01.png",
+      "screen_capture_sha256": "738e57c7b436229a2b2336d87e1188ec789c4b9c02a674ce817edd82ee6bb839",
+      "bytes": 9334,
+      "sha256": "5d1eec9c1efc4efb0345ef57ca33eacb10922bbc570e27aa091a80996bd4fa74",
       "width": 600,
       "height": 400,
-      "screen_game": "V-Rally 3",
-      "screen_capture_credit": "V-Rally 3 GBA, Eden Studios/Infogrames. Emulator capture from user-supplied ROM; shown for identification, no game distributed."
+      "screen_game": "Super Mario Bros.",
+      "screen_capture_credit": "Classic NES Series: Super Mario Bros. artwork Nintendo. Genuine software gameplay capture using the project compatibility core; no game ROM distributed. See scroll-sources.json.",
+      "screen_layers": {
+        "device_group": "hero-device",
+        "dino": "hero-dino-screen",
+        "signer": "hero-signer-screen",
+        "shared_clip": "hero-screen-clip",
+        "panel": [
+          27,
+          24,
+          154,
+          115.5
+        ],
+        "signer_layer_initially_empty": true
+      }
     },
     {
       "kind": "render",
@@ -83,7 +96,7 @@
       "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: Celeste Classic 2 by Maddy Thorson, Noel Berry and Lena Raine; GBA port and screenshot by Skale. https://github.com/Skaleee/Celeste2-GBA/blob/main/screenshots/celeste2-grappling.gif",
       "license": "Original SVG artwork: GPL-2.0-or-later. Embedded game frame retains its original artwork rights and notices; see game-sources.json. Regular-device reference credited under CC BY 4.0. Manufacturer photographs are references only, not embedded or relicensed.",
       "description": "Observed approximately 2.13:1 silhouette, square display, one left joystick and three right pill-shaped action buttons. Exact case variant and dimensions are unconfirmed.",
-      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Celeste Classic 2 game frame. Original PNG bytes are unchanged. The 128 × 128 square gameplay area at (56, 16) in the 240 × 160 capture fills the square display without stretching; only black capture padding is clipped. Device size, enclosure and control proportions match the original render. No manufacturer photograph embedded; comparison is not to exact scale.",
+      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Celeste Classic 2 game frame. Original PNG bytes are unchanged. The 128 \u00d7 128 square gameplay area at (56, 16) in the 240 \u00d7 160 capture fills the square display without stretching; only black capture padding is clipped. Device size, enclosure and control proportions match the original render. No manufacturer photograph embedded; comparison is not to exact scale.",
       "screen_capture": "celeste2.png",
       "screen_capture_sha256": "a706762d0b27a95188f5194d2230bed7fdef81c221be72266bb4bbe4e0e5256e",
       "bytes": 6658,

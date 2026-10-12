@@ -284,9 +284,76 @@ for (const frame of gameMetadata.frames) {
   assert.equal(digest(data), frame.sha256, `Game-frame digest: ${frame.file}`);
   assert.deepEqual([data.readUInt32BE(16), data.readUInt32BE(20)], frame.dimensions, `PNG dimensions: ${frame.file}`);
 }
+const heroSources = await firstExisting(['hero-sources.json', 'hero-sources.json']);
+const heroMetadata = JSON.parse(heroSources.data), heroDir = dirname(heroSources.name);
+assert.equal(heroMetadata.schema, 1, 'Hero-frame metadata schema');
+assert.equal(heroMetadata.home?.screen_class, 'seedsigner.gui.screens.screen.MainMenuScreen', 'Authentic Home screen source');
+assert.equal(heroMetadata.splash?.screen_class, 'seedsigner.views.screensaver.OpeningSplashScreen', 'Authentic splash source');
+const heroFrames = [heroMetadata.home, heroMetadata.splash];
+for (const frame of heroFrames) {
+  assert.equal(frame.kind, 'software-render', `Hero source type: ${frame.file}`);
+  assert.equal(frame.source_commit, 'e0a80d4b33b8eb7fb1e9fd14a27b7cd11c7d2cd6', `Pinned UI source: ${frame.file}`);
+  assert.equal(frame.source_tag, '0.8.7', `UI source version: ${frame.file}`);
+  assert.equal(frame.physical_hardware_tested, false, `Hero hardware scope: ${frame.file}`);
+  assert(frame.credit && frame.license && frame.license_url && frame.render_method, `Missing UI attribution: ${frame.file}`);
+  assert(/^[a-f0-9]{64}$/.test(frame.render_script_sha256), `Missing UI reproduction digest: ${frame.file}`);
+  const data = await local(`${heroDir === '.' ? '' : `${heroDir}/`}${relativeName(frame.file)}`);
+  assert.equal(digest(data), frame.sha256, `Hero-frame digest: ${frame.file}`);
+  assert(data.subarray(0, 8).equals(Buffer.from('89504e470d0a1a0a', 'hex')), `Hero frame is not PNG: ${frame.file}`);
+  assert.deepEqual(frame.dimensions, [320, 240], `Hero-frame metadata dimensions: ${frame.file}`);
+  assert.deepEqual([data.readUInt32BE(16), data.readUInt32BE(20)], frame.dimensions, `Hero PNG dimensions: ${frame.file}`);
+  noGame(frame.file, data);
+}
+const scrollSources = await firstExisting(['scroll-sources.json', 'scroll-sources.json']);
+const scrollMetadata = JSON.parse(scrollSources.data), scrollDir = dirname(scrollSources.name);
+assert.equal(scrollMetadata.schema, 1, 'Scroll-frame metadata schema');
+assert.deepEqual([scrollMetadata.width, scrollMetadata.height], [240, 160], 'Scroll-frame dimensions');
+assert.equal(scrollMetadata.frame_count, 32, 'Expected 32 scroll frames');
+assert.equal(scrollMetadata.frames.length, scrollMetadata.frame_count, 'Scroll-frame count');
+const capture = scrollMetadata.capture;
+assert.equal(capture.game_code, 'FSME', 'Scroll capture game code');
+assert.equal(capture.frontend_sha256, native.native_frontend.sha256, 'Scroll capture production frontend');
+assert.equal(capture.core_sha256, native.classic_compatibility.sha256, 'Scroll capture compatibility core');
+assert.equal(capture.software_test, true, 'Scroll capture must be identified as software testing');
+assert.equal(capture.physical_validation, 'pending', 'Scroll capture cannot claim hardware validation');
+assert.equal(capture.rom_distributed, false, 'Scroll capture must not distribute the game');
+assert.match(scrollMetadata.rights, /Nintendo/, 'Missing scroll-game artwork attribution');
+assert(/^[a-f0-9]{64}$/.test(capture.rom_sha256), 'Missing private capture ROM digest');
+if (privateRom) assert.equal(capture.rom_sha256, digest(privateRom), 'Scroll capture selected private ROM');
+assert(capture.command && capture.input_script, 'Missing scroll capture reproduction details');
+const scrollDigests = new Set();
+let previousSourceFrame = -1;
+for (const [index, frame] of scrollMetadata.frames.entries()) {
+  assert.equal(frame.file, `mario-${String(index + 1).padStart(2, '0')}.png`, 'Scroll-frame sequence');
+  assert(Number.isSafeInteger(frame.source_frame) && frame.source_frame > previousSourceFrame,
+    `Scroll source-frame order: ${frame.file}`);
+  previousSourceFrame = frame.source_frame;
+  assert.deepEqual([frame.width, frame.height], [240, 160], `Scroll-frame metadata dimensions: ${frame.file}`);
+  assert(/^[a-f0-9]{64}$/.test(frame.source_ppm_sha256), `Missing source capture digest: ${frame.file}`);
+  assert(/^[a-f0-9]{64}$/.test(frame.rgba_sha256), `Missing source pixel digest: ${frame.file}`);
+  const data = await local(`${scrollDir === '.' ? '' : `${scrollDir}/`}${relativeName(frame.file)}`);
+  assert.equal(data.length, frame.bytes, `Scroll-frame size: ${frame.file}`);
+  assert.equal(digest(data), frame.sha256, `Scroll-frame digest: ${frame.file}`);
+  assert(data.subarray(0, 8).equals(Buffer.from('89504e470d0a1a0a', 'hex')), `Scroll frame is not PNG: ${frame.file}`);
+  assert.deepEqual([data.readUInt32BE(16), data.readUInt32BE(20)], [240, 160], `Scroll PNG dimensions: ${frame.file}`);
+  scrollDigests.add(frame.sha256);
+  noGame(frame.file, data);
+}
+assert.equal(scrollDigests.size, scrollMetadata.frame_count, 'Expected distinct scroll frames');
+const scrollEvents = scrollMetadata.events;
+const eventFrames = ['initial_gameplay_frame', 'stopped_below_first_question_block_frame',
+  'jumping_frame', 'used_block_and_coin_visible_frame', 'landed_coin_01_score_200_frame',
+  'final_landed_score_200_popup_frame'].map(name => scrollEvents[name]);
+for (const [index, frame] of eventFrames.entries()) {
+  assert(Number.isSafeInteger(frame) && (index === 0 || frame > eventFrames[index - 1]), 'Scroll event order');
+  assert(scrollMetadata.frames.some(captureFrame => captureFrame.source_frame === frame), 'Missing scroll event frame');
+}
+assert.equal(scrollEvents.ends_before_enemy_collision, true, 'Scroll sequence must stop before the later collision');
+noGame(scrollSources.name, scrollSources.data);
 console.log(JSON.stringify({ status: 'PASS', variant: native.variant, chunks: chunks.length,
   imageBytes: image.length, imageSha256: digest(image), sourceFilesScanned: sourceFiles,
   overlayEntries: overlay.entries.size, hardwareAssetsVerified: assetMetadata.assets.length,
   rendersVerified, embeddedScreensVerified: rendersVerified, classicCompatibilityCoreVerified: classicCoreVerified,
-  gameFramesVerified: gameMetadata.frames.length,
+  gameFramesVerified: gameMetadata.frames.length, heroFramesVerified: heroFrames.length,
+  scrollFramesVerified: scrollMetadata.frames.length,
   privateRomCompared: Boolean(privateRom), physicalHardwareTested: false }, null, 2));

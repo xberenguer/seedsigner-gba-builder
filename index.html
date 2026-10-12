@@ -10,8 +10,9 @@
   <title>SeedSigner Game Builder · Play GBA games on SeedSigner</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="preload" href="./InterVariable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="./styles.css?v=0.2.2">
+  <link rel="stylesheet" href="./styles.css?v=0.2.2-scroll.3">
   <script type="module" src="./app.js?v=0.2.2"></script>
+  <script type="module" src="./hero-motion.js?v=3"></script>
 </head>
 <body>
   <a class="skip-link" href="#builder-title">Skip to image builder</a>
@@ -27,9 +28,9 @@
         <div class="hero-story">
           <p class="eyebrow">ONE DEVICE. TWO WAYS IN.</p>
           <h1 id="hero-title">Play GBA games.<br><span>On SeedSigner.</span></h1>
-          <p class="hero-copy">Build a flashable SD card image from your own Game Boy Advance game. Hold two buttons to open SeedSigner when you need it.</p>
+          <p class="hero-copy">Build a flashable SD card image with your own Game Boy Advance game. Start with a game, then switch into SeedSigner on the same device.</p>
           <div class="local-badge"><svg width="16" height="18" viewBox="0 0 16 18" fill="none" aria-hidden="true"><rect x="2" y="8" width="12" height="8" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M4.5 8V4.5a3.5 3.5 0 0 1 7 0V8" stroke="currentColor" stroke-width="1.2"/></svg><span>Built in your browser. No ROM uploads.</span></div>
-          <figure class="hero-feature"><img src="./seedsigner-play-hero.svg" width="600" height="400" alt="Monochrome SeedSigner Play illustration: portrait enclosure, landscape screen, five separate direction and select switches, three action switches and two left-side SD slots. V-Rally 3 screen is a game-frame composite." fetchpriority="high"><figcaption><span>SeedSigner Play <small>Hardware illustration · example screen</small></span><a href="#devices">Explore the devices <span aria-hidden="true">↘</span></a></figcaption></figure>
+          <figure class="hero-feature" id="hero-feature"><div class="hero-device-origin" id="hero-device-origin"><div class="hero-device-stage" id="hero-device-stage"><img src="./seedsigner-play-hero.svg?v=3" width="600" height="400" alt="SeedSigner Play illustration showing Super Mario Bros. gameplay." fetchpriority="high"></div></div><figcaption><span>SeedSigner Play <small>Super Mario Bros. · gameplay preview</small></span><a href="#scroll-story">Follow the device <span aria-hidden="true">↓</span></a></figcaption></figure>
         </div>
 
         <section class="builder-card" aria-labelledby="builder-title">
@@ -48,6 +49,21 @@
           <div class="build-error" id="build-error" role="alert" hidden><strong>Couldn’t build this image.</strong><p id="build-error-message"></p></div>
           <section class="result-card" id="result-card" aria-labelledby="result-title" hidden><p class="eyebrow">BUILT &amp; CHECKSUMMED</p><h3 id="result-title">Image ready.</h3><p id="result-description"></p><div class="download-actions"><a class="download-button" id="download-image" href="#" download>Download IMG <span aria-hidden="true">↓</span></a><a class="text-link" id="download-checksum" href="#" download>Checksum file</a></div><p class="result-next">Next: write the IMG to your SD card using Raspberry Pi Imager.</p><details class="checksum-details"><summary>View SHA-256 checksum</summary><code id="image-checksum"></code></details></section>
         </section>
+      </section>
+
+      <section class="scroll-story" id="scroll-story" aria-labelledby="scroll-title">
+        <div class="scroll-pin" id="scroll-pin">
+          <div class="scroll-scene-header"><div><p class="eyebrow">ONE DEVICE. TWO EXPERIENCES.</p><h2 id="scroll-title">From game to SeedSigner.</h2></div><span class="scroll-cue">Explore as you scroll <span aria-hidden="true">↓</span></span></div>
+          <div class="scroll-scene-body">
+            <div class="scene-device-view"><div class="scene-device-target" id="scene-device-target" aria-hidden="true"></div><div class="scene-device-caption"><span>SeedSigner Play <small id="hero-screen-label">Super Mario Bros. · gameplay preview</small></span><a href="#devices">Explore the devices <span aria-hidden="true">↘</span></a></div></div>
+            <div class="scene-steps" aria-label="The game and SeedSigner workflow">
+              <article class="scene-step is-active" data-scene-step="0" aria-current="step"><span class="scene-step-number">01</span><div><h3>Play.</h3><p>Your chosen GBA game starts when the device turns on. Your game file stays local.</p><span class="scene-step-detail">Your game. Your image.</span></div></article>
+              <article class="scene-step" data-scene-step="1"><span class="scene-step-number">02</span><div><h3>Switch.</h3><p>Keep the game and SeedSigner on one SD card. Open SeedSigner when you need it.</p><span class="scene-step-detail">One device. One SD card.</span></div></article>
+              <article class="scene-step" data-scene-step="2"><span class="scene-step-number">03</span><div><h3>Sign.</h3><p>Scan a transaction, review it on the device and sign with SeedSigner.</p><span class="scene-step-detail">The familiar SeedSigner interface.</span></div></article>
+            </div>
+          </div>
+          <div class="scroll-scene-footer"><p>Illustrated hardware · software captures · games are not bundled</p><a href="#builder-title">Build your image <span aria-hidden="true">↗</span></a></div>
+        </div>
       </section>
 
       <section class="devices-section content-section" id="devices" aria-labelledby="devices-title"><div class="section-heading"><div><p class="eyebrow">START WITH WHAT YOU HAVE</p><h2 id="devices-title">Know your device.</h2></div><p>Two display sizes. Plus and Play share the larger profile. Supported board: <strong>Raspberry Pi Zero 1.3</strong>.</p></div><div class="device-grid">
