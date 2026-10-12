@@ -143,6 +143,25 @@ await test('GBA validation and regional V-Rally auto detection', async () => {
   const bad = fixtureRom(); bad[0xbd] ^= 1; await assert.rejects(() => inspectRom(bad), /checksum/);
   const identification = fixtureRom(); identification[0xb2] = 0; await assert.rejects(() => inspectRom(identification), /identification/);
 });
+await test('known incompatible FSME is rejected for raw GBA, ZIP and image assembly', async () => {
+  const rom = fixtureRom(4096, 'SUPER MARIO', 'FSME');
+  const error = { message: 'Classic NES Series: Super Mario Bros. (FSME) is not supported by this emulator. Choose another GBA game.' };
+  await assert.rejects(() => inspectRom(rom), error);
+  await assert.rejects(() => readRomFile(rom, { name: 'game.gba' }), error);
+  for (const method of [0, 8]) {
+    const zip = fixtureZip([{ name: 'games/game.gba', data: rom, method }]);
+    await assert.rejects(() => readRomFile(zip, { name: 'game.zip' }), error);
+  }
+  await assert.rejects(() => buildImage(fixtureImage(), rom), error);
+  const invalid = rom.slice(); invalid[0xbd] ^= 1;
+  await assert.rejects(() => inspectRom(invalid), /header checksum/);
+  // This checks the narrow header-code block, not emulator playability.
+  const other = fixtureRom(4096, 'SUPER MARIO', 'AMAE');
+  assert.equal((await inspectRom(other)).game_code, 'AMAE');
+  assert.equal((await readRomFile(other, { name: 'other.gba' })).metadata.game_code, 'AMAE');
+  const otherZip = fixtureZip([{ name: 'other.gba', data: other, method: 8 }]);
+  assert.equal((await readRomFile(otherZip, { name: 'other.zip' })).metadata.game_code, 'AMAE');
+});
 await test('browser ZIP reader supports stored/deflate, directories and one nested GBA', async () => {
   for (const method of [0, 8]) {
     const rom = fixtureRom(), zip = fixtureZip([{ name: 'games/', mode: 0o40755 },

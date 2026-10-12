@@ -221,11 +221,11 @@ for (const [name, expected] of Object.entries(native.native_frontend.source_arch
     assert.equal(digest(record(name.slice('payload/'.length))), expected, `Runtime/source correspondence: ${name}`);
   }
 }
-if (native.variant === 'gba-web-v0.2.0') {
+if (['gba-web-v0.2.0', 'gba-web-v0.2.1'].includes(native.variant)) {
   assert.match(bios.license, /^GPL-2\.0 \(see retained upstream BIOS notice\)$/);
   for (const name of ['payload/opt/dino/display_hardware.py', 'payload/opt/dino/hardware.json',
     'payload/opt/dino/hardware_bridge.py', 'tests/test_gba_hardware.py', 'scripts/build_web_template.py']) {
-    assert(runtime.has(name), `Missing v0.2.0 corresponding source: ${name}`);
+    assert(runtime.has(name), `Missing display-profile corresponding source: ${name}`);
   }
   const hw = JSON.parse(record('opt/dino/hardware.json'));
   assert.equal(hw.schema, 1); assert.equal(hw.display, 'st7789_320x240');

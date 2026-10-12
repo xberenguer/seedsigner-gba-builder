@@ -1,4 +1,4 @@
-# SeedSigner GBA Image Builder v0.2.0
+# SeedSigner GBA Image Builder v0.2.1
 
 [Open the browser tool](https://xberenguer.github.io/seedsigner-gba-builder/)
 
@@ -43,6 +43,10 @@ containing one GBA file. Header validation and successful packaging do not
 prove a game will run correctly or at full speed. Other console ROMs need
 different emulator integrations.
 
+Known limitation: **Classic NES Series: Super Mario Bros. (FSME)** crashes or
+produces a black screen in this emulator. The builder rejects this game before
+image generation. Other Mario GBA releases have not been validated.
+
 V-Rally: D-pad left/right steer; up/down forward/reverse in automatic transmission;
 top/middle accelerate/brake; bottom pauses; center changes camera; top+middle
 handbrake. Standard GBA exposes D-pad, A, B, Start and Select, without L/R
@@ -64,15 +68,13 @@ configuration adds the external initramfs directive. The launcher and display
 bridge read a restricted hardware profile, and SeedSigner display settings
 are set for the chosen screen.
 
-79 Python tests, 11 synthetic browser-engine check groups and nine real
-ROM/hardware-profile assembly/readback combinations passed. Checks cover
-restricted hardware configuration, display geometry, ROM/ZIP validation,
-deterministic reconstruction, corrupt inputs, exact ROM readback and preserved
-firmware. A local Brave browser built and downloaded the Celeste Classic 2
-regular-display IMG with the same SHA-256 as the Node integration result.
-[validation.json](validation.json) and [matrix-validation.json](matrix-validation.json)
-record the evidence and its scope. Prior v0.1.0 browser results are recorded
-separately from v0.2.0.
+64 Python tests, 12 browser-engine groups and nine real ROM/display-profile
+assembly/readback combinations passed. Template assembly repeated with an
+identical SHA-256. See [validation.json](validation.json) and
+[matrix-validation.json](matrix-validation.json); prior v0.2.0 results are kept
+as historical evidence.
+The failure screen now shows only game availability and retry instructions;
+it does not disclose the signer-entry gesture.
 
 Physical cold-boot, display/buttons, gameplay speed, camera and signing checks
 remain pending for these exact outputs. This is an experimental community fork

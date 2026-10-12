@@ -74,6 +74,8 @@ export async function inspectRom(input) {
   let checksum = -0x19;
   for (let index = 0xa0; index < 0xbd; index++) checksum -= data[index];
   ensure(data[0xbd] === (checksum & 255), 'The GBA header checksum does not match.');
+  ensure(gameCode !== 'FSME',
+    'Classic NES Series: Super Mario Bros. (FSME) is not supported by this emulator. Choose another GBA game.');
   const isVrally3 = title.toUpperCase().replace(/[-_ ]/g, '').includes('VRALLY') && gameCode.startsWith('AVR');
   return { title, game_code: gameCode, bytes: data.length, sha256: await sha256(data),
     header_checksum: data[0xbd], is_vrally3: isVrally3 };
