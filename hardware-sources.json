@@ -1,34 +1,50 @@
 {
   "schema": 2,
-  "checked": "2026-10-11",
-  "note": "Original SVG hardware illustrations, not product photographs or hardware-test evidence. Manufacturer photographs and CAD were consulted for shape/control layout. Distinct example screens use Google Dino Advance, Pok\u00e9mon Ruby / Sapphire, DOOM GBA and Celeste Classic 2 game-frame composites, not device captures. The hero reserves an initially empty layer for separately credited SeedSigner splash and Home software previews during page animation. Frame aspect ratios are preserved. The regular display clips only the black padding around the square Celeste gameplay area; other screens use letterboxing. Approximate perspective and comparative sizes, not exact scale.",
+  "checked": "2026-10-12",
+  "note": "Original SVG hardware illustrations, not product photographs or hardware-test evidence. Manufacturer photographs and CAD were consulted for shape/control layout. Distinct example screens use Pokémon Ruby / Sapphire, DOOM GBA and Celeste Classic 2 game-frame composites, not device captures. The hero uses genuine Mario captures and separately credited SeedSigner splash and Home software previews. Source image bytes and gameplay pixels are unchanged. Each screen uses the full LCD aperture: widescreen content retains its aspect ratio across the LCD width with black letterboxing above and below; the regular display fills its square aperture with Celeste’s native square gameplay area, clipping only black capture padding. Approximate perspective and comparative sizes, not exact scale.",
   "assets": [
     {
       "kind": "render",
-      "file": "seedsigner-play-render.svg",
+      "file": "seedsigner-play-render-v2.svg",
       "model": "SeedSigner Play",
       "source_url": "https://bitkitbtc.com/product/seedsigner-play/",
       "model_reference_urls": [
         "https://bitkitbtc.com/product/seedsigner-play/"
       ],
-      "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: Official Nintendo gameplay screenshot. Pok\u00e9mon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
+      "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: Official Nintendo gameplay screenshot. Pokémon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
       "license": "Original SVG artwork: GPL-2.0-or-later. Embedded game frame retains its original artwork rights and notices; see game-sources.json. Regular-device reference credited under CC BY 4.0. Manufacturer photographs are references only, not embedded or relicensed.",
       "description": "Maker-listed 76:99 front proportions; symmetric diamond-like octagonal D-pad recess with five separate direction/select tactile switches, three separate action switches, four front screws and two left-side SD slots.",
-      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Pok\u00e9mon Ruby / Sapphire game frame. Original PNG bytes are embedded without pixel edits; source aspect ratio is retained with letterboxing. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale.",
+      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Pokémon Ruby / Sapphire game frame. Original PNG bytes and source pixels are unchanged. The complete frame is uniformly scaled across the full LCD width and centered with black letterboxing above and below; no game content is cropped. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale.",
       "screen_capture": "pokemon.png",
       "screen_capture_sha256": "ab50e4de53a7153d9a629c7a8f17e500e6c0c5da5beb457f7c2d8e638df25600",
-      "bytes": 68338,
-      "sha256": "abd4203198033e8aa73e08887e6833d8a15ef0fe178d6cef579adafb697e7aa3",
+      "bytes": 68463,
+      "sha256": "44d4feb6cde57ede2dd7535db9dec3fdb4d021ea2afb5740f7d9be350a19f699",
       "width": 600,
       "height": 400,
-      "screen_game": "Pok\u00e9mon Ruby / Sapphire",
-      "screen_capture_credit": "Official Nintendo gameplay screenshot. Pok\u00e9mon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
+      "screen_game": "Pokémon Ruby / Sapphire",
+      "screen_capture_credit": "Official Nintendo gameplay screenshot. Pokémon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
       "screen_source_url": "https://www.nintendo.co.jp/n08/axvp/ss02.jpg",
-      "screen_source_page": "https://www.nintendo.co.jp/n08/axvp/"
+      "screen_source_page": "https://www.nintendo.co.jp/n08/axvp/",
+      "screen_viewport": {
+        "source_rect": [
+          0,
+          0,
+          180,
+          120
+        ],
+        "display_rect": [
+          19,
+          16,
+          170,
+          132
+        ],
+        "preserve_aspect_ratio": "xMidYMid meet",
+        "operation": "Uniform scale across full LCD width; centered vertical letterboxing; no source pixels edited or cropped"
+      }
     },
     {
       "kind": "render",
-      "file": "seedsigner-play-hero.svg",
+      "file": "seedsigner-play-hero-v2.svg",
       "model": "SeedSigner Play",
       "source_url": "https://bitkitbtc.com/product/seedsigner-play/",
       "model_reference_urls": [
@@ -37,32 +53,48 @@
       "credit": "Original project SVG illustration; hardware reference BitKit. Screen: Nintendo Super Mario Bros. game artwork; actual project software capture, no game ROM distributed.",
       "license": "Original SVG artwork: GPL-2.0-or-later. Embedded game frame retains its original artwork rights and notices; see game-sources.json. Regular-device reference credited under CC BY 4.0. Manufacturer photographs are references only, not embedded or relicensed.",
       "description": "SeedSigner Play geometry preserved, with no background grid, callout lines or shortcut labels. Shared clipped game, splash and Home layers support the scroll-controlled page preview.",
-      "modifications": "Original vector device geometry and monochrome materials unchanged. Initial screen is an unedited 240x160 Mario gameplay PNG, preserving aspect ratio with letterboxing. The page scrubs a genuine question-block sequence and transitions through the official SeedSigner splash and Home software renderings. These composites are not physical-device evidence.",
+      "modifications": "Original vector device geometry and monochrome materials unchanged. Initial screen embeds the original unedited 240 × 160 Mario gameplay PNG. The complete game frame fits across the full LCD width with black letterboxing above and below, preserving its aspect ratio. The scroll sequence uses the same full LCD aperture for the genuine gameplay captures and official 320 × 240 SeedSigner splash and Home software renderings; SeedSigner screens retain their native aspect ratio without cropping. These composites are not physical-device evidence.",
       "screen_capture": "mario-01.png",
       "screen_capture_sha256": "738e57c7b436229a2b2336d87e1188ec789c4b9c02a674ce817edd82ee6bb839",
-      "bytes": 9334,
-      "sha256": "5d1eec9c1efc4efb0345ef57ca33eacb10922bbc570e27aa091a80996bd4fa74",
+      "bytes": 9326,
+      "sha256": "56ea2be0ef071b4a15a87638dbd0727c1de2ab1c23325ae9809c19692bc1c3bb",
       "width": 600,
       "height": 400,
       "screen_game": "Super Mario Bros.",
-      "screen_capture_credit": "Classic NES Series: Super Mario Bros. artwork Nintendo. Genuine software gameplay capture using the project compatibility core; no game ROM distributed. See scroll-sources.json.",
+      "screen_capture_credit": "Classic NES Series: Super Mario Bros. artwork Nintendo. Genuine software gameplay capture using the project compatibility core; no game ROM distributed. See scroll-sources-v3.json.",
       "screen_layers": {
         "device_group": "hero-device",
-        "dino": "hero-dino-screen",
         "signer": "hero-signer-screen",
         "shared_clip": "hero-screen-clip",
         "panel": [
-          27,
-          24,
-          154,
-          115.5
+          19,
+          16,
+          170,
+          132
         ],
-        "signer_layer_initially_empty": true
+        "signer_layer_initially_empty": true,
+        "game": "hero-game-screen"
+      },
+      "screen_viewport": {
+        "source_rect": [
+          0,
+          0,
+          240,
+          160
+        ],
+        "display_rect": [
+          19,
+          16,
+          170,
+          132
+        ],
+        "preserve_aspect_ratio": "xMidYMid meet",
+        "operation": "Uniform scale across full LCD width; centered vertical letterboxing; no game or SeedSigner source pixels edited or cropped"
       }
     },
     {
       "kind": "render",
-      "file": "seedsigner-plus-render.svg",
+      "file": "seedsigner-plus-render-v2.svg",
       "model": "SeedSigner Plus reference design",
       "source_url": "https://github.com/3rdIteration/seedsigner-hardware/tree/main/signer_enclosures/seedsigner_plus/reference_design",
       "model_reference_urls": [
@@ -72,21 +104,37 @@
       "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: GBA gameplay capture hosted by VGMPF, contributor GatoVerde95. DOOM artwork belongs to id Software and respective rights holders; no project-code license asserted.",
       "license": "Original SVG artwork: GPL-2.0-or-later. Embedded game frame retains its original artwork rights and notices; see game-sources.json. Regular-device reference credited under CC BY 4.0. Manufacturer photographs are references only, not embedded or relicensed.",
       "description": "144.4:58.5 reference-CAD front ratio; exact reference display opening and five-left/three-right individual button coordinates. Reference CAD dimensions are not confirmed BitKit measurements.",
-      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded DOOM (Game Boy Advance) game frame. Original PNG bytes are embedded without pixel edits; source aspect ratio is retained with letterboxing. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale.",
+      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded DOOM (Game Boy Advance) game frame. Original PNG bytes and source pixels are unchanged. The complete frame is uniformly scaled across the full LCD width and centered with black letterboxing above and below; no game content is cropped. Display compositing and scaling are illustrative. No manufacturer photograph embedded; comparison is not to exact scale.",
       "screen_capture": "doom.png",
       "screen_capture_sha256": "6d183221321c582a9358e2a904a15405d4dac4af5de70398d8c4a7c087db61d4",
-      "bytes": 52015,
-      "sha256": "30d22cf50b152a7c38a537e6547603beb461c4dba0a4dd689abf73e338e3ba37",
+      "bytes": 52163,
+      "sha256": "2a4296f9796fd97b11c6ad4db334a5ee2749a4d9e0bf247ee7641f119b7fad7a",
       "width": 600,
       "height": 400,
       "screen_game": "DOOM (Game Boy Advance)",
       "screen_capture_credit": "GBA gameplay capture hosted by VGMPF, contributor GatoVerde95. DOOM artwork belongs to id Software and respective rights holders; no project-code license asserted.",
       "screen_source_url": "https://www.vgmpf.com/Wiki/images/4/4c/Doom_-_GBA_-_Gameplay_1.png",
-      "screen_source_page": "https://www.vgmpf.com/Wiki/index.php?title=File:Doom_-_GBA_-_Gameplay_1.png"
+      "screen_source_page": "https://www.vgmpf.com/Wiki/index.php?title=File:Doom_-_GBA_-_Gameplay_1.png",
+      "screen_viewport": {
+        "source_rect": [
+          0,
+          0,
+          1006,
+          668
+        ],
+        "display_rect": [
+          131.975,
+          14.793,
+          168.715,
+          129.416
+        ],
+        "preserve_aspect_ratio": "xMidYMid meet",
+        "operation": "Uniform scale across full LCD width; centered vertical letterboxing; no source pixels edited or cropped"
+      }
     },
     {
       "kind": "render",
-      "file": "seedsigner-regular-render.svg",
+      "file": "seedsigner-regular-render-v2.svg",
       "model": "regular SeedSigner reference enclosure",
       "source_url": "https://bitcoin.design/guide/case-studies/seedsigner/",
       "model_reference_urls": [
@@ -96,11 +144,11 @@
       "credit": "Original project SVG illustration; hardware references: BitKit, 3rdIteration and Bitcoin Design Guide contributors as applicable. Screen: Celeste Classic 2 by Maddy Thorson, Noel Berry and Lena Raine; GBA port and screenshot by Skale. https://github.com/Skaleee/Celeste2-GBA/blob/main/screenshots/celeste2-grappling.gif",
       "license": "Original SVG artwork: GPL-2.0-or-later. Embedded game frame retains its original artwork rights and notices; see game-sources.json. Regular-device reference credited under CC BY 4.0. Manufacturer photographs are references only, not embedded or relicensed.",
       "description": "Observed approximately 2.13:1 silhouette, square display, one left joystick and three right pill-shaped action buttons. Exact case variant and dimensions are unconfirmed.",
-      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Celeste Classic 2 game frame. Original PNG bytes are unchanged. The 128 \u00d7 128 square gameplay area at (56, 16) in the 240 \u00d7 160 capture fills the square display without stretching; only black capture padding is clipped. Device size, enclosure and control proportions match the original render. No manufacturer photograph embedded; comparison is not to exact scale.",
+      "modifications": "Original geometric vector artwork with monochrome hardware gradients and an embedded Celeste Classic 2 game frame. Original PNG bytes and source pixels are unchanged. The 128 × 128 native square gameplay area at (56, 16) in the 240 × 160 capture fills the full square LCD aperture with uniform scaling; only black capture padding is clipped. Device size, enclosure and control proportions match the original render. No manufacturer photograph embedded; comparison is not to exact scale.",
       "screen_capture": "celeste2.png",
       "screen_capture_sha256": "a706762d0b27a95188f5194d2230bed7fdef81c221be72266bb4bbe4e0e5256e",
       "bytes": 6658,
-      "sha256": "56cda4693e7e3ef200127e84e6b209fe84e0d7107827398fbe4397296dd9492f",
+      "sha256": "131c17fc4a5816bae7442db215dc1a648714211c185bbf2c26b3a6d0d823c242",
       "width": 600,
       "height": 400,
       "screen_game": "Celeste Classic 2",
@@ -113,12 +161,12 @@
           128
         ],
         "display_rect": [
+          101,
+          17,
           108,
-          24,
-          94,
-          94
+          108
         ],
-        "operation": "Clip black capture padding; uniform scale; no gameplay cropped"
+        "operation": "Clip only black capture padding; uniformly scale the native square gameplay area to the full square LCD aperture; no gameplay cropped or source pixels edited"
       }
     }
   ],
