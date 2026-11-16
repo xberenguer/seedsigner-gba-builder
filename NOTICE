@@ -42,6 +42,10 @@ not physical-device test evidence. See scroll-sources.json and
 hero-sources.json.
 
 Game-frame screenshots:
+Video Poker: unchanged v0.6.6 software screenshot from xberenguer/videopoker.
+Original project code is GPL-2.0-or-later; reference graphics and font-derived
+bitmaps retain their original rights. No broader artwork license is asserted.
+https://github.com/xberenguer/videopoker/blob/main/NOTICE
 Dino: Google/Chromium artwork; GBA port by Ethan Fritz. Celeste Classic 2:
 Maddy Thorson, Noel Berry and Lena Raine; GBA port/screenshot by Skale.
 V-Rally 3 GBA: Eden Studios/Infogrames. Pokémon Ruby / Sapphire: official

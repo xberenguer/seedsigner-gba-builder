@@ -69,6 +69,22 @@
       "sha256": "6d183221321c582a9358e2a904a15405d4dac4af5de70398d8c4a7c087db61d4",
       "original_sha256": "5661509e5ebe1f987d718e1c63842ca277f6273f795bb216449ab26d7ac83f3d",
       "hardware_tested": false
+    },
+    {
+      "file": "videopoker.png",
+      "game": "Video Poker v0.6.6",
+      "source_url": "https://github.com/xberenguer/videopoker/blob/c50ac2468604f3784b7bd876120fcc3873774cc6/docs/screenshots/live-regular-game.png",
+      "source_manifest": "https://github.com/xberenguer/videopoker/blob/c50ac2468604f3784b7bd876120fcc3873774cc6/docs/screenshots/capture-manifest.json",
+      "credit": "Actual Video Poker v0.6.6 software render from xberenguer/videopoker. Original code GPL-2.0-or-later; third-party graphics and font-derived bitmaps retain their own rights.",
+      "license": "See https://github.com/xberenguer/videopoker/blob/main/NOTICE. No broader redistribution rights to third-party artwork asserted.",
+      "capture": "Actual 320 x 240 software render, not a physical device photograph or GBA runtime capture.",
+      "modifications": "Exact PNG copied unchanged; no crop, resize or pixel edits.",
+      "dimensions": [
+        320,
+        240
+      ],
+      "sha256": "eb1319d42b6ea9d7c634f36335d5b2d5e28f71a9c0b058537e83e9d25e5aa892",
+      "hardware_tested": false
     }
   ],
   "credits": {
@@ -78,7 +94,8 @@
     "pokemon": "Official Nintendo gameplay screenshot. Pokémon / Nintendo / Creatures / GAME FREAK artwork; not covered by project GPL.",
     "doom": "GBA gameplay capture hosted by VGMPF, contributor GatoVerde95. DOOM artwork belongs to id Software and respective rights holders; no project-code license asserted.",
     "crash": "Crash Bandicoot: The Huge Adventure screenshot by IgoreshaZhu, hosted by VGMPF. Original game artwork retains its respective creators rights.",
-    "mario": "Classic NES Series: Super Mario Bros. captured from the creator-supplied game in the production emulator; Nintendo game artwork retains its rights. See scroll-sources-v2.json."
+    "mario": "Classic NES Series: Super Mario Bros. captured from the creator-supplied game in the production emulator; Nintendo game artwork retains its rights. See scroll-sources-v2.json.",
+    "videopoker": "Video Poker v0.6.6 by xberenguer; original code GPL-2.0-or-later. Third-party graphics and font-derived bitmaps retain their original rights; see the linked project NOTICE."
   },
   "example_cards": [
     {
@@ -97,10 +114,12 @@
       ]
     },
     {
-      "game": "Pokémon Ruby / Sapphire",
+      "game": "Pokémon Ruby",
       "file": "pokemon.png",
       "source_record": "frames: pokemon.png",
-      "hardware_tested": false
+      "hardware_tested": false,
+      "testing_evidence": "testing_evidence: Pokémon Ruby",
+      "capture_note": "The official Nintendo screenshot is not a photograph of the reported gameplay test."
     },
     {
       "game": "Classic NES Series: Super Mario Bros.",
@@ -116,6 +135,18 @@
         240,
         160
       ]
+    },
+    {
+      "game": "Video Poker v0.6.6",
+      "file": "videopoker.png",
+      "source_record": "frames: videopoker.png",
+      "distribution": "separate-native-img",
+      "supported_display": [
+        320,
+        240
+      ],
+      "gba_builder_supported": false,
+      "seedsigner_entry_in_release": false
     }
   ],
   "testing_evidence": [
@@ -127,11 +158,6 @@
       "hardware_profile": null,
       "builder_version": null,
       "scope": "Creator-reported gameplay result; no claim of completed full hardware, camera, signing or persistent-save qualification."
-    },
-    {
-      "game": "Pokémon Ruby / Sapphire",
-      "status": "not-yet-tested",
-      "persistent_saves_supported": false
     },
     {
       "game": "Classic NES Series: Super Mario Bros.",
@@ -150,8 +176,36 @@
     },
     {
       "game": "V-Rally 3",
-      "status": "software-checked",
-      "scope": "ARM emulation and control behavior checked; physical qualification pending."
+      "status": "creator-tested",
+      "reported_on": "2026-11-15",
+      "evidence": "The builder creator directly confirmed this game works. Complete button coverage was not confirmed.",
+      "hardware_profile": null,
+      "builder_version": null,
+      "complete_controls_verified": false,
+      "scope": "Creator-reported gameplay; not full cold-boot, camera, signing, speed or persistent-save qualification."
+    },
+    {
+      "game": "Pokémon Ruby",
+      "status": "creator-tested",
+      "reported_on": "2026-11-15",
+      "evidence": "The builder creator directly confirmed this game works. Complete button coverage was not confirmed.",
+      "hardware_profile": null,
+      "builder_version": null,
+      "complete_controls_verified": false,
+      "scope": "Creator-reported gameplay; not full cold-boot, camera, signing, speed or persistent-save qualification.",
+      "persistent_saves_supported": false
+    },
+    {
+      "game": "Pokémon Sapphire",
+      "status": "not-yet-tested",
+      "persistent_saves_supported": false
+    },
+    {
+      "game": "Video Poker v0.6.6",
+      "status": "separate-native-image",
+      "gba_builder_supported": false,
+      "physical_testing": "pending",
+      "scope": "Software-rendered preview and a separate 320 x 240 IMG. The production launcher uses the reserved gesture for the trainer and does not enter SeedSigner."
     }
   ]
 }

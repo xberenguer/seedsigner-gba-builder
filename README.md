@@ -59,14 +59,21 @@ V-Rally: D-pad left/right steer; up/down forward/reverse in automatic transmissi
 top/middle accelerate/brake; bottom pauses; center changes camera; top+middle
 handbrake. Standard GBA exposes D-pad, A, B, Start and Select. Its default map
 does not assign L/R; **Advanced** can map those GBA inputs to existing HAT
-buttons. There is no audio or persistent game-save storage.
+buttons, replacing their previous assignments. The D-pad directions, center
+click and three side buttons provide eight physical inputs; GBA has ten. Games
+that require all ten distinct inputs may not fit this control layout. A
+creator-reported working result is not verification of every input or feature.
+There is no audio or persistent game-save storage.
 
 ### Examples and testing status
 
 | Game | Evidence and limits |
 |---|---|
 | **Crash Bandicoot: The Huge Adventure** | Creator tested: the creator personally reported it working well on 2026-10-12. Hardware, display profile and build version were not specified. |
-| **Pokémon Ruby / Sapphire** | Not yet tested on this fork. The screenshot is an official Nintendo example, not a compatibility result. Persistent saves are not available, so progress is lost when the session ends. |
+| **V-Rally 3** | Creator tested: reported working on 2026-11-15. Exact hardware, build version and complete control coverage were not specified. |
+| **Pokémon Ruby** | Creator tested: reported working on 2026-11-15. Exact hardware, build version and complete control coverage were not specified. Persistent saves are not available, so progress is lost when the session ends. |
+| **Pokémon Sapphire** | Not yet tested. The shared official Nintendo Ruby / Sapphire screenshot is a visual reference, not a Sapphire compatibility result. |
+| **Video Poker v0.6.6** | Separate native 320 × 240 IMG linked from the gallery, not a GBA game or an output of this builder. This release opens its trainer with top + bottom held for two seconds and does not switch into SeedSigner. |
 | **Classic NES Series: Super Mario Bros.** | Software checked: World 1-1 gameplay, movement, jumps, question blocks and a Goomba stomp were captured with the ARMv6 runtime under software emulation. Physical gameplay and speed remain unverified. |
 
 These game-specific results do not establish full hardware qualification.
@@ -91,6 +98,12 @@ shortcut is held or latched, its buttons' game actions are suppressed. A short
 or interrupted hold does not open SeedSigner. Reset restores the automatic
 preset and default shortcut. Advanced does not expose audio, saves, BIOS,
 frameskip or other emulator options that this runtime does not implement.
+
+### Video Poker and complete IMG files
+
+The gallery links to the separate [Video Poker v0.6.6 release](https://github.com/xberenguer/videopoker/releases/tag/v0.6.6). It is a native Python application for the 320 × 240 Plus / Play hardware, not a GBA ROM. This web builder does not accept `.img` files, wrap arbitrary images, or modify that separate download.
+
+The current poker launcher uses right TOP + BOTTOM held for two seconds to toggle its trainer immediately, before release. Its normal production entrypoint does not launch SeedSigner. Increasing the GBA builder shortcut to four or five seconds does not add a signer path to poker. A dedicated integration must coordinate both gestures and release the game workers, GPIO and display before starting SeedSigner; it needs its own software and physical validation. The two shortcuts should use different button combinations or explicit short/long-hold arbitration.
 
 ## Image assembly and validation
 
@@ -141,7 +154,8 @@ cannot trigger a retry. Game or GPIO failures do not implicitly enter SeedSigner
 
 Full physical qualification, including cold-boot, display/buttons, sustained
 gameplay speed, camera and signing, remains pending for these exact outputs.
-The creator-reported Crash gameplay result above is a narrower check.
+The creator-reported Crash, V-Rally 3 and Pokémon Ruby gameplay results above
+are narrower checks.
 This is an experimental community fork
 without an independent security audit. Use disposable test seeds for validation.
 The game and signer share one OS; the button combination is an interface gate,
